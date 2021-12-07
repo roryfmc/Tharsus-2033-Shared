@@ -37,4 +37,3 @@ def package_type():
 if __name__ == '__main__':
     stock()
 
-
