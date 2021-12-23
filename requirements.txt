@@ -1,0 +1,9 @@
+click
+Flask
+itsdangerous
+Jinja2
+MarkupSafe
+pip
+setuptools
+WTForms
+Flask-WTF
