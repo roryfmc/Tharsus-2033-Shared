@@ -8,7 +8,6 @@
 </script>
 <style>
     table {
-      width: 500px;
       border: none;
       border-top: 1px solid #EEEEEE;
       font-family: arial, sans-serif;
@@ -48,38 +47,48 @@
     .hide-row {
       display: none;
     }
+
+    #gapless {
+        margin-bottom: 0.2rem!important;
+    }
 </style>
 <h4 class="title is-4">Search</h4>
-<div class="box">
+
+<div class="columns is-multiline is-centered ">
     {% if search_results %}
         {% for part in search_results %}
-            <div class="field">
-                {{ part.name }}
-                <table class="table" onclick="toggleRow(this)">
-                    <tr>
-                        <th>Supplier</th>
-                        <th>Stock</th>
-                        <th>Price</th>
-                    </tr>
-                    {% for supplier in part.suppliers %}
-                        {% if supplier == part.suppliers[0] %}
-                        <tr>
-                            <td>{{ supplier.name }}</td>
-                            <td>{{ supplier.stock}}</td>
-                            <td>{{ supplier.price}}</td>
-                        </tr>
-                        {% else %}
-                        <tr name="hidden-rows" class="expanded-row-content hide-row">
-                            <td>{{ supplier.name }}</td>
-                            <td>{{ supplier.stock }}</td>
-                            <td>{{ supplier.price }}</td>
-                        </tr>
-                        {% endif %}
+                    <div class="field column is-3">
+                        <div class="tile is-parent box is-vertical">
+                            <div class="tile is-child" id="gapless">
+                                {{ part.name }}
+                            </div>
+                            <div class="tile is-child">
+                                <table class="table is-fullwidth  " onclick="toggleRow(this)">
+                                    <tr>
+                                        <th>Supplier</th>
+                                        <th>Stock</th>
+                                        <th>Price</th>
+                                    </tr>
+                                    {% for supplier in part.suppliers %}
+                                        {% if supplier == part.suppliers[0] %}
+                                        <tr>
+                                            <td>{{ supplier.name }}</td>
+                                            <td>{{ supplier.stock}}</td>
+                                            <td>{{ supplier.price}}</td>
+                                        </tr>
+                                        {% else %}
+                                        <tr name="hidden-rows" class="expanded-row-content hide-row">
+                                            <td>{{ supplier.name }}</td>
+                                            <td>{{ supplier.stock }}</td>
+                                            <td>{{ supplier.price }}</td>
+                                        </tr>
+                                        {% endif %}
 
-                    {% endfor %}
-                </table>
-            </div>
-            <br>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
         {% endfor %}
     {% endif %}
 </div>

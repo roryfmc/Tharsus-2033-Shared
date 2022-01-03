@@ -7,29 +7,23 @@ from search_function.objects import Search, Part, Supplier
 
 def setup():
     search_test = Search()
-    part_test = Part("Bob", 24)
-    search_test.parts.append(part_test)
-    supplier_test = Supplier("Test Supplier")
-    supplier_test.stock = 85
-    supplier_test.price = 1.40
-    part_test.suppliers.append(supplier_test)
+    for i in range(24):
+        part_test = Part("4298673473274", 24)
+        search_test.parts.append(part_test)
+        supplier_test = Supplier("Test Supplier")
+        supplier_test.stock = 85
+        supplier_test.price = 1.40
+        part_test.suppliers.append(supplier_test)
 
-    supplier_test2 = Supplier("Second Test Supplier")
-    supplier_test2.stock = 42
-    supplier_test2.price = 3.48
-    part_test.suppliers.append(supplier_test2)
+        supplier_test2 = Supplier("Second Test Supplier")
+        supplier_test2.stock = 42
+        supplier_test2.price = 3.48
+        part_test.suppliers.append(supplier_test2)
 
-    part_test2 = Part("Bill", 98)
-    search_test.parts.append(part_test2)
-    supplier_test3 = Supplier("Test Supplier 2")
-    supplier_test3.stock = 85
-    supplier_test3.price = 1.40
-    part_test2.suppliers.append(supplier_test)
-
-    supplier_test4 = Supplier("Second Test Supplier 2")
-    supplier_test4.stock = 42
-    supplier_test4.price = 3.48
-    part_test2.suppliers.append(supplier_test2)
+        supplier_test3 = Supplier("Third Test Supplier")
+        supplier_test3.stock = 4245
+        supplier_test3.price = 8.32
+        part_test.suppliers.append(supplier_test3)
 
     return search_test
 
