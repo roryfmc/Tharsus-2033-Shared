@@ -13,12 +13,12 @@ app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
 # HOME PAGE VIEW
 @app.route('/', methods=['GET', 'POST'])
 def index():
-
     form = SearchForm()
 
     if form.validate_on_submit():
-        print(form.part_name.data)
-        print(form.quantity.data)
+        for field in form.parts:
+            print(field.part_name.data)
+            print(field.quantity.data)
 
     return render_template('index.html', form=form)
 

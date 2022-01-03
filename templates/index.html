@@ -1,38 +1,41 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="column is-4 is-offset-4">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="repeatable-fields/js/repeatable-fields.js?version=1.5.0"></script>
+    <div class="column is-4 is-offset-4 rhyzz">
         <h3 class="title">Search</h3>
-        <div class="box">
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    <div class="notification is-danger">
-                        {{ messages[0] }}
+        <div class="rhyzz-wrapper">
+            <div class="box rhyzz-bootstrap">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div class="notification is-danger">
+                            {{ messages[0] }}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+                <form method="POST">
+                    <div class="repeat">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <td width="10%" colspan="4">
+                                        <span class="add btn btn-success">Add</span>
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody class="container">
+                                <tr class="template row">
+                                    <td width="10%" Input field></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                {% endif %}
-            {% endwith %}
-            <form method="POST">
-                <div class="field">
-                    {{ form.csrf_token() }}
-                    <div class="control">
-                        {{ form.part_name(class="input", placeholder="Part Name") }}
-                        {% for error in form.part_name.errors %}
-                            {{ error }}
-                        {% endfor %}
+                    <div>
+                        {{ form.submit(class="button is-info is-centered") }}
                     </div>
-                </div>
-                <div class="field">
-                    <div class="control">
-                        {{ form.quantity(class="input", placeholder="Quantity") }}
-                        {% for error in form.quantity.errors %}
-                            {{ error }}
-                        {% endfor %}
-                    </div>
-                </div>
-                <div>
-                    {{ form.submit(class="button is-info is-centered") }}
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 {% endblock %}
