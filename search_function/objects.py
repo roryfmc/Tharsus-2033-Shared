@@ -41,7 +41,7 @@ class Part:
 
     def __init__(self, name, quantity):
         self.name = name
-        self.quantity = quantity
+        self.quantity = int(quantity)
         self.suppliers = []
 
     def sort_suppliers(self):
@@ -91,9 +91,9 @@ class Supplier:  # pylint: disable=too-few-public-methods
     :type wait_time: datetime
     """
 
-    def __init__(self, name):
+    def __init__(self, name, stock=-1, price=-1):
         self.name = name
         self.link = ""
-        self.stock = -1
-        self.price = -1
+        self.stock = int(stock)
+        self.price = float(price)
         self.wait_time = None
