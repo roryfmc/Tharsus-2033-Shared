@@ -19,7 +19,25 @@
     </style>
 
     <section class="hero is-primary is-fullheight">
-
+        <div class="hero-head">
+            <nav class="navbar">
+                <div class="container">
+                    <div id="navbarMenuHeroA" class="navbar-menu">
+                        <div class="navbar-end">
+                            <a href="{{ url_for('index')}}" class="navbar-item">
+                                Home
+                            </a>
+                            <a href="{{ url_for('search.search')}}" class="navbar-item">
+                                Search
+                            </a>
+                            <a href="{{ url_for('search.search_result')}}" class="navbar-item">
+                                Search Result
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
 
         <div class="hero-body">
             <div class="container has-text-centered">
