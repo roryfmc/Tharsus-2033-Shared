@@ -3,7 +3,10 @@
 {% block content %}
 <script>
     const toggleRow = (element) => {
-      element.getElementsByClassName('expanded-row-content')[0].classList.toggle('hide-row');
+      let x = element.getElementsByClassName('expanded-row-content');
+      for (let i = 0; i < x.length; i++){
+          x[i].classList.toggle('hide-row');
+      }
     }
 </script>
 <style>
