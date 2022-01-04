@@ -7,6 +7,9 @@ These are used as data structures for the search functionality.
  which store the data on each supplier that has been searched for the part.
  """
 
+import copy
+import operator
+
 
 class Search:  # pylint: disable=too-few-public-methods
     """
@@ -19,6 +22,13 @@ class Search:  # pylint: disable=too-few-public-methods
 
     def __init__(self):
         self.parts = []
+
+    def sort_part_suppliers(self):
+        """This function loops through all parts stored in self.parts
+        and calls their sort.suppliers() functions.
+        """
+        for part in self.parts:
+            part.sort_suppliers()
 
 
 class Part:
@@ -56,10 +66,18 @@ class Part:
 
         If the user's favourite suppliers have enough stock,
         they are pushed to the front of the list.
-
-        :returns: Sorted suppliers list
-        :rtype: list
         """
+        # Create a deep copy of the suppliers list
+        suppliers = copy.deepcopy(self.suppliers)
+
+        # For each supplier
+        for supplier in suppliers:
+            # If the supplier doesn't have enough stock
+            if supplier.stock < self.quantity:
+                suppliers.remove(supplier)
+
+        # Sort the suppliers by price
+        self.suppliers = sorted(suppliers, key=operator.attrgetter('price'))
 
     def find_combination(self):
         """This method is called if there are no suppliers which have enough stock.
@@ -97,3 +115,6 @@ class Supplier:  # pylint: disable=too-few-public-methods
         self.stock = int(stock)
         self.price = float(price)
         self.wait_time = None
+
+    def __repr__(self):
+        return self.name

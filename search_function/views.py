@@ -7,8 +7,8 @@ from search_function.objects import Search, Part, Supplier
 
 def setup():
     search_test = Search()
-    for i in range(24):
-        part_test = Part("4298673473274", 24)
+    for i in range(100):
+        part_test = Part("4298673473274", 50)
         search_test.parts.append(part_test)
         supplier_test = Supplier("Test Supplier")
         supplier_test.stock = 85
@@ -49,5 +49,8 @@ def search_result():
 
     session['search'] = json.dumps(search_test, default=lambda x: x.__dict__)
 
-    return render_template("search_result.html", search_results=string_to_search_obj(session['search']).parts)
+    search_object = string_to_search_obj(session['search'])
+    search_object.sort_part_suppliers()
+
+    return render_template("search_result.html", search_results=search_object.parts)
 
