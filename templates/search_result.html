@@ -10,68 +10,85 @@
     }
 </script>
 <style>
-    table {
-      border: none;
-      border-top: 1px solid #EEEEEE;
-      font-family: arial, sans-serif;
-      border-collapse: collapse;
+    .styled_table {
+        font-size: 0.9em;
+        font-family: sans-serif;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        border-collapse: collapse;
+        border-bottom: 2px solid #009879;
     }
 
-    td,
-    th {
-      border: 1px solid #EEEEEE;
-      border-top: none;
-      text-align: left;
-      padding: 8px;
-      color: #363D41;
-      font-size: 14px;
+    .styled_table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
     }
 
     tr {
-      background-color: #fff;
-      border: none;
-      cursor: pointer;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      justify-content: flex-start;
+        cursor: pointer;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        justify-content: flex-start;
     }
 
-    tr:hover {
-      background-color: #EEF4FD;
+    td {
+        text-align: center!important;
+    }
+
+    tbody tr:hover {
+        background-color: #EEF4FD;
     }
 
     .expanded-row-content {
-      border-top: none;
-      display: grid;
-      grid-column: 1/-1;
-      justify-content: flex-start;
+        border-top: none;
+        display: grid;
+        grid-column: 1/-1;
+        justify-content: flex-start;
     }
 
     .hide-row {
-      display: none;
+        display: none;
     }
 
-    #gapless {
-        margin-bottom: 0.2rem!important;
+    .part-name{
+        border: none!important;
     }
+
+    thead {
+        background-color: #009879;
+    }
+
+    th {
+        color: white!important;
+        text-align: center!important;
+    }
+
+    #col {
+        background-color: rgba(255, 255, 255, 0.40);
+        border-radius: 25px;
+    }
+
 </style>
 <h4 class="title is-4">Search</h4>
 
-<div class="columns is-multiline is-centered ">
+<div class="columns is-multiline is-centered" id="col">
     {% if search_results %}
         {% for part in search_results %}
                     <div class="field column is-4">
-                        <div class="tile is-parent box is-vertical">
-                            <div class="tile is-child" id="gapless">
-                                {{ part.name }}
-                            </div>
+                        <div class="tile is-parent is-vertical">
                             <div class="tile is-child">
-                                <table class="table is-fullwidth  " onclick="toggleRow(this)">
+                                <table class="table is-fullwidth styled_table" onclick="toggleRow(this)">
+                                    <thead>
+                                    <tr>
+                                        <th class="part-name"></th>
+                                        <th class="part-name">{{ part.name }}</th>
+                                        <th class="part-name"></th>
+                                    </tr>
                                     <tr>
                                         <th>Supplier</th>
                                         <th>Stock</th>
                                         <th>Price</th>
                                     </tr>
+                                    </thead>
+                                    <tbody>
                                     {% for supplier in part.suppliers %}
                                         {% if supplier == part.suppliers[0] %}
                                         <tr>
@@ -88,6 +105,7 @@
                                         {% endif %}
 
                                     {% endfor %}
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
