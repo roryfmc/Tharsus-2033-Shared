@@ -1,7 +1,7 @@
 import socket
 import json
 from flask import Flask, render_template, request, session
-
+from flask_sqlalchemy import SQLAlchemy
 
 
 # CONFIG
@@ -9,6 +9,8 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///lottery.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
+
+db = SQLAlchemy(app)
 
 
 # HOME PAGE VIEW
