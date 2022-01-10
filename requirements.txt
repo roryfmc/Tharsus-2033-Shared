@@ -7,3 +7,4 @@ pip
 setuptools
 WTForms
 Flask-WTF
+Flask-Session

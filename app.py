@@ -1,7 +1,8 @@
+import datetime
 import socket
 import json
 from flask import Flask, render_template, request, session
-
+from flask_session import Session
 
 
 # CONFIG
@@ -9,6 +10,9 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///lottery.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
+app.config['SESSION_TYPE'] = "filesystem"
+app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(hours=24)
+Session(app)
 
 
 # HOME PAGE VIEW

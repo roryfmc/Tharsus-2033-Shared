@@ -41,9 +41,11 @@ def search():
 
 @search_blueprint.route('/search_result')
 def search_result():
-
-    search_object = string_to_search_obj(session['search'])
-    search_object.sort_part_suppliers()
+    if 'search' in session:
+        search_object = string_to_search_obj(session['search'])
+        search_object.sort_part_suppliers()
+    else:
+        search_object = Search()
 
     return render_template("search_result.html", search_results=search_object.parts)
 
