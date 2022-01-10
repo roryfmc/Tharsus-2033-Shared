@@ -67,3 +67,23 @@ class BlacklistedSupplier(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(User.id), nullable=False)
     supplier_name = db.Column(db.String(100), nullable=False)
+
+    def __init__(self, user_id, supplier_name):
+        self.user_id = user_id
+        self.supplier_name = supplier_name
+
+
+class PartSearch(db.Model):
+    __tablename__ = 'search_history'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey(User.id), nullable=False)
+    part_id = db.Column(db.String(100), nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
+    datetime = db.Column(db.DateTime, nullable=False)
+
+    def __init__(self, user_id, part_id, quantity, datetime):
+        self.user_id = user_id
+        self.part_id = part_id
+        self.quantity = quantity
+        self.datetime = datetime
