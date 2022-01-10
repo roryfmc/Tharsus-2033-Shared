@@ -10,39 +10,84 @@
             });
         });
     </script>
-    <div class="column is-4 is-offset-4">
-        <h3 class="title">Search</h3>
-        <form method="POST">
-            {{ form.csrf_token }}
-            <div class="repeat">
-                <table class="wrapper">
-                    <thead>
-                        <tr>
-                            <td width="10%" colspan="4"><span class="add">Add</span></td>
-                        </tr>
-                    </thead>
-                    <tbody class="container">
-                        <tr class="template row">
-                            <td width="90%">
-                                <dt>Part Name</dt>
-                                <dd>
-                                    <input id="parts-{%raw%}{{row-count-placeholder}}{%endraw%}-part_name" name="parts-{%raw%}{{row-count-placeholder}}{%endraw%}-part_name" required type="text" value="">
-                                </dd>
-                                <dt>Quantity</dt>
-                                <dd>
-                                    <input id="parts-{%raw%}{{row-count-placeholder}}{%endraw%}-quantity" name="parts-{%raw%}{{row-count-placeholder}}{%endraw%}-quantity" required type="number" value="">
-                                </dd>
-                            </td>
-                            <td width="10%">
-                                <span class="remove btn btn-danger">Remove</span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div>
-                {{ form.submit(class="button is-info is-centered")}}
-            </div>
-        </form>
+    <style>
+        .form-button-parent {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-button {
+            flex-shrink: 0;
+        }
+
+        #add-button-parent {
+            margin-bottom: 25px;
+        }
+
+        #add-button {
+            text-align: right;
+        }
+
+        #submit-button {
+            padding-top: 25px;
+        }
+
+        .form-row {
+            border-bottom: 2px solid #dedede;
+        }
+
+        .columns {
+            margin-left: 0!important;
+            margin-right: 0!important;
+            margin-top: 0!important;
+        }
+
+        .columns:not(:last-child) {
+            margin-bottom: 0!important;
+        }
+
+
+    </style>
+    <h3 class="title">Search</h3>
+    <div class="columns">
+        <div class="column is-one-quarter"></div>
+        <div class="column is-half box">
+            <form method="POST">
+                {{ form.csrf_token }}
+                <div class="repeat">
+                    <table class="wrapper">
+                        <thead id="add-button-parent">
+                            <tr>
+                                <td width="5%" id="add-button"><span class="add button is-success is-medium">Add Row</span></td>
+                            </tr>
+                        </thead>
+                        <tbody class="container">
+                            <tr class="template row columns form-row">
+                                <td class="column is-7">
+                                    <dd>
+                                        <input class="input is-rounded" id="parts-{%raw%}{{row-count-placeholder}}{%endraw%}-part_name" name="parts-{%raw%}{{row-count-placeholder}}{%endraw%}-part_name" required type="text" value="" placeholder="Part Name">
+                                    </dd>
+                                </td>
+                                <td class="column is-3">
+                                    <dd>
+                                        <input class="input is-rounded" id="parts-{%raw%}{{row-count-placeholder}}{%endraw%}-quantity" name="parts-{%raw%}{{row-count-placeholder}}{%endraw%}-quantity" required type="number" value="" placeholder="Quantity">
+                                    </dd>
+                                </td>
+                                <td class="column is-2 form-button-parent">
+                                    <dd>
+                                        <span class="remove button is-danger form-button">Remove</span>
+                                    </dd>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="submit-button">
+                    {{ form.submit(class="button is-info is-centered is-medium")}}
+                </div>
+            </form>
+        </div>
+        <div class="column"></div>
     </div>
 {% endblock %}
