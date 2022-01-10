@@ -1,8 +1,8 @@
 import json
 import random
-from flask import Blueprint, render_template, session
+from flask import Blueprint, render_template, session, redirect, url_for
 from search_function.forms import SearchForm
-from search_function.search import string_to_search_obj
+from search_function.search import string_to_search_obj, search_form_to_obj
 from search_function.objects import Search, Part, Supplier
 
 
@@ -30,19 +30,17 @@ def search():
     form = SearchForm()
 
     if form.validate_on_submit():
-        for field in form.parts:
-            print(field.part_name.data)
-            print(field.quantity.data)
+        search_object = search_form_to_obj(form)
 
+        session['search'] = json.dumps(search_object, default=lambda x: x.__dict__)
+
+        return redirect(url_for('search.search_result'))
 
     return render_template('search.html', form=form)
 
 
 @search_blueprint.route('/search_result')
 def search_result():
-    search_test = setup()
-
-    session['search'] = json.dumps(search_test, default=lambda x: x.__dict__)
 
     search_object = string_to_search_obj(session['search'])
     search_object.sort_part_suppliers()

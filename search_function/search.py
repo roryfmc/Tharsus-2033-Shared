@@ -28,3 +28,14 @@ def string_to_search_obj(string_value):
         search_result.parts.append(part)
 
     return search_result
+
+
+def search_form_to_obj(search_form):
+    search_result = Search()
+
+    for field in search_form.parts:
+        part = Part(field.part_name.data, field.quantity.data)
+        search_result.parts.append(part)
+
+    return search_result
+

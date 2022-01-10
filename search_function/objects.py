@@ -67,6 +67,9 @@ class Part:
         If the user's favourite suppliers have enough stock,
         they are pushed to the front of the list.
         """
+        if(len(self.suppliers)) == 0:
+            return
+
         # Create a deep copy of the suppliers list
         suppliers = copy.deepcopy(self.suppliers)
 
