@@ -6,7 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 # CONFIG
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///part_search.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///stock_checker.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
 
