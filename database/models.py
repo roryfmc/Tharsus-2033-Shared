@@ -1,4 +1,5 @@
 from app import db
+from werkzeug.security import generate_password_hash
 
 
 class User(db.Model):
@@ -11,7 +12,7 @@ class User(db.Model):
 
     def __init__(self, username, password, role):
         self.username = username
-        self.password = password
+        self.password = generate_password_hash(password)
         self.role = role
 
 
@@ -97,4 +98,3 @@ def init_db():
     new_user = User(username='user1@test.com', password='password', role='user')
     db.session.add(new_user)
     db.session.commit()
-    print("yes")
