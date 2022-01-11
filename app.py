@@ -1,7 +1,6 @@
 import datetime
 import socket
-import json
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template
 from flask_session import Session
 
 
@@ -17,14 +16,14 @@ Session(app)
 
 # HOME PAGE VIEW
 @app.route('/', methods=['GET', 'POST'])
-def index():
+def index():  # pylint: disable=missing-function-docstring
     return render_template('index.html')
 
 
 if __name__ == "__main__":
-    my_host = "127.0.0.1"
+    MY_HOST = "127.0.0.1"
     free_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    free_socket.bind((my_host, 0))
+    free_socket.bind((MY_HOST, 0))
     free_socket.listen(5)
     free_port = free_socket.getsockname()[1]
     free_socket.close()
@@ -33,6 +32,4 @@ if __name__ == "__main__":
 
     app.register_blueprint(search_blueprint)
 
-    app.run(host=my_host, port=free_port, debug=True)
-
-
+    app.run(host=MY_HOST, port=free_port, debug=True)

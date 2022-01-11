@@ -1,4 +1,6 @@
-import json
+"""This module contains the functions called when the user enters
+the search and search_result webpages.
+"""
 import random
 from flask import Blueprint, render_template, session, redirect, url_for
 from search_function.forms import SearchForm
@@ -6,13 +8,13 @@ from search_function.search import string_to_search_obj, search_form_to_obj, sea
 from search_function.objects import Search, Part, Supplier
 
 
-def setup():
+def setup():  # pylint: disable=missing-function-docstring
     search_test = Search()
-    for i in range(100):
+    for _ in range(100):
         part_test = Part(str(random.randint(3000000, 9999999)), 20)
         search_test.parts.append(part_test)
 
-        for p in range(random.randint(2,10)):
+        for _ in range(random.randint(2,10)):
 
             supplier_test = Supplier("Test Supplier")
             supplier_test.stock = random.randint(5,250)
@@ -26,7 +28,7 @@ search_blueprint = Blueprint('search', __name__, template_folder='templates')
 
 
 @search_blueprint.route('/search', methods=['GET', 'POST'])
-def search():
+def search():  # pylint: disable=missing-function-docstring
     form = SearchForm()
 
     if form.validate_on_submit():
@@ -40,7 +42,7 @@ def search():
 
 
 @search_blueprint.route('/search_result')
-def search_result():
+def search_result():  # pylint: disable=missing-function-docstring
     if 'search' in session:
         search_object = string_to_search_obj(session['search'])
         search_object.sort_part_suppliers()
@@ -48,4 +50,3 @@ def search_result():
         search_object = Search()
 
     return render_template("search_result.html", search_results=search_object.parts)
-

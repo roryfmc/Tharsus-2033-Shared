@@ -5,7 +5,7 @@ to be supplied in the form.
 """
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, IntegerField, FieldList, Form, FormField
-from wtforms.validators import InputRequired, ValidationError
+from wtforms.validators import InputRequired
 
 
 class PartForm(Form):
