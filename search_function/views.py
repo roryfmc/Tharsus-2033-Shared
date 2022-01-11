@@ -2,7 +2,7 @@ import json
 import random
 from flask import Blueprint, render_template, session, redirect, url_for
 from search_function.forms import SearchForm
-from search_function.search import string_to_search_obj, search_form_to_obj
+from search_function.search import string_to_search_obj, search_form_to_obj, search_obj_to_json
 from search_function.objects import Search, Part, Supplier
 
 
@@ -32,7 +32,7 @@ def search():
     if form.validate_on_submit():
         search_object = search_form_to_obj(form)
 
-        session['search'] = json.dumps(search_object, default=lambda x: x.__dict__)
+        session['search'] = search_obj_to_json(search_object)
 
         return redirect(url_for('search.search_result'))
 
