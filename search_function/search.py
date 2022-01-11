@@ -34,7 +34,8 @@ def string_to_search_obj(string_value):
         # For every supplier stored in the part
         for supplier_value in part_value['suppliers']:
             # Create a new Supplier object
-            supplier = Supplier(supplier_value['name'], supplier_value['stock'], supplier_value['price'])
+            supplier = Supplier(supplier_value['name'],
+                                supplier_value['stock'], supplier_value['price'])
             # Store Supplier object in the Part object
             part.suppliers.append(supplier)
 
@@ -62,3 +63,14 @@ def search_form_to_obj(search_form):
         search_result.parts.append(part)
 
     return search_result
+
+
+def search_obj_to_json(search_object):
+    """This function turns a Search object into a json format,
+    stored within a string. This is required when storing the
+    Search object within the Flask session.
+
+    :param search_object: Search object to be reformatted
+    :return: json format stored as a string containing all part and supplier details
+    """
+    return json.dumps(search_object, default=lambda x: x.__dict__)
