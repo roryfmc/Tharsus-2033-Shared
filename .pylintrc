@@ -1,0 +1,7 @@
+[MESSAGES CONTROL]
+disable=import-error,
+	too-few-public-methods,
+	no-member
+
+[TYPECHECK]
+ignored-modules=flask_sqlalchemy
