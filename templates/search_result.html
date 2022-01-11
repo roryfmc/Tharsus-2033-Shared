@@ -8,6 +8,29 @@
           x[i].classList.toggle('hide-row');
       }
     }
+
+    function liveSearch() {
+        let fields = document.querySelectorAll('.is-parent');
+        let search_query = document.getElementById("searchbox").value;
+
+        for (var i = 0; i < fields.length; i++) {
+            if(fields[i].querySelectorAll("th")[1].innerText.toLowerCase()
+            .includes(search_query.toLowerCase())) {
+                fields[i].classList.remove("is-hidden");
+            } else {
+                fields[i].classList.add("is-hidden");
+            }
+        }
+
+        let typingTimer;
+        let typeInterval = 200;
+        let searchInput = document.getElementById('searchbox');
+
+        searchInput.addEventListener('keyup', () => {
+            clearTimeout(typingTimer);
+            typingTimer - setTimeout(liveSearch, typeInterval);
+        });
+    }
 </script>
 <style>
     .styled_table {
@@ -66,10 +89,18 @@
         border-radius: 25px;
     }
 
+    .is-hidden {
+        display: none;
+    }
+
 </style>
 <h4 class="title is-4">Search</h4>
-
 <div class="columns is-multiline is-centered" id="col">
+    <div class="column is-5"></div>
+    <div class="column is-2">
+        <input class="input" type="text" oninput="liveSearch()" id="searchbox" placeholder="Find a part">
+    </div>
+    <div class="column is-5"></div>
     {% if search_results %}
         {% for part in search_results %}
                     <div class="field column is-4">
