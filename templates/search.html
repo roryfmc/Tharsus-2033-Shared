@@ -62,7 +62,8 @@
                                 <td width="5%" id="add-button"><span class="add button is-success is-medium">Add Row</span></td>
                             </tr>
                         </thead>
-                        <tbody class="container" data-rf-row-count="1">
+                        {% set count = search.parts|length if search.parts|length > 0 else 1 %}
+                        <tbody class="container" data-rf-row-count="{{ count }}">
                             <tr class="template row columns form-row">
                                 <td class="column is-7">
                                     <dd>
@@ -80,7 +81,28 @@
                                     </dd>
                                 </td>
                             </tr>
-                            <tr class="row columns form-row">
+                            {% if search.parts|length > 0 %}
+                                {% for i in range(count) %}
+                                    <tr class="row columns form-row">
+                                <td class="column is-7">
+                                    <dd>
+                                        <input class="input is-rounded" id="parts-{{i}}-part_name" name="parts-{{i}}-part_name" required type="text" value="{{ search.parts[i].name }}" placeholder="Part Name">
+                                    </dd>
+                                </td>
+                                <td class="column is-3">
+                                    <dd>
+                                        <input class="input is-rounded" id="parts-{{i}}-quantity" name="parts-{{i}}-quantity" required type="number" value="{{ search.parts[i].quantity }}" placeholder="Quantity">
+                                    </dd>
+                                </td>
+                                <td class="column is-2 form-button-parent">
+                                    <dd>
+                                        <span class="remove button is-danger form-button">Remove</span>
+                                    </dd>
+                                </td>
+                            </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr class="row columns form-row">
                                 <td class="column is-7">
                                     <dd>
                                         <input class="input is-rounded" id="parts-0-part_name" name="parts-0-part_name" required type="text" value="" placeholder="Part Name">
@@ -97,6 +119,7 @@
                                     </dd>
                                 </td>
                             </tr>
+                            {% endif %}
                         </tbody>
                     </table>
                 </div>

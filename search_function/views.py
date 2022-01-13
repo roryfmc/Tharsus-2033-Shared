@@ -30,15 +30,25 @@ search_blueprint = Blueprint('search', __name__, template_folder='templates')
 @search_blueprint.route('/search', methods=['GET', 'POST'])
 def search():  # pylint: disable=missing-function-docstring
     form = SearchForm()
+    search_object = Search()
+
+    # If a search has already been made by the user
+    if 'search' in session:
+        # Store search object to fill in form
+        search_object = string_to_search_obj(session['search'])
 
     if form.validate_on_submit():
-        search_object = search_form_to_obj(form)
+        # If any rows have been filled in
+        if len(form.parts) > 0:
+            # Turn the form into a Search object
+            search_object = search_form_to_obj(form)
 
-        session['search'] = search_obj_to_json(search_object)
+            # Store the search object in session
+            session['search'] = search_obj_to_json(search_object)
 
-        return redirect(url_for('search.search_result'))
+            return redirect(url_for('search.search_result'))
 
-    return render_template('search.html', form=form)
+    return render_template('search.html', form=form, search=search_object)
 
 
 @search_blueprint.route('/search_result')
