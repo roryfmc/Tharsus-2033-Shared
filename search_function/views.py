@@ -60,3 +60,11 @@ def search_result():  # pylint: disable=missing-function-docstring
         search_object = Search()
 
     return render_template("search_result.html", search_results=search_object.parts)
+
+
+@search_blueprint.route('/part/<part_count>')
+def part(part_count):
+    search_object = string_to_search_obj(session['search'])
+    part_object = search_object.parts[int(part_count)]
+
+    return render_template("part.html", part_object=part_object)

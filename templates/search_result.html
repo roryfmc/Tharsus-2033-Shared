@@ -108,12 +108,14 @@
         {% for part in search_results %}
                     <div class="field column is-4">
                         <div class="tile is-parent is-vertical">
-                            <div class="tile is-child">
+                            <div class="tile is-child" name="{{ loop.index }}">
                                 <table class="table is-fullwidth styled_table" onclick="toggleRow(this)">
                                     <thead>
                                     <tr>
                                         <th class="part-name"></th>
-                                        <th class="part-name">{{ part.name }}</th>
+                                        <th class="part-name">
+                                            <a href="{{ url_for('search.part', part_count=loop.index) }}" class="button is-text">{{ part.name }}</a>
+                                        </th>
                                         <th class="part-name"></th>
                                     </tr>
                                     <tr>
