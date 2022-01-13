@@ -9,6 +9,23 @@
                 jQuery(this).repeatable_fields();
             });
         });
+
+        function clearInputs() {
+            console.log("yes")
+            let inputs = document.getElementsByClassName('clear')
+
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].value = '';
+            }
+
+            let tbody = document.getElementsByName("form-tbody")[0];
+
+            while (tbody.childElementCount > 2){
+                tbody.lastChild.remove();
+            }
+
+            tbody.setAttribute("data-rf-row-count", "1");
+        }
     </script>
     <style>
         .form-button-parent {
@@ -56,23 +73,24 @@
             <form method="POST">
                 {{ form.csrf_token }}
                 <div class="repeat">
-                    <table class="wrapper">
+                    <table class="wrapper" width="100%">
                         <thead id="add-button-parent">
-                            <tr>
-                                <td width="5%" id="add-button"><span class="add button is-success is-medium">Add Row</span></td>
+                            <tr class="columns">
+                                <td class="column is-9"></td>
+                                <td width="5%" id="add-button" class="column is-3"><span class="add button is-success is-medium">Add Row</span></td>
                             </tr>
                         </thead>
                         {% set count = search.parts|length if search.parts|length > 0 else 1 %}
-                        <tbody class="container" data-rf-row-count="{{ count }}">
+                        <tbody class="container" data-rf-row-count="{{ count }}" name="form-tbody">
                             <tr class="template row columns form-row">
                                 <td class="column is-7">
                                     <dd>
-                                        <input class="input is-rounded" id="parts-{%raw%}{{row-count-placeholder}}{%endraw%}-part_name" name="parts-{%raw%}{{row-count-placeholder}}{%endraw%}-part_name" required type="text" value="" placeholder="Part Name">
+                                        <input class="input is-rounded clear" id="parts-{%raw%}{{row-count-placeholder}}{%endraw%}-part_name" name="parts-{%raw%}{{row-count-placeholder}}{%endraw%}-part_name" required type="text" value="" placeholder="Part Name">
                                     </dd>
                                 </td>
                                 <td class="column is-3">
                                     <dd>
-                                        <input class="input is-rounded" id="parts-{%raw%}{{row-count-placeholder}}{%endraw%}-quantity" name="parts-{%raw%}{{row-count-placeholder}}{%endraw%}-quantity" required type="number" value="" placeholder="Quantity">
+                                        <input class="input is-rounded clear" id="parts-{%raw%}{{row-count-placeholder}}{%endraw%}-quantity" name="parts-{%raw%}{{row-count-placeholder}}{%endraw%}-quantity" required type="number" value="" placeholder="Quantity">
                                     </dd>
                                 </td>
                                 <td class="column is-2 form-button-parent">
@@ -84,22 +102,22 @@
                             {% if search.parts|length > 0 %}
                                 {% for i in range(count) %}
                                     <tr class="row columns form-row">
-                                <td class="column is-7">
-                                    <dd>
-                                        <input class="input is-rounded" id="parts-{{i}}-part_name" name="parts-{{i}}-part_name" required type="text" value="{{ search.parts[i].name }}" placeholder="Part Name">
-                                    </dd>
-                                </td>
-                                <td class="column is-3">
-                                    <dd>
-                                        <input class="input is-rounded" id="parts-{{i}}-quantity" name="parts-{{i}}-quantity" required type="number" value="{{ search.parts[i].quantity }}" placeholder="Quantity">
-                                    </dd>
-                                </td>
-                                <td class="column is-2 form-button-parent">
-                                    <dd>
-                                        <span class="remove button is-danger form-button">Remove</span>
-                                    </dd>
-                                </td>
-                            </tr>
+                                        <td class="column is-7">
+                                            <dd>
+                                                <input class="input is-rounded clear" id="parts-{{i}}-part_name" name="parts-{{i}}-part_name" required type="text" value="{{ search.parts[i].name }}" placeholder="Part Name">
+                                            </dd>
+                                        </td>
+                                        <td class="column is-3">
+                                            <dd>
+                                                <input class="input is-rounded clear" id="parts-{{i}}-quantity" name="parts-{{i}}-quantity" required type="number" value="{{ search.parts[i].quantity }}" placeholder="Quantity">
+                                            </dd>
+                                        </td>
+                                        <td class="column is-2 form-button-parent">
+                                            <dd>
+                                                <span class="remove button is-danger form-button">Remove</span>
+                                            </dd>
+                                        </td>
+                                    </tr>
                                 {% endfor %}
                             {% else %}
                                 <tr class="row columns form-row">
@@ -110,7 +128,7 @@
                                 </td>
                                 <td class="column is-3">
                                     <dd>
-                                        <input class="input is-rounded" id="parts-0-quantity" name="parts-0-quantity" required type="number" value="" placeholder="Quantity">
+                                        <input class="input is-rounded clear" id="parts-0-quantity" name="parts-0-quantity" required type="number" value="" placeholder="Quantity">
                                     </dd>
                                 </td>
                                 <td class="column is-2 form-button-parent">
@@ -123,8 +141,13 @@
                         </tbody>
                     </table>
                 </div>
-                <div id="submit-button">
-                    {{ form.submit(class="button is-info is-centered is-medium")}}
+                <div id="submit-button" class="field is-grouped is-grouped-centered">
+                    <div class="control">
+                        {{ form.submit(class="button is-info is-centered is-medium")}}
+                    </div>
+                    <div class="control">
+                        <button class="button is-danger is-centered is-medium" type="button" onclick="clearInputs()">Clear</button>
+                    </div>
                 </div>
             </form>
         </div>
