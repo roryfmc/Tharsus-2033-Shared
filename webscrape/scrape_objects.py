@@ -1,5 +1,3 @@
-import string
-
 class Scrape:
 
     def __init__(self, soup):
