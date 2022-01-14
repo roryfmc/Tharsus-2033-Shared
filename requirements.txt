@@ -1,3 +1,13 @@
 requests
 bs4
 pandas
+click
+Flask
+itsdangerous
+Jinja2
+MarkupSafe
+pip
+setuptools
+WTForms
+Flask-WTF
+Flask-Session

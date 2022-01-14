@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .styled_table {
+        font-size: 0.9em;
+        font-family: sans-serif;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        border-collapse: collapse;
+        border-bottom: 2px solid #009879;
+    }
+
+    tr {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        justify-content: flex-start;
+    }
+
+    td {
+        text-align: center!important;
+    }
+
+    thead {
+        background-color: #009879;
+    }
+
+    th {
+        color: white!important;
+        text-align: center!important;
+    }
+</style>
+
+<h3 class="title">{{ part_object.name }}</h3>
+
+<div class="columns">
+    <div class="column is-one-quarter"></div>
+    <div class="column is-half box">
+        <div>
+            <table class="table is fullwidth styled_table">
+                <thead>
+                    <tr>
+                        <th>Supplier</th>
+                        <th>Stock</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for supplier in part_object.suppliers %}
+                    <tr>
+                        <td>{{ supplier.name }}</td>
+                        <td>{{ supplier.stock}}</td>
+                        <td>{{ supplier.price}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
