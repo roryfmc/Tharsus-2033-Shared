@@ -6,6 +6,7 @@ from flask import Blueprint, render_template, session, redirect, url_for
 from search_function.forms import SearchForm
 from search_function.search import string_to_search_obj, search_form_to_obj, search_obj_to_json
 from search_function.objects import Search, Part, Supplier
+from webscrape.findchips import search_for_parts
 
 
 def setup():  # pylint: disable=missing-function-docstring
@@ -42,6 +43,11 @@ def search():  # pylint: disable=missing-function-docstring
         if len(form.parts) > 0:
             # Turn the form into a Search object
             search_object = search_form_to_obj(form)
+
+            # Store the search object in session
+            session['search'] = search_obj_to_json(search_object)
+
+            search_object = search_for_parts(search_object)
 
             # Store the search object in session
             session['search'] = search_obj_to_json(search_object)

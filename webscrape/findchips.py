@@ -1,24 +1,23 @@
-from bs4 import BeautifulSoup
 import requests
-from scrape_objects import Scrape
+from bs4 import BeautifulSoup
+from search_function.objects import Supplier
+from webscrape.scrape_objects import Scrape
 
 
-def v1(part_name="AT0603FRE0747KL"):
-    url = "https://www.findchips.com/search/" + part_name + "?currency=GBP"
-    # Locates url, if it doesnt exist, error will be returned
-    page = requests.get(url)
+def search_for_parts(search_object):
 
-    soup = BeautifulSoup(page.text, 'lxml')
-    scrape = Scrape(soup)
+    for part in search_object.parts:
+        url = "https://www.findchips.com/search/" + part.name + "?currency=GBP"
+        page = requests.get(url)
 
-    for distributor in scrape.distributors:
-        print(distributor.get_supplier_name())
-        print()
-        for tr in distributor.table.TRs:
-            print(tr.get_stock())
-            print(tr.get_price())
-            print()
-        print("-----------------")
+        soup = BeautifulSoup(page.text, 'lxml')
+        scrape = Scrape(soup)
 
+        for distributor in scrape.distributors:
+            supplier_name = distributor.get_supplier_name()
 
-v1()
+            for tr in distributor.table.TRs:
+                supplier = Supplier(supplier_name, tr.get_stock(), tr.get_price())
+                part.suppliers.append(supplier)
+
+    return search_object
