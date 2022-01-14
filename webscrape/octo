@@ -1,0 +1,14 @@
+from helium import *
+from bs4 import BeautifulSoup
+
+
+def v1():
+    # Input for testing
+    url = 'https://octopart.com/search?q=AT0603FRE0747KL'
+    browser = start_firefox(url, headless=True)
+    soup = BeautifulSoup(browser.page_source, 'html.parser')
+    print(soup.table.text)
+
+
+if __name__ == '__main__':
+    v1()
