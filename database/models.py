@@ -6,7 +6,7 @@ from app import db
 
 
 class User(db.Model):
-    """This model represents a user in the database.
+    """This model represents a users in the database.
     It should be called when you are handling users
     from the database.
 
@@ -16,7 +16,7 @@ class User(db.Model):
     :type username: str
     :cvar password: The password of the account
     :type password: str
-    :cvar role: The role of the account, either user or admin
+    :cvar role: The role of the account, either users or admin
     :type role: str
     """
     __tablename__ = 'users'
@@ -26,7 +26,7 @@ class User(db.Model):
     password = db.Column(db.String(100), nullable=False)
     role = db.Column(db.String(100), nullable=False)
 
-    def __init__(self, username, password, role='user'):
+    def __init__(self, username, password, role='users'):
         self.username = username
         self.password = generate_password_hash(password)
         self.role = role
@@ -35,7 +35,7 @@ class User(db.Model):
 class WhitelistedEmail(db.Model):
     """This model represents a whitelisted email address in the database.
     In the system, an admin has the ability to whitelist an email address,
-    which then allows a user to register with that email address.
+    which then allows a users to register with that email address.
 
     :cvar id: The incrementing ID number for each entity in the database
     :type id: int
@@ -80,12 +80,12 @@ class PartPrice(db.Model):
 
 
 class DesiredPart(db.Model):
-    """This model represents a part which a user has added to their wishlist.
+    """This model represents a part which a users has added to their wishlist.
     This means that they would like to be notified when the part has come into stock again.
 
     :cvar id: The incrementing ID number for each entity in the database
     :type id: int
-    :cvar user_id: The ID of the user who wishes to add the part to their wishlist
+    :cvar user_id: The ID of the users who wishes to add the part to their wishlist
     :type user_id: int
     :cvar part_id: The identifying name/ID of the part
     :type part_id: str
@@ -106,15 +106,15 @@ class DesiredPart(db.Model):
 
 
 class FavouriteSupplier(db.Model):
-    """This model represents a user's preferred supplier. When a supplier has
-    been preferred by the user, it then appears higher a search result when it is
+    """This model represents a users's preferred supplier. When a supplier has
+    been preferred by the users, it then appears higher a search result when it is
     included.
 
     :cvar id: The incrementing ID number for each entity in the database
     :type id: int
-    :cvar user_id: The ID of the user who wishes to add the supplier to their preferred suppliers
+    :cvar user_id: The ID of the users who wishes to add the supplier to their preferred suppliers
     :type user_id: int
-    :cvar supplier_name: The name of the supplier which the user prefers
+    :cvar supplier_name: The name of the supplier which the users prefers
     :type supplier_name: str
     """
     __tablename__ = 'favourite_suppliers'
@@ -129,15 +129,15 @@ class FavouriteSupplier(db.Model):
 
 
 class BlacklistedSupplier(db.Model):
-    """This model represents a user's blacklisted supplier. A supplier is blacklisted
-    by a user when they would not like to see results from this supplier. This means
-    the supplier won't show up in any of the user's search results.
+    """This model represents a users's blacklisted supplier. A supplier is blacklisted
+    by a users when they would not like to see results from this supplier. This means
+    the supplier won't show up in any of the users's search results.
 
     :cvar id: The incrementing ID number for each entity in the database
     :type id: int
-    :cvar user_id: The ID of the user who wishes to add the supplier to their blacklisted suppliers
+    :cvar user_id: The ID of the users who wishes to add the supplier to their blacklisted suppliers
     :type user_id: int
-    :cvar supplier_name: The name of the supplier which the user wants to blacklist
+    :cvar supplier_name: The name of the supplier which the users wants to blacklist
     :type supplier_name: str
     """
     __tablename__ = 'blacklisted_suppliers'
@@ -152,14 +152,14 @@ class BlacklistedSupplier(db.Model):
 
 
 class PartSearch(db.Model):
-    """This model represents an individual part which the user has searched for.
+    """This model represents an individual part which the users has searched for.
     Since this model only represents an individual part, searches with multiple
     parts must be broken down into multiple PartSearch objects, which should be connected
     by containing the same datetime value.
 
     :cvar id: The incrementing ID number for each entity in the database
     :type id: int
-    :cvar user_id: The ID of the user who has searched for the part
+    :cvar user_id: The ID of the users who has searched for the part
     :type user_id: int
     :cvar part_id: The identifying name/ID of the part
     :type part_id: str
@@ -186,12 +186,12 @@ class PartSearch(db.Model):
 
 def init_db():
     """This function is used to reset the database
-    and enter a test user entity.
+    and enter a test users entity.
     To use this function, type "from database.models import init_db", then "init_db()"
     in the python console.
     """
     db.drop_all()
     db.create_all()
-    new_user = User(username='user1@test.com', password='password', role='user')
+    new_user = User(username='user1@test.com', password='password', role='users')
     db.session.add(new_user)
     db.session.commit()

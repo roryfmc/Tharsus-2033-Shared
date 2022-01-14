@@ -8,3 +8,4 @@ setuptools
 WTForms
 Flask-WTF
 Flask-SQLAlchemy
+email-validator

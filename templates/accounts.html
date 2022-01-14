@@ -16,7 +16,7 @@
                         {{ form.csrf_token() }}
                         <div class="control">
                             {{ form.old_password(class="input", placeholder="Old Password") }}
-                            {% for error in form.password.errors %}
+                            {% for error in form.old_password.errors %}
                                 {{ error }}
                             {% endfor %}
                         </div>
