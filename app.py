@@ -1,6 +1,9 @@
+import datetime
 import socket
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, render_template
+from flask_session import Session
 
 
 # CONFIG
@@ -8,6 +11,9 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///stock_checker.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
+app.config['SESSION_TYPE'] = "filesystem"
+app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(hours=24)
+Session(app)
 
 db = SQLAlchemy(app)
 
@@ -27,7 +33,10 @@ if __name__ == "__main__":
     free_socket.close()
 
     from users.views import users_blueprint
+    from search_function.views import search_blueprint
 
     app.register_blueprint(users_blueprint)
+    app.register_blueprint(search_blueprint)
 
     app.run(host=MY_HOST, port=free_port, debug=True)
+

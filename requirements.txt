@@ -1,3 +1,6 @@
+requests
+bs4
+pandas
 click
 Flask
 itsdangerous
@@ -7,5 +10,6 @@ pip
 setuptools
 WTForms
 Flask-WTF
+Flask-Session
 Flask-SQLAlchemy
 email-validator
