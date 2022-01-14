@@ -67,20 +67,12 @@ class Part:
         If the user's favourite suppliers have enough stock,
         they are pushed to the front of the list.
         """
-        if(len(self.suppliers)) == 0:
+        if (len(self.suppliers)) == 0:
             return
 
-        # Create a deep copy of the suppliers list
-        suppliers = copy.deepcopy(self.suppliers)
+        suppliers = [supplier for supplier in self.suppliers if (supplier.stock > self.quantity) and supplier.price]
 
-        # For each supplier
-        for supplier in suppliers:
-            # If the supplier doesn't have enough stock
-            if supplier.stock < self.quantity:
-                suppliers.remove(supplier)
-
-        # Sort the suppliers by price
-        self.suppliers = sorted(suppliers, key=operator.attrgetter('price'))
+        self.suppliers = sorted(suppliers, key=lambda supplier: supplier.stock, reverse=True)
 
     def find_combination(self):
         """This method is called if there are no suppliers which have enough stock.
@@ -112,11 +104,11 @@ class Supplier:  # pylint: disable=too-few-public-methods
     :type wait_time: datetime
     """
 
-    def __init__(self, name, stock=-1, price=-1):
+    def __init__(self, name, stock, price):
         self.name = name
         self.link = ""
-        self.stock = int(stock)
-        self.price = float(price)
+        self.stock = stock
+        self.price = price
         self.wait_time = None
 
     def __repr__(self):
