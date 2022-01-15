@@ -7,6 +7,11 @@ users_blueprint = Blueprint('users', __name__, template_folder='templates')
 #check if the users is on the whitelist
 ##add users to the database
 
+# HOME PAGE VIEW
+@users_blueprint.route('/', methods=['GET', 'POST'])
+def index(): # pylint: disable=missing-function-docstring
+    return render_template('index.html')
+
 
 @users_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
