@@ -35,7 +35,8 @@ def string_to_search_obj(string_value):
         for supplier_value in part_value['suppliers']:
             # Create a new Supplier object
             supplier = Supplier(name=supplier_value['name'], stock=supplier_value['stock'],
-                                price=supplier_value['price'], price_dict=supplier_value['price_dict'])
+                                price=supplier_value['price'], price_dict=supplier_value['price_dict'],
+                                link=supplier_value['link'])
             # Store Supplier object in the Part object
             part.suppliers.append(supplier)
 

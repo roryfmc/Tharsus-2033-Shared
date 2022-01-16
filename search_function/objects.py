@@ -114,9 +114,9 @@ class Supplier:  # pylint: disable=too-few-public-methods
     :type wait_time: datetime
     """
 
-    def __init__(self, name, stock, price=-1, price_dict={}):
+    def __init__(self, name, stock, price=-1, price_dict={}, link=""):
         self.name = name
-        self.link = ""
+        self.link = link
         self.stock = stock
         self.price = price
         self.price_dict = price_dict
