@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="column is-5 is-offset-4">
+        <h3 class="title is-3">Admin Page</h3>
+        <div class="box">
+
+            <form method="POST">
+                <div class="field">
+                    {{ form.csrf_token() }}
+                    <div class="control">
+                        {{ form.email(class="input", placeholder="Email") }}
+                        {% for error in form.email.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+                {{ form.whiteListEmail(class="button is-info is-centered") }}
+                {{ form.remove(class="button is-info is-centered") }}
+                {{ form.deleteAccount(class="button is-info is-centered") }}
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}

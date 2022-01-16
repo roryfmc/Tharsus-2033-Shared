@@ -7,3 +7,5 @@ pip
 setuptools
 WTForms
 Flask-WTF
+Werkzeug
+email-validator

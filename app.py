@@ -25,6 +25,10 @@ if __name__ == "__main__":
     free_port = free_socket.getsockname()[1]
     free_socket.close()
 
+    # BLUEPRINTS
+    from users.views import users_blueprint
+    app.register_blueprint(users_blueprint)
+
     app.run(host=my_host, port=free_port, debug=True)
 
 
