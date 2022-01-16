@@ -1,5 +1,6 @@
 import datetime
 import socket
+import flask_excel as excel
 from flask import Flask, render_template
 from flask_session import Session
 
@@ -31,5 +32,5 @@ if __name__ == "__main__":
     from search_function.views import search_blueprint
 
     app.register_blueprint(search_blueprint)
-
+    excel.init_excel(app)
     app.run(host=MY_HOST, port=free_port, debug=True)

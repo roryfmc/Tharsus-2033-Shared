@@ -103,7 +103,10 @@
     <div class="column is-2">
         <input class="input" type="text" oninput="liveSearch()" id="searchbox" placeholder="Find a part">
     </div>
-    <div class="column is-5"></div>
+    <div class="column is-3"></div>
+    <div class="column is-2">
+        <a class="button is-light is-rounded" href="{{ url_for('search.export') }}">Export to excel</a>
+    </div>
     {% if search_results %}
         {% for part in search_results %}
                     <div class="field column is-4">
