@@ -26,8 +26,8 @@ if __name__ == "__main__":
     free_socket.close()
 
     # BLUEPRINTS
-    from users.views import users_blueprint
-    app.register_blueprint(users_blueprint)
+    from admin.views import admin_blueprint
+    app.register_blueprint(admin_blueprint)
 
     app.run(host=my_host, port=free_port, debug=True)
 
