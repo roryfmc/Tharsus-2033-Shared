@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, flash
 from users.form import RegisterForm, LoginForm, ChangePassword
+from search_function.views import search
 
 users_blueprint = Blueprint('users', __name__, template_folder='templates')
 
@@ -8,7 +9,7 @@ favourite_suppliers = ["1", "2", "3", "4", "5", "6", "7", "8"]
 # HOME PAGE VIEW
 @users_blueprint.route('/', methods=['GET', 'POST'])
 def index(): # pylint: disable=missing-function-docstring
-    return render_template('index.html')
+    return search()
 
 
 @users_blueprint.route('/login', methods=['GET', 'POST'])
