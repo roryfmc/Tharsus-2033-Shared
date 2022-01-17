@@ -12,5 +12,6 @@ WTForms
 Flask-WTF
 Flask-Session
 Flask-SQLAlchemy
-email-validator
 sshtunnel
+Werkzeug
+email-validator

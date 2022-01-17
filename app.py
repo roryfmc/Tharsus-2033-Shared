@@ -47,5 +47,10 @@ if __name__ == "__main__":
 
     app = create_app()
 
+    # BLUEPRINTS
+    from admin.views import admin_blueprint
+    app.register_blueprint(admin_blueprint)
+
+
     app.run(host=MY_HOST, port=free_port, debug=True)
 
