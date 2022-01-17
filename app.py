@@ -7,16 +7,17 @@ from flask_session import Session
 from sshtunnel import SSHTunnelForwarder
 from os import environ
 
+# CONFIG
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///stock_checker.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
+app.config['SESSION_TYPE'] = "filesystem"
+app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(hours=24)
+Session(app)
+db = SQLAlchemy(app)
 
 def create_app():
-    # CONFIG
-    app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = get_db_uri()
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
-    app.config['SESSION_TYPE'] = "filesystem"
-    app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(hours=24)
-    Session(app)
 
     from users.views import users_blueprint
     from search_function.views import search_blueprint
@@ -45,8 +46,6 @@ if __name__ == "__main__":
     free_socket.close()
 
     app = create_app()
-    db = SQLAlchemy(app)
-    from database.models import init_db
-    init_db()
+
     app.run(host=MY_HOST, port=free_port, debug=True)
 

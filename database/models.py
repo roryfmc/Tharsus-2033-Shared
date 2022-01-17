@@ -26,7 +26,7 @@ class User(db.Model):
     password = db.Column(db.String(100), nullable=False)
     role = db.Column(db.String(100), nullable=False)
 
-    def __init__(self, username, password, role='users'):
+    def __init__(self, username, password, role='user'):
         self.username = username
         self.password = generate_password_hash(password)
         self.role = role
@@ -73,7 +73,7 @@ class PartPrice(db.Model):
     price = db.Column(db.Float, nullable=False)
     datetime = db.Column(db.DateTime, nullable=False)
 
-    def __init__(self, part_id, price, datetime=datetime.now()):
+    def __init__(self, part_id, price, datetime):
         self.part_id = part_id
         self.price = price
         self.datetime = datetime
@@ -192,6 +192,7 @@ def init_db():
     """
     db.drop_all()
     db.create_all()
-    new_user = User(username='user1@test.com', password='password', role='users')
+    new_user = User(username='user1@test.com', password='password', role='user')
     db.session.add(new_user)
     db.session.commit()
+
