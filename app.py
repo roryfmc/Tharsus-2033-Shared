@@ -9,8 +9,9 @@ from sshtunnel import SSHTunnelForwarder
 from os import environ
 
 # CONFIG
-app = Flask(__name__)
+app = Flask(__name__, static_folder='templates/assets')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///stock_checker.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///lottery.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
 app.config['SESSION_TYPE'] = "filesystem"

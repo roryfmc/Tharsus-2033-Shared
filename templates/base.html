@@ -1,52 +1,34 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Stock and Price Checker</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
 
-    <section class="hero is-info is-fullheight">
-        <div class="hero-head">
-            <nav class="navbar">
-                <div class="container">
-                    <div id="navbarMenuHeroA" class="navbar-menu">
-                        <div class="navbar-end">
-                            <a href="{{ url_for('users.index')}}" class="navbar-item">
-                                Home
-                            </a>
-                            <a href="{{ url_for('users.login')}}" class="navbar-item">
-                                Login
-                            </a>
-                            <a href="{{ url_for('users.register')}}" class="navbar-item">
-                                Register
-                            </a>
-                            <a href="{{ url_for('users.accounts')}}" class="navbar-item">
-                                Account
-                            </a>
-                            <a href="{{ url_for('search.search')}}" class="navbar-item">
-                                Search
-                            </a>
-                            <a href="{{ url_for('admin.admin')}}" class="navbar-item">
-                                Admin
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </div>
+  <header class="bg-black">
+    <img class="logo" src="assets/img/Logo.png" alt="logo">
+    <nav>
+      <ul class="nav__links">
+          <li><a href="{{ url_for('search.search')}}">Home</a></li>
+          <li><a href="{{ url_for('users.accounts')}}">Account</a></li>
+          <li><a href="{{ url_for('users.login')}}">Sign in</a></li>
+          <li><a href="{{ url_for('users.register')}}">Register</a></li>
+          <li><a href="{{ url_for('admin.admin')}}">Admin</a></li>
+      </ul>
+    </nav>
+    <a class="cta" href="#"><button>Help</button></a>
+  </header>
 
-        <div class="hero-body">
-            <div class="container has-text-centered is-fluid">
-               {% block content %}
-               {% endblock %}
-            </div>
-        </div>
-    </section>
+  {% block content %}
+  {% endblock %}
+
+<script src="/assets/bootstrap/js/bootstrap.js"></script>
 </body>
 
 </html>
