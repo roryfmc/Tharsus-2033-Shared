@@ -13,7 +13,7 @@ def character_check(form,field):
 
 class RegisterForm(FlaskForm):
     username = StringField(validators=[InputRequired(), Email()])
-    password = PasswordField(validators=[InputRequired(), Length(min=8, max=15, message="Password must be between 8 and 15 characters in length."), character_check])
+    password = PasswordField(validators=[InputRequired(), Length(min=8, message="Password must be at least 8 characters long"), character_check])
     confirm_password = PasswordField(validators=[InputRequired(), EqualTo('password', message='Both password fields must be equal!')])
     submit = SubmitField()
 

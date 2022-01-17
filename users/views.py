@@ -3,9 +3,7 @@ from users.form import RegisterForm, LoginForm, ChangePassword
 
 users_blueprint = Blueprint('users', __name__, template_folder='templates')
 
-
-#check if the users is on the whitelist
-##add users to the database
+favourite_suppliers = ["1", "2", "3", "4", "5", "6", "7", "8"]
 
 # HOME PAGE VIEW
 @users_blueprint.route('/', methods=['GET', 'POST'])
@@ -33,7 +31,7 @@ def accounts():
         print(request.form.get('old_password'))
         print(request.form.get('password'))
 
-    return render_template('accounts.html', form=form)
+    return render_template('accounts.html', form=form, favourite_suppliers=favourite_suppliers, blacklisted_suppliers=["hello"])
 
 
 @users_blueprint.route('/register', methods=['GET', 'POST'])

@@ -1,9 +1,162 @@
 {% extends "base.html" %}
 
 {% block content %}
+<script>
+    function liveSearchFavourite() {
+        let fields = document.getElementsByClassName('listed-supplier favourite');
+        let search_query = document.getElementById("searchbox-favourite").value;
+
+        for (var i = 0; i < fields.length; i++) {
+            if(fields[i].firstElementChild.innerHTML.toLowerCase().includes(search_query.toLowerCase())) {
+                fields[i].classList.remove("is-hidden");
+            } else {
+                fields[i].classList.add("is-hidden");
+            }
+        }
+
+        let typingTimer;
+        let typeInterval = 200;
+        let searchInput = document.getElementById('searchbox-favourite');
+
+        searchInput.addEventListener('keyup', () => {
+            clearTimeout(typingTimer);
+            typingTimer - setTimeout(liveSearchFavourite, typeInterval);
+        });
+    }
+
+    function liveSearchBlacklisted() {
+        let fields = document.getElementsByClassName('listed-supplier blacklisted');
+        let search_query = document.getElementById("searchbox-blacklisted").value;
+
+        for (var i = 0; i < fields.length; i++) {
+            if(fields[i].innerHTML.toLowerCase().includes(search_query.toLowerCase())) {
+                fields[i].classList.remove("is-hidden");
+            } else {
+                fields[i].classList.add("is-hidden");
+            }
+        }
+
+        let typingTimer;
+        let typeInterval = 200;
+        let searchInput = document.getElementById('searchbox-blacklisted');
+
+        searchInput.addEventListener('keyup', () => {
+            clearTimeout(typingTimer);
+            typingTimer - setTimeout(liveSearchBlacklisted, typeInterval);
+        });
+    }
+</script>
+<style>
+    .card-header-title {
+        display: block!important;
+        font-size: 2em;
+    }
+
+    .card-footer {
+        padding: 10px;
+        border-top: 1px solid rgba(167, 167, 167, 0.5);
+    }
+
+    .card-content {
+        padding: 10px;
+        min-height: 350px;
+        max-height: 350px;
+        overflow: auto;
+        font-size: 1.1em;
+    }
+
+    .listed-supplier {
+        border-bottom: 1px solid rgba(167, 167, 167, 0.25);
+        margin-bottom: 0!important;
+    }
+
+    .is-hidden {
+        display: none;
+    }
+
+    .button {
+        flex-grow: 0!important;
+    }
+
+    .hide {
+        display: none;
+    }
+
+    .list-row:hover .hide {
+        display: flex;
+    }
+
+    .level-item {
+        padding: 10px;
+    }
+</style>
+
+<h3 class="title">Accounts Page</h3>
+<div class="columns">
+    <div class="column is-2"></div>
+
+    <div class="column is-3">
+        <div class="card">
+            <header class="card-header">
+                <p class="card-header-title ">
+                    Favourite Suppliers
+                </p>
+            </header>
+
+            <div class="card-content">
+                <div class="content">
+                    {% for favourite_supplier in favourite_suppliers %}
+                        <div class="listed-supplier favourite level list-row">
+                            <div class="level-item has-text-centered">
+                                {{ favourite_supplier }}
+                            </div>
+                            <button class="button is-danger level-item hide">Remove</button>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <input class="input" type="text" oninput="liveSearchFavourite()" id="searchbox-favourite" placeholder="Find a supplier">
+            </div>
+        </div>
+    </div>
+
+    <div class="column is-2"></div>
+
+    <div class="column is-3">
+        <div class="card">
+            <header class="card-header">
+                <p class="card-header-title ">
+                    Blacklisted Suppliers
+                </p>
+            </header>
+
+            <div class="card-content">
+                <div class="content">
+                    {% for blacklisted_supplier in blacklisted_suppliers %}
+                        <div class="listed-supplier blacklisted level list-row">
+                            <div class="level-item has-text-centered">
+                                {{ blacklisted_supplier }}
+                            </div>
+                            <button class="button is-danger level-item hide">Remove</button>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <input class="input" type="text" oninput="liveSearchBlacklisted()" id="searchbox-blacklisted" placeholder="Find a supplier">
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+
     <div class="column is-4 is-offset-4">
-        <h3 class="title">Accounts Page</h3>
         <div class="box">
+            Change Password
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
                     <div class="notification is-danger">
