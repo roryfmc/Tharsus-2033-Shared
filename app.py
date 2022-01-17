@@ -17,11 +17,14 @@ app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(hours=24)
 Session(app)
 db = SQLAlchemy(app)
 
+
 def create_app():
 
     from users.views import users_blueprint
     from search_function.views import search_blueprint
+    from admin.views import admin_blueprint
 
+    app.register_blueprint(admin_blueprint)
     app.register_blueprint(users_blueprint)
     app.register_blueprint(search_blueprint)
 
@@ -46,11 +49,5 @@ if __name__ == "__main__":
     free_socket.close()
 
     app = create_app()
-
-    # BLUEPRINTS
-    from admin.views import admin_blueprint
-    app.register_blueprint(admin_blueprint)
-
-
     app.run(host=MY_HOST, port=free_port, debug=True)
 
