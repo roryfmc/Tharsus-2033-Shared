@@ -1,37 +1,30 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CSC2031</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Navbar</title>
+  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
 
-    <section class="hero is-info is-fullheight">
-        <div class="hero-head">
-            <nav class="navbar">
-                <div class="container">
-                    <div id="navbarMenuHeroA" class="navbar-menu">
-                        <div class="navbar-end">
-                            <a href="{{ url_for('index')}}" class="navbar-item">
-                                Home
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </div>
+  <header class="bg-black">
+    <img class="logo" src="assets/img/Logo.png" alt="logo">
+    <nav>
+      <ul class="nav__links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Account</a></li>
+        <li><a href="#">Sign in</a></li>
+      </ul>
+    </nav>
+    <a class="cta" href="#"><button>Help</button></a>
+  </header>
 
-        <div class="hero-body">
-            <div class="container has-text-centered is-fluid">
-               {% block content %}
-               {% endblock %}
-            </div>
-        </div>
-    </section>
+  {% block content %}
+  {% endblock %}
+
+<script src="/assets/bootstrap/js/bootstrap.js"></script>
 </body>
 
 </html>

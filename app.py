@@ -5,7 +5,7 @@ from flask import Flask, render_template, request, session
 
 
 # CONFIG
-app = Flask(__name__)
+app = Flask(__name__, static_folder='templates/assets')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///lottery.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
@@ -14,7 +14,7 @@ app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
 # HOME PAGE VIEW
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    return render_template('login.html')
 
 
 if __name__ == "__main__":
