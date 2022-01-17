@@ -72,7 +72,17 @@ class Part:
 
         suppliers = [supplier for supplier in self.suppliers if (supplier.stock > self.quantity) and supplier.price]
 
-        self.suppliers = sorted(suppliers, key=lambda supplier: supplier.stock, reverse=True)
+        for supplier in suppliers:
+            print(supplier.price_dict)
+            for key in supplier.price_dict:
+                print(supplier.price_dict[key])
+                if self.quantity >= key:
+                    supplier.price = supplier.price_dict[key]
+                    break
+            if supplier.price == -1:
+                suppliers.remove(supplier)
+
+        self.suppliers = sorted(suppliers, key=lambda supplier: supplier.price, reverse=True)
 
     def find_combination(self):
         """This method is called if there are no suppliers which have enough stock.
@@ -104,11 +114,12 @@ class Supplier:  # pylint: disable=too-few-public-methods
     :type wait_time: datetime
     """
 
-    def __init__(self, name, stock, price):
+    def __init__(self, name, stock, price=-1, price_dict={}, link=""):
         self.name = name
-        self.link = ""
+        self.link = link
         self.stock = stock
         self.price = price
+        self.price_dict = price_dict
         self.wait_time = None
 
     def __repr__(self):

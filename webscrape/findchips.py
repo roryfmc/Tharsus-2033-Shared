@@ -17,7 +17,8 @@ def search_for_parts(search_object):
             supplier_name = distributor.get_supplier_name()
 
             for tr in distributor.table.TRs:
-                supplier = Supplier(supplier_name, tr.get_stock(), tr.get_price())
+                supplier = Supplier(name=supplier_name, stock=tr.get_stock(), price_dict=tr.get_price(),
+                                    link=tr.get_link())
                 part.suppliers.append(supplier)
 
     return search_object

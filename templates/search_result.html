@@ -34,11 +34,12 @@
 </script>
 <style>
     .styled_table {
-        font-size: 0.9em;
+        font-size: 1em;
         font-family: sans-serif;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
         border-collapse: collapse;
         border-bottom: 2px solid #009879;
+        table-layout: fixed;
     }
 
     .styled_table tbody tr:nth-of-type(even) {
@@ -47,13 +48,13 @@
 
     tr {
         cursor: pointer;
-        display: grid;
         grid-template-columns: repeat(3, 1fr);
         justify-content: flex-start;
     }
 
     td {
         text-align: center!important;
+        position: relative;
     }
 
     tbody tr:hover {
@@ -62,7 +63,6 @@
 
     .expanded-row-content {
         border-top: none;
-        display: grid;
         grid-column: 1/-1;
         justify-content: flex-start;
     }
@@ -93,6 +93,36 @@
         display: none;
     }
 
+    .part-title {
+        color: white!important;
+    }
+
+    .part-title:hover {
+        background-color: rgba(255,255,255,0.3)!important;
+    }
+
+    .dropdown-item {
+        font-size: 0.9em;
+    }
+
+    .dropdown-menu {
+        padding-top: 0px!important;
+        left: -50% !important;
+    }
+
+    .go-to-page:hover {
+        background-color: rgba(82, 200, 11, 0.55);
+    }
+
+    .favourite-supplier:hover{
+        background-color: rgba(255, 255, 0, 0.55);
+    }
+
+    .blacklist-supplier:hover{
+        background-color: rgba(255, 0, 0, 0.55);
+    }
+
+
 </style>
 <h4 class="title is-4">Search</h4>
 <div class="columns is-multiline is-centered" id="col">
@@ -103,7 +133,10 @@
     <div class="column is-2">
         <input class="input" type="text" oninput="liveSearch()" id="searchbox" placeholder="Find a part">
     </div>
-    <div class="column is-5"></div>
+    <div class="column is-3"></div>
+    <div class="column is-2">
+        <a class="button is-light is-rounded" href="{{ url_for('search.export') }}">Export to excel</a>
+    </div>
     {% if search_results %}
         {% for part in search_results %}
                     <div class="field column is-4">
@@ -114,7 +147,7 @@
                                     <tr>
                                         <th class="part-name"></th>
                                         <th class="part-name">
-                                            <a href="{{ url_for('search.part', part_count=loop.index) }}" class="button is-text">{{ part.name }}</a>
+                                            <a href="{{ url_for('search.part', part_count=loop.index) }}" class="button is-text part-title">{{ part.name }}</a>
                                         </th>
                                         <th class="part-name"></th>
                                     </tr>
@@ -128,13 +161,47 @@
                                     {% for supplier in part.suppliers %}
                                         {% if supplier == part.suppliers[0] %}
                                         <tr>
-                                            <td>{{ supplier.name }}</td>
+                                            <td class="dropdown is-hoverable dropdown-trigger">
+                                                <a>
+                                                    {{ supplier.name }}
+                                                </a>
+                                                <div class="dropdown-menu" role="menu">
+                                                    <div class="dropdown-content">
+                                                        <div class="go-to-page dropdown-item">
+                                                            <a href="{{ supplier.link }}">Go to page</a>
+                                                        </div>
+                                                        <div class="favourite-supplier dropdown-item">
+                                                            <a href="#">Favourite supplier</a>
+                                                        </div>
+                                                        <div class="blacklist-supplier dropdown-item">
+                                                            <a href="#">Blacklist Supplier</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
                                             <td>{{ supplier.stock}}</td>
                                             <td>{{ supplier.price}}</td>
                                         </tr>
                                         {% else %}
                                         <tr name="hidden-rows" class="expanded-row-content hide-row">
-                                            <td>{{ supplier.name }}</td>
+                                            <td class="dropdown is-hoverable dropdown-trigger">
+                                                <a href="{{ supplier.link }}">
+                                                    {{ supplier.name }}
+                                                </a>
+                                                <div class="dropdown-menu" role="menu">
+                                                    <div class="dropdown-content">
+                                                        <div class="go-to-page dropdown-item">
+                                                            <a href="{{ supplier.link }}">Go to page</a>
+                                                        </div>
+                                                        <div class="favourite-supplier dropdown-item">
+                                                            <a href="#">Favourite supplier</a>
+                                                        </div>
+                                                        <div class="blacklist-supplier dropdown-item">
+                                                            <a href="#">Blacklist Supplier</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
                                             <td>{{ supplier.stock }}</td>
                                             <td>{{ supplier.price }}</td>
                                         </tr>

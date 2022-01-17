@@ -1,5 +1,6 @@
 import datetime
 import socket
+import flask_excel as excel
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, render_template
@@ -27,6 +28,7 @@ def create_app():
     app.register_blueprint(admin_blueprint)
     app.register_blueprint(users_blueprint)
     app.register_blueprint(search_blueprint)
+    excel.init_excel(app)
 
     return app
 
@@ -49,5 +51,5 @@ if __name__ == "__main__":
     free_socket.close()
 
     app = create_app()
-    app.run(host=MY_HOST, port=free_port, debug=True)
 
+    app.run(host=MY_HOST, port=free_port, debug=True)

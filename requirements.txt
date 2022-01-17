@@ -11,6 +11,9 @@ setuptools
 WTForms
 Flask-WTF
 Flask-Session
+pyexcel
+Flask-Excel
+pyexcel-xls
 Flask-SQLAlchemy
 sshtunnel
 Werkzeug

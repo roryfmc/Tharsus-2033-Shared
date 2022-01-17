@@ -60,3 +60,5 @@ class Tr:
 
         return dict
 
+    def get_link(self):
+        return self.element.find("a")['href']

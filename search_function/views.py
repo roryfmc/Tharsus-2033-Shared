@@ -2,6 +2,10 @@
 the search and search_result webpages.
 """
 import random
+
+import flask_excel
+import flask_excel as excel
+import pyexcel
 from flask import Blueprint, render_template, session, redirect, url_for
 from search_function.forms import SearchForm
 from search_function.search import string_to_search_obj, search_form_to_obj, search_obj_to_json
@@ -48,6 +52,7 @@ def search():  # pylint: disable=missing-function-docstring
             session['search'] = search_obj_to_json(search_object)
 
             search_object = search_for_parts(search_object)
+            search_object.sort_part_suppliers()
 
             # Store the search object in session
             session['search'] = search_obj_to_json(search_object)
@@ -61,7 +66,6 @@ def search():  # pylint: disable=missing-function-docstring
 def search_result():  # pylint: disable=missing-function-docstring
     if 'search' in session:
         search_object = string_to_search_obj(session['search'])
-        search_object.sort_part_suppliers()
     else:
         search_object = Search()
 
@@ -71,6 +75,24 @@ def search_result():  # pylint: disable=missing-function-docstring
 @search_blueprint.route('/part/<part_count>')
 def part(part_count):
     search_object = string_to_search_obj(session['search'])
-    part_object = search_object.parts[int(part_count)]
+    part_object = search_object.parts[int(part_count)-1]
 
     return render_template("part.html", part_object=part_object)
+
+
+@search_blueprint.route('/export', methods=['GET'])
+def export():
+    search_object = string_to_search_obj(session['search'])
+    sheets = {}
+
+    for i in range(len(search_object.parts)):
+        column_titles = ["Name", "Stock", "Price"]
+        sheet = [column_titles]
+
+        for supplier in search_object.parts[i].suppliers:
+            new_supplier = [supplier.name, supplier.stock, supplier.price]
+            sheet.append(new_supplier)
+
+        sheets[search_object.parts[i].name] = sheet
+
+    return excel.make_response_from_book_dict(sheets, 'xls', file_name="export_search")
