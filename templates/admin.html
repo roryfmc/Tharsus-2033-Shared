@@ -59,8 +59,8 @@
 
     .card-content {
         padding: 10px;
-        min-height: 350px;
-        max-height: 350px;
+        min-height: 200px;
+        max-height: 200px;
         overflow: auto;
         font-size: 1.1em;
     }
@@ -91,7 +91,7 @@
 
 
 
-<h3 class="title is-3">Admin Page</h3>
+<h3 class="title is-3"></h3>
 <div class="columns">
     <div class="column is-2"></div>
 
@@ -180,7 +180,7 @@
             <div class="field">
                 {{ change_password_form.csrf_token() }}
                 <div class="control">
-                    {{ change_password_form.p_username(class="input", placeholder="Email") }}
+                    {{ change_password_form.p_username(class="col-12", placeholder="Email") }}
                     {% for error in change_password_form.p_username.errors %}
                         {{ error }}
                     {% endfor %}
@@ -188,7 +188,7 @@
             </div>
             <div class="field">
                 <div class="control">
-                    {{ change_password_form.password(class="input", placeholder="Password") }}
+                    {{ change_password_form.password(class="col-12", placeholder="Password") }}
                     {% for error in change_password_form.password.errors %}
                         {{ error }}
                     {% endfor %}
@@ -196,7 +196,7 @@
             </div>
             <div class="field">
                 <div class="control">
-                    {{ change_password_form.confirm_password(class="input", placeholder="Confirm Password") }}
+                    {{ change_password_form.confirm_password(class="col-12", placeholder="Confirm Password") }}
                     {% for error in change_password_form.confirm_password.errors %}
                         {{ error }}
                     {% endfor %}

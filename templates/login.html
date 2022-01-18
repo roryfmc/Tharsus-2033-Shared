@@ -15,7 +15,7 @@
         {% endwith %}
         <form class="row" method="POST">
             {{ form.csrf_token() }}
-            {{ form.username(class="col-12", placeholder="Username") }}
+            {{ form.username(class="col-12", placeholder="Email") }}
             {% for error in form.username.errors %}
                 {{ error }}
             {% endfor %}

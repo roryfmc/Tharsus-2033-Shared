@@ -56,8 +56,6 @@ button:hover {
 }
 
 
-
-
 body {
     margin: 0;
     padding: 0;
@@ -95,24 +93,11 @@ body {
     padding: 30px 30px;
 }
 
-
-.login-box3 {
-    width: 450px;
-    height: 450px;
-    background: black;
-    color: #fff;
-    top: 50%;
-    left: 80%;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    box-sizing: border-box;
-}
-
 h1 {
     margin: 0;
     padding: 0;
     text-align: center;
-    font-size: 40px;
+    font-size: 36px;
     font-weight: bold;
 }
 
@@ -120,7 +105,7 @@ h2 {
     margin: 0;
     padding: 0 0 20px;
     text-align: center;
-    font-size: 22px;
+    font-size: 18px;
 }
 
 .login-box2 p {
@@ -143,17 +128,15 @@ h2 {
     color: black;
     font-size: 14px;
     padding: 0 10px;
-
-
 }
 
 .login-box2 input[type="submit"] {
     border: none;
     outline: none;
-    height: 50px;
+    height: 40px;
     background: black;
     color: white;
-    font-size: 22px;
+    font-size: 18px;
     transition: all 0.3s ease 0s;
 }
 
@@ -166,7 +149,7 @@ h2 {
     margin: 0;
     padding: 0;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 20px;
     color: #4A5568;
 }
@@ -177,10 +160,10 @@ h2 {
 
 .login-box2 input[name="register"] {
     border: solid 1px black;
-    height: 50px;
+    height: 40px;
     background: transparent;
     color: black;
-    font-size: 22px;
+    font-size: 18px;
     transition: all 0.3s ease 0s;
 }
 

@@ -91,7 +91,7 @@
     }
 </style>
 
-<h3 class="title">Accounts Page</h3>
+<h3 class="title"></h3>
 <div class="columns">
     <div class="column is-2"></div>
 
@@ -156,7 +156,7 @@
 
     <div class="column is-4 is-offset-4">
         <div class="box">
-            Change Password
+            <h2>Change Password</h2>
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
                     <div class="notification is-danger">
@@ -164,11 +164,11 @@
                     </div>
                 {% endif %}
             {% endwith %}
-                <form method="POST">
+                <form class="row" method="POST">
                     <div class="field">
                         {{ form.csrf_token() }}
                         <div class="control">
-                            {{ form.old_password(class="input", placeholder="Old Password") }}
+                            {{ form.old_password(class="col-12", placeholder="Old Password") }}
                             {% for error in form.old_password.errors %}
                                 {{ error }}
                             {% endfor %}
@@ -176,7 +176,7 @@
                     </div>
                     <div class="field">
                         <div class="control">
-                            {{ form.password(class="input", placeholder="Password") }}
+                            {{ form.password(class="col-12", placeholder="Password") }}
                             {% for error in form.password.errors %}
                                 {{ error }}
                             {% endfor %}
@@ -184,7 +184,7 @@
                     </div>
                      <div class="field">
                         <div class="control">
-                            {{ form.confirm_password(class="input", placeholder="Confirm Password") }}
+                            {{ form.confirm_password(class="col-12", placeholder="Confirm Password") }}
                             {% for error in form.confirm_password.errors %}
                                 {{ error }}
                             {% endfor %}

@@ -22,7 +22,7 @@
             {% for error in form.password.errors %}
                 {{ error }}
             {% endfor %}
-            {{ form.confirm_password(class="input", placeholder="Confirm Password") }}
+            {{ form.confirm_password(placeholder="Confirm Password") }}
             {% for error in form.confirm_password.errors %}
                 {{ error }}
             {% endfor %}
