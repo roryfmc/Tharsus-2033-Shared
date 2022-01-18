@@ -40,7 +40,7 @@ def search():
 
             return redirect(url_for('search.search_result'))
 
-    return render_template('search.html', form=form, search=search_object)
+    return render_template('search.html', form=form, search=search_object, history=[1,2,3,4,5,6,7])
 
 
 @search_blueprint.route('/search_result')
@@ -55,7 +55,7 @@ def search_result():
     return render_template("search_result.html", search_results=search_object.parts)
 
 
-@search_blueprint.route('/part/<part_count>')
+@search_blueprint.route('/part/<part_count>', methods=['GET'])
 def part(part_count):
     """This function generates the part page for the flask webapp.
     """
@@ -84,3 +84,17 @@ def export():
         sheets[search_object.parts[i].name] = sheet
 
     return excel.make_response_from_book_dict(sheets, 'xls', file_name="export_search")
+
+
+@search_blueprint.route('/search_history/<history_count>', methods=['GET'])
+def search_history(history_count):  # pylint: disable=unused-argument
+    """This function passes the chosen search history into the search form
+    on the search page.
+    """
+    form = SearchForm()
+    search_object = Search()
+
+    # Get history and put it into search object
+
+    return render_template('search.html', form=form, search=search_object,
+                           history=[1, 2, 3, 4, 5, 6, 7])

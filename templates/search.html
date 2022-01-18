@@ -63,9 +63,23 @@
             margin-bottom: 0!important;
         }
 
+        .search-history {
+            height: 400px;
+            max-height: 400px;
+            overflow: auto;
+        }
+
+        .history {
+            color: #0d6efd;
+        }
+
+        .history:hover {
+            text-decoration: underline;
+        }
 
     </style>
     <h3 class="title">Search</h3>
+    <br>
     <div class="columns">
         <div class="column is-one-quarter"></div>
         <div class="column is-half box">
@@ -120,22 +134,22 @@
                                 {% endfor %}
                             {% else %}
                                 <tr class="row columns form-row">
-                                <td class="column is-7">
-                                    <dd>
-                                        <input class="input is-rounded" id="parts-0-part_name" name="parts-0-part_name" required type="text" value="" placeholder="Part Name">
-                                    </dd>
-                                </td>
-                                <td class="column is-3">
-                                    <dd>
-                                        <input class="input is-rounded clear" id="parts-0-quantity" name="parts-0-quantity" required type="number" value="" placeholder="Quantity">
-                                    </dd>
-                                </td>
-                                <td class="column is-2 form-button-parent">
-                                    <dd>
-                                        <span class="remove button is-danger form-button">Remove</span>
-                                    </dd>
-                                </td>
-                            </tr>
+                                    <td class="column is-7">
+                                        <dd>
+                                            <input class="input is-rounded" id="parts-0-part_name" name="parts-0-part_name" required type="text" value="" placeholder="Part Name">
+                                        </dd>
+                                    </td>
+                                    <td class="column is-3">
+                                        <dd>
+                                            <input class="input is-rounded clear" id="parts-0-quantity" name="parts-0-quantity" required type="number" value="" placeholder="Quantity">
+                                        </dd>
+                                    </td>
+                                    <td class="column is-2 form-button-parent">
+                                        <dd>
+                                            <span class="remove button is-danger form-button">Remove</span>
+                                        </dd>
+                                    </td>
+                                </tr>
                             {% endif %}
                         </tbody>
                     </table>
@@ -151,5 +165,29 @@
             </form>
         </div>
         <div class="column"></div>
+    </div>
+    <br>
+    <div class="columns">
+        <div class="column is-4"></div>
+        <div class="column is-4 box search-history">
+            <table class="table is-striped is-hoverable">
+                <thead>
+                    <tr>
+                        <th>
+                            <h2>Search History</h2>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in history %}
+                        <tr>
+                            <td>
+                                <a href="#" class="history">{{ result }}</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 {% endblock %}
