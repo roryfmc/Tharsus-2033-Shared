@@ -1,7 +1,7 @@
 """This module contains all the functions used by the flask application to GET or POST data
 for the user functionality."""
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, login_required
 from werkzeug.security import check_password_hash
 from users.form import RegisterForm, LoginForm, ChangePassword
 from database.models import WhitelistedEmail, User
@@ -13,6 +13,7 @@ users_blueprint = Blueprint('users', __name__, template_folder='templates')
 
 # HOME PAGE VIEW
 @users_blueprint.route('/', methods=['GET', 'POST'])
+@login_required
 def index():
     """This function generates the index page for the flask webapp,
     which redirects to the search page.
@@ -34,12 +35,13 @@ def login():
 
             return render_template('login.html', form=form)
         login_user(user)
-        return accounts()
+        return redirect(url_for('users.accounts'))
 
     return render_template('login.html', form=form)
 
 
 @users_blueprint.route('/accounts', methods=['GET', 'POST'])
+@login_required
 def accounts():
     """This function generates the accounts page for the flask webapp.
     """
@@ -76,6 +78,7 @@ def register():
 
 
 @users_blueprint.route('/logout')
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('users.index'))

@@ -1,6 +1,7 @@
 """This module contains the functions used by the flask application to GET or POST data
 for the admin functionality."""
 from flask import Blueprint, render_template, flash
+from flask_login import login_required
 from admin.forms import WhitelistForm, UserForm, ChangePasswordForm
 from database.models import WhitelistedEmail, User
 from database.add import add_whitelisted_email
@@ -11,6 +12,7 @@ admin_blueprint = Blueprint('admin', __name__, template_folder='templates')
 
 
 @admin_blueprint.route('/admin', methods=['GET', 'POST'])
+@login_required
 def admin():
     """This function generates the admin page for the flask webapp.
     """

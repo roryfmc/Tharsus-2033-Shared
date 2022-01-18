@@ -3,6 +3,7 @@ the search and search_result webpages.
 """
 import flask_excel as excel
 from flask import Blueprint, render_template, session, redirect, url_for
+from flask_login import login_required
 from search_function.forms import SearchForm
 from search_function.search import string_to_search_obj, search_form_to_obj, search_obj_to_json
 from search_function.objects import Search
@@ -12,6 +13,7 @@ search_blueprint = Blueprint('search', __name__, template_folder='templates')
 
 
 @search_blueprint.route('/search', methods=['GET', 'POST'])
+@login_required
 def search():
     """This function generates the search page for the flask webapp.
     """
@@ -44,6 +46,7 @@ def search():
 
 
 @search_blueprint.route('/search_result')
+@login_required
 def search_result():
     """This function generates the search result page for the flask webapp.
     """
@@ -56,6 +59,7 @@ def search_result():
 
 
 @search_blueprint.route('/part/<part_count>', methods=['GET'])
+@login_required
 def part(part_count):
     """This function generates the part page for the flask webapp.
     """
@@ -66,6 +70,7 @@ def part(part_count):
 
 
 @search_blueprint.route('/export', methods=['GET'])
+@login_required
 def export():
     """This function creates an excel file containing all of the part data
     and exports it to the user.
@@ -87,6 +92,7 @@ def export():
 
 
 @search_blueprint.route('/search_history/<history_count>', methods=['GET'])
+@login_required
 def search_history(history_count):  # pylint: disable=unused-argument
     """This function passes the chosen search history into the search form
     on the search page.

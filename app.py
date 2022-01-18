@@ -17,7 +17,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
 app.config['SESSION_TYPE'] = "filesystem"
-app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(hours=24)
+app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(hours=1)
 Session(app)
 db = SQLAlchemy(app)
 
