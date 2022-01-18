@@ -65,24 +65,12 @@ body {
 
 }
 
-.login-box {
-    width: 400px;
-    height: 400px;
-    background: black;
-    color: #fff;
-    top: 50%;
-    left: 50%;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    box-sizing: border-box;
-}
-
-
 .login-box2 {
     width: 400px;
     height: 400px;
     border-top: 1px solid #6070DE;
     border-left: 1px solid #6070DE;
+    box-shadow: 10px 10px 0 black;
     background: white;
     color: black;
     top: 50%;
