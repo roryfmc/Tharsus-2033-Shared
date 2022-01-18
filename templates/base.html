@@ -15,12 +15,19 @@
     <img class="logo" src="assets/img/Logo.png" alt="logo">
     <nav>
       <ul class="nav__links">
-          <li><a href="{{ url_for('search.search')}}">Home</a></li>
+          {% if current_user.is_authenticated %}
+          <li><a href="{{ url_for('search.search')}}">Search</a></li>
           <li><a href="{{ url_for('users.accounts')}}">Account</a></li>
+          {% else %}
           <li><a href="{{ url_for('users.login')}}">Sign in</a></li>
           <li><a href="{{ url_for('users.register')}}">Register</a></li>
-          <li><a href="{{ url_for('admin.admin')}}">Admin</a></li>
+          {% endif %}}
+          {% if current_user.is_authenticated %}
+            {% if current_user.role == 'admin' %}
+            <li><a href="{{ url_for('admin.admin')}}">Admin</a></li>
+            {% endif %}
           <li><a href="{{ url_for('users.logout')}}">Sign out</a></li>
+          {% endif %}
       </ul>
     </nav>
     <a class="cta" href="#"><button>Help</button></a>
