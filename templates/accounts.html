@@ -60,19 +60,21 @@
         border-top: 1px solid #6070DE;
     }
 
-    body {
-    margin: 0;
-    padding: 0;
-    background-size: cover;
-    background: white center;
-    font-family: "Roboto Thin", sans-serif;
+    .input::placeholder {
+        color: grey;
+        font-size: 14px;
+    }
+
+    .field {
+        margin-bottom: 20px;
+        padding: 0 30px;
     }
 
     .card {
         margin: 0;
         padding: 0 15px;
         border-radius: 0;
-        box-shadow: none;
+        box-shadow: 10px 10px 0 black;
         border: none;
         border-top: 1px solid #6070DE;
         border-left: 1px solid #6070DE;
@@ -81,7 +83,7 @@
     .box {
         padding: 0 40px;
         border-radius: 0;
-        box-shadow: none;
+        box-shadow: 10px 10px 0 black;
         border: none;
         border-top: 1px solid #6070DE;
         border-left: 1px solid #6070DE;
@@ -251,8 +253,10 @@
                             {% endfor %}
                         </div>
                     </div>
-                    <div>
-                        {{ form.submit(class="col-12 button") }}
+                    <div class="field">
+                        <div class="control">
+                            {{ form.submit(class="col-12 button") }}
+                        </div>
                     </div>
                 </form>
         </div>
