@@ -86,31 +86,22 @@
         display: block!important;
     }
 
-    .error {
-        background-color: red;
-        color: white;
-        text-align: center;
-    }
-
-    .info {
-        background-color: green;
-        color: white;
-        text-align: center;
-    }
-
 </style>
 
-
-
-
-<h3 class="title is-3">Admin Page</h3>
 <div class="column is-2 is-offset-5">
+    <h3 class="title is-3">Admin Page</h3>
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category, message in messages %}
-                <div class="box {{ category }}">
-                    {{ message }}
-                </div>
+                {% if category == 'error' %}
+                    <div class="notification is-danger">
+                        {{ message }}
+                    </div>
+                {% elif category == 'info' %}
+                    <div class="notification is-primary">
+                        {{ message }}
+                    </div>
+                {% endif %}
             {% endfor %}
         {% endif %}
     {% endwith %}
