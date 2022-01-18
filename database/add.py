@@ -87,10 +87,10 @@ def add_part_search(user_id, search_object):
     :param user_id: The user who is searching for the part
     :param search_object: The Search object containing all of the parts being searched
     """
-    dt = datetime.now()
+    date_time = datetime.now()
     for part in search_object.parts:
         part_search = PartSearch(user_id=user_id, part_id=part.name,
-                                 quantity=part.quantity, datetime=dt)
+                                 quantity=part.quantity, datetime=date_time)
 
         db.session.add(part_search)
 

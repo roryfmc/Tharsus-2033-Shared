@@ -5,11 +5,10 @@ import flask_excel as excel
 from flask import Blueprint, render_template, session, redirect, url_for
 from flask_login import login_required, current_user
 from search_function.forms import SearchForm
-from search_function.search import string_to_search_obj, search_form_to_obj, search_obj_to_json, sort_search_history,\
-    get_specific_search_history
-from search_function.objects import Search
+from search_function.search import string_to_search_obj, search_form_to_obj,\
+    search_obj_to_json, sort_search_history, get_specific_search_history
+from search_function.objects import Search, Part
 from webscrape.findchips import search_for_parts
-from search_function.objects import Part
 from database.add import add_part_search, add_favourite_supplier, add_blacklisted_supplier
 from database.models import PartSearch, FavouriteSupplier, BlacklistedSupplier
 
@@ -49,9 +48,10 @@ def search():
 
             return redirect(url_for('search.search_result'))
 
-    search_history = PartSearch.query.filter_by(user_id=current_user.id).order_by(PartSearch.datetime.desc()).all()
-    if search_history:
-        history = sort_search_history(search_history)
+    search_history_list = PartSearch.query.filter_by(user_id=current_user.id)\
+        .order_by(PartSearch.datetime.desc()).all()
+    if search_history_list:
+        history = sort_search_history(search_history_list)
     else:
         history = []
 
@@ -113,11 +113,12 @@ def search_history(history_count):
     form = SearchForm()
     search_object = Search()
 
-    search_history = PartSearch.query.filter_by(user_id=current_user.id).order_by(PartSearch.datetime.desc()).all()
+    search_history_list = PartSearch.query.filter_by(user_id=current_user.id)\
+        .order_by(PartSearch.datetime.desc()).all()
 
-    if search_history:
-        history = sort_search_history(search_history)
-        form_history = get_specific_search_history(search_history, history_count)
+    if search_history_list:
+        history = sort_search_history(search_history_list)
+        form_history = get_specific_search_history(search_history_list, history_count)
 
         for part_history in form_history:
             new_part = Part(part_history[0], part_history[1])
@@ -132,7 +133,9 @@ def search_history(history_count):
 @search_blueprint.route('/favourite/<supplier>', methods=['GET'])
 @login_required
 def favourite_supplier(supplier):
-    f_supplier = FavouriteSupplier.query.filter_by(user_id=current_user.id).filter_by(supplier_name=supplier).first()
+    """This function takes the supplier name and adds it to the user's favourites"""
+    f_supplier = FavouriteSupplier.query.filter_by(user_id=current_user.id)\
+        .filter_by(supplier_name=supplier).first()
 
     if not f_supplier:
         add_favourite_supplier(current_user.id, supplier)
@@ -143,7 +146,9 @@ def favourite_supplier(supplier):
 @search_blueprint.route('/blacklist/<supplier>', methods=['GET'])
 @login_required
 def blacklist_supplier(supplier):
-    b_supplier = BlacklistedSupplier.query.filter_by(user_id=current_user.id).filter_by(supplier_name=supplier).first()
+    """This function takes the supplier name and adds it to the user's blacklist"""
+    b_supplier = BlacklistedSupplier.query.filter_by(user_id=current_user.id)\
+        .filter_by(supplier_name=supplier).first()
 
     if not b_supplier:
         add_blacklisted_supplier(current_user.id, supplier)

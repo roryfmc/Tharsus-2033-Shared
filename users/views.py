@@ -1,6 +1,6 @@
 """This module contains all the functions used by the flask application to GET or POST data
 for the user functionality."""
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, flash, redirect, url_for
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash
 from users.form import RegisterForm, LoginForm, ChangePassword
@@ -14,6 +14,7 @@ users_blueprint = Blueprint('users', __name__, template_folder='templates')
 
 
 def get_favourite_suppliers():
+    """This function gets a list of all the user's favourite suppliers"""
     supplier_objects = FavouriteSupplier.query.filter_by(user_id=current_user.id).all()
     suppliers = []
 
@@ -24,6 +25,7 @@ def get_favourite_suppliers():
 
 
 def get_blacklisted_suppliers():
+    """This function gets a list of all the user's blacklisted suppliers"""
     supplier_objects = BlacklistedSupplier.query.filter_by(user_id=current_user.id).all()
     suppliers = []
 
@@ -88,7 +90,8 @@ def register():
         whitelisted_email = WhitelistedEmail.query.filter_by(email=form.username.data).first()
 
         if not whitelisted_email:
-            flash("This email address has not been whitelisted. Please contact the system administrator", 'error')
+            flash("This email address has not been whitelisted. "
+                  "Please contact the system administrator", 'error')
         else:
             if user:
                 flash('An account with this email address already exists', 'error')
@@ -102,6 +105,7 @@ def register():
 @users_blueprint.route('/logout')
 @login_required
 def logout():
+    """This function logs the current user out"""
     logout_user()
     return redirect(url_for('users.index'))
 
@@ -109,6 +113,7 @@ def logout():
 @users_blueprint.route('/remove_favourite/<supplier>', methods=['GET'])
 @login_required
 def remove_f_supplier(supplier):
+    """This function takes the supplier name and removes it from the user's favourites"""
     remove_favourite_supplier(current_user.id, supplier)
     return accounts()
 
@@ -116,6 +121,6 @@ def remove_f_supplier(supplier):
 @users_blueprint.route('/remove_blacklist/<supplier>', methods=['GET'])
 @login_required
 def remove_b_supplier(supplier):
+    """This function takes the supplier name and removes it from the user's blacklist"""
     remove_blacklisted_supplier(current_user.id, supplier)
     return accounts()
-

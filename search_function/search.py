@@ -79,44 +79,69 @@ def search_obj_to_json(search_object):
 
 
 def sort_search_history(part_search_list):
+    """This function returns all of the searches the user has made,
+    separating out the individual part searches into the grouped searches
+    which the user made.
+
+    :param part_search_list: The list of individual part searches
+    :return: A list of grouped searches the user has made
+    """
     history = []
     entry = ''
-    dt = part_search_list[0].datetime
+    # Set the date time to be equal to the first part search
+    date_time = part_search_list[0].datetime
 
+    # For each individual part search made
     for count, part_search in enumerate(part_search_list):
-        if part_search.datetime == dt:
+        # If the date time is the same, it must be part of the same search
+        if part_search.datetime == date_time:
+            # Add it to the string with correct formatting
             if count == 0:
                 entry = entry + part_search.part_id
             else:
                 entry = entry + ", " + part_search.part_id
+        # If it is not part of the same search (different date time)
         else:
+            # Add the previous search to the list of searches
             history.append(entry)
+            # Restart the string with the new part search
             entry = part_search.part_id
-            dt = part_search.datetime
+            # Set the date time to equal the new part search
+            date_time = part_search.datetime
 
+    # Add the last search to the list
     history.append(entry)
     return history
 
 
 def get_specific_search_history(part_search_list, list_count):
+    """This function gets the specific search from history
+    which the user wants to reuse.
+
+    :param part_search_list: The list of individual part searches
+    :param list_count: How many searches ago was the search the user would like to reuse
+    :return: A 2D list storing the part names and quantities from the search
+    """
     history = []
     entry = []
-    dt = part_search_list[0].datetime
+    date_time = part_search_list[0].datetime
+    # How many grouped searches have passed, starting the counter at 1
     dt_count = 1
 
     for part_search in part_search_list:
-        if dt != part_search.datetime:
+        # If the searches date time is different (it's part of a different search)
+        if date_time != part_search.datetime:
+            # A new grouped search has passed
             dt_count = dt_count + 1
-            dt = part_search.datetime
+            # Set the new date time
+            date_time = part_search.datetime
 
+        # If this is the correct grouped search
         if int(dt_count) == int(list_count):
+            # Store the data
             entry.append(part_search.part_id)
             entry.append(part_search.quantity)
             history.append(entry)
             entry = []
 
     return history
-
-
-
-

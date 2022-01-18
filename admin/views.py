@@ -15,7 +15,7 @@ admin_blueprint = Blueprint('admin', __name__, template_folder='templates')
 @admin_blueprint.route('/admin', methods=['GET', 'POST'])
 @login_required
 @requires_roles('admin')
-def admin():
+def admin():  # pylint: disable=too-many-branches
     """This function generates the admin page for the flask webapp.
     """
     whitelist_form = WhitelistForm()
