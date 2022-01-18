@@ -25,7 +25,7 @@ def add_whitelisted_email(email):
     """
     whitelisted_email = WhitelistedEmail(email)
 
-    db.session.add(email=whitelisted_email)
+    db.session.add(whitelisted_email)
     db.session.commit()
 
 

@@ -13,6 +13,7 @@ from flask_session import Session
 app = Flask(__name__, static_folder='templates/assets')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///stock_checker.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_ECHO'] = True
 app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
 app.config['SESSION_TYPE'] = "filesystem"
 app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(hours=24)

@@ -86,12 +86,35 @@
         display: block!important;
     }
 
+    .error {
+        background-color: red;
+        color: white;
+        text-align: center;
+    }
+
+    .info {
+        background-color: green;
+        color: white;
+        text-align: center;
+    }
+
 </style>
 
 
 
 
 <h3 class="title is-3">Admin Page</h3>
+<div class="column is-2 is-offset-5">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="box {{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
 <div class="columns">
     <div class="column is-2"></div>
 
@@ -181,30 +204,30 @@
                 {{ change_password_form.csrf_token() }}
                 <div class="control">
                     {{ change_password_form.p_username(class="input", placeholder="Email") }}
-                    {% for error in change_password_form.p_username.errors %}
-                        {{ error }}
-                    {% endfor %}
                 </div>
             </div>
             <div class="field">
                 <div class="control">
                     {{ change_password_form.password(class="input", placeholder="Password") }}
-                    {% for error in change_password_form.password.errors %}
-                        {{ error }}
-                    {% endfor %}
                 </div>
             </div>
             <div class="field">
                 <div class="control">
                     {{ change_password_form.confirm_password(class="input", placeholder="Confirm Password") }}
-                    {% for error in change_password_form.confirm_password.errors %}
-                        {{ error }}
-                    {% endfor %}
                 </div>
             </div>
             <div class="field">
                 {{ change_password_form.p_submit(class="button is-primary is-centered") }}
             </div>
+            {% for error in change_password_form.p_username.errors %}
+                {{ error }}
+            {% endfor %}
+            {% for error in change_password_form.password.errors %}
+                {{ error }}
+            {% endfor %}
+            {% for error in change_password_form.confirm_password.errors %}
+                {{ error }}
+            {% endfor %}
         </form>
     </div>
 </div>
