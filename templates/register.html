@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="login-box">
+    <div class="login-box2">
+        <h1>Register</h1>
+        <h2>Create a new account</h2>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="notification is-danger">
+                    {{ messages[0] }}. Go to <a href="{{ url_for('login.html') }}">login page</a>.
+                </div>
+            {% endif %}
+        {% endwith %}
+        <form method="POST">
+            {{ form.username(placeholder="Email") }}
+            {% for error in form.username.errors %}
+                {{ error }}
+            {% endfor %}
+            {{ form.password(placeholder="Password") }}
+            {% for error in form.password.errors %}
+                {{ error }}
+            {% endfor %}
+            {{ form.confirm_password(class="input", placeholder="Confirm Password") }}
+            {% for error in form.confirm_password.errors %}
+                {{ error }}
+            {% endfor %}
+            {{ form.submit(value="Register") }}
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

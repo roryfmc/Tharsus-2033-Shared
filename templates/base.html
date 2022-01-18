@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Stock and Price Checker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+  <header class="bg-black">
+    <img class="logo" src="assets/img/Logo.png" alt="logo">
+    <nav>
+      <ul class="nav__links">
+          <li><a href="{{ url_for('search.search')}}">Home</a></li>
+          <li><a href="{{ url_for('users.accounts')}}">Account</a></li>
+          <li><a href="{{ url_for('users.login')}}">Sign in</a></li>
+          <li><a href="{{ url_for('users.register')}}">Register</a></li>
+          <li><a href="{{ url_for('admin.admin')}}">Admin</a></li>
+      </ul>
+    </nav>
+    <a class="cta" href="#"><button>Help</button></a>
+  </header>
+
+  {% block content %}
+  {% endblock %}
+
+<script src="/assets/bootstrap/js/bootstrap.js"></script>
+</body>
+
+</html>
