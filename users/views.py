@@ -35,7 +35,7 @@ def login():
 
             return render_template('login.html', form=form)
         login_user(user)
-        return redirect(url_for('users.accounts'))
+        return redirect(url_for('search.search'))
 
     return render_template('login.html', form=form)
 

@@ -7,12 +7,14 @@ from database.models import WhitelistedEmail, User
 from database.add import add_whitelisted_email
 from database.remove import remove_whitelisted_email, remove_user
 from database.update import change_password
+from app import requires_roles
 
 admin_blueprint = Blueprint('admin', __name__, template_folder='templates')
 
 
 @admin_blueprint.route('/admin', methods=['GET', 'POST'])
 @login_required
+@requires_roles('admin')
 def admin():
     """This function generates the admin page for the flask webapp.
     """

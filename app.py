@@ -4,22 +4,48 @@ import datetime
 import socket
 from os import environ
 from sshtunnel import SSHTunnelForwarder
+from functools import wraps
 import flask_excel as excel
 from flask_sqlalchemy import SQLAlchemy
-from flask import Flask
+from flask import Flask, render_template
 from flask_session import Session
-from flask_login import LoginManager
+from flask_login import LoginManager, current_user
 
 # CONFIG
 app = Flask(__name__, static_folder='templates/assets')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///stock_checker.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_ECHO'] = True
 app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
 app.config['SESSION_TYPE'] = "filesystem"
 app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(hours=1)
 Session(app)
 db = SQLAlchemy(app)
+
+
+@app.errorhandler(403)
+def page_forbidden(error):
+    return render_template('403.html'), 403
+
+
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('404.html'), 404
+
+
+@app.errorhandler(500)
+def internal_error(error):
+    return render_template('500.html'), 500
+
+
+def requires_roles(*roles):
+    def wrapper(f):
+        @wraps(f)
+        def wrapped(*args, **kwargs):
+            if current_user.role not in roles:
+                return render_template('403.html')
+            return f(*args, **kwargs)
+        return wrapped
+    return wrapper
 
 
 def create_app():
