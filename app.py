@@ -8,6 +8,7 @@ import flask_excel as excel
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
 from flask_session import Session
+from flask_login import LoginManager
 
 # CONFIG
 app = Flask(__name__, static_folder='templates/assets')
@@ -58,5 +59,15 @@ if __name__ == "__main__":
     free_socket.close()
 
     app = create_app()
+
+    login_manager = LoginManager()
+    login_manager.login_view = 'users.login'
+    login_manager.init_app(app)
+
+    from database.models import User # pylint: disable=import-outside-toplevel
+
+    @login_manager.user_loader
+    def load_user(id):
+        return User.query.get(int(id))
 
     app.run(host=MY_HOST, port=free_port, debug=True)

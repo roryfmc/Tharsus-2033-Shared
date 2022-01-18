@@ -2,10 +2,11 @@
 These models are used when something is added to the database.
 """
 from werkzeug.security import generate_password_hash
+from flask_login import UserMixin
 from app import db
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     """This model represents a users in the database.
     It should be called when you are handling users
     from the database.

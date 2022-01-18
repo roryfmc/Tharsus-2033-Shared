@@ -1,6 +1,7 @@
 """This module contains all the functions used by the flask application to GET or POST data
 for the user functionality."""
-from flask import Blueprint, render_template, request, flash
+from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask_login import login_user, logout_user
 from werkzeug.security import check_password_hash
 from users.form import RegisterForm, LoginForm, ChangePassword
 from database.models import WhitelistedEmail, User
@@ -32,6 +33,7 @@ def login():
             flash("Please check your login details and try again", 'error')
 
             return render_template('login.html', form=form)
+        login_user(user)
         return accounts()
 
     return render_template('login.html', form=form)
@@ -68,6 +70,12 @@ def register():
                 flash('An account with this email address already exists', 'error')
             else:
                 add_user(form.username.data, form.password.data)
-                return accounts()
+                return redirect(url_for('users.login'))
 
     return render_template('register.html', form=form)
+
+
+@users_blueprint.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('users.index'))
