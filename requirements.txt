@@ -18,3 +18,5 @@ Flask-SQLAlchemy
 sshtunnel
 Werkzeug
 email-validator
+Flask-Login
+lxml

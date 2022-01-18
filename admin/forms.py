@@ -32,7 +32,6 @@ class ChangePasswordForm(FlaskForm):
 
     def validate_password(self, password):  # pylint: disable=unused-argument
         """This function checks that a password given into the register form is complex enough"""
-        regex = re.compile(r'(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*["*?!^+%&/()=}{$#@<>"])')
+        regex = re.compile(r'(?=.*\d)(?=.*[A-Z])')
         if not regex.match(self.password.data):
-            raise ValidationError("Password must contain at least 1 digit, 1 lowercase letter, "
-                                  "1 uppercase letter and 1 special character.")
+            raise ValidationError("Password must contain at least 1 digit and 1 uppercase letter.")
