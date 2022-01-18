@@ -63,15 +63,22 @@
             border-left: 1px solid #6070DE;
         }
 
+        .card-header-title {
+        display: block!important;
+        font-size: 23px;
+        text-align: center;
+        font-weight: bold;
+        color: black;
+        font-family: "Roboto Thin", sans-serif;
+    }
+
         .button {
-            flex-grow: 0!important;
             border-radius: 0;
             background: black;
             color: white;
         }
 
         .button:hover {
-            flex-grow: 0!important;
             background: #6070DE;
             color: white;
             border-radius: 0;
@@ -135,7 +142,7 @@
     <div class="columns">
         <div class="column is-one-quarter"></div>
         <div class="column is-half box">
-            <form method="POST">
+            <form class="row" method="POST">
                 {{ form.csrf_token }}
                 <div class="repeat">
                     <table class="wrapper" width="100%">
@@ -226,7 +233,9 @@
                 <thead>
                     <tr>
                         <th>
-                            <h2>Search History</h2>
+                            <p class="card-header-title">
+                                Search History
+                            </p>
                         </th>
                     </tr>
                 </thead>
