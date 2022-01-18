@@ -2,7 +2,6 @@
 
 {% block content %}
 
-<div class="login-box">
     <div class="login-box2">
         <h1>Login</h1>
         <h2>Sign into your account</h2>
@@ -15,20 +14,19 @@
         {% endwith %}
         <form class="row" method="POST">
             {{ form.csrf_token() }}
-            {{ form.username(class="col-12", placeholder="Email") }}
+            {{ form.username(placeholder="Email") }}
             {% for error in form.username.errors %}
                 {{ error }}
             {% endfor %}
-            {{ form.password(class="col-12", placeholder="Password") }}
+            {{ form.password(placeholder="Password") }}
             {% for error in form.password.errors %}
                 {{ error }}
             {% endfor %}
-            {{ form.submit(class="col-12") }}
+            {{ form.submit(value="Login") }}
             <a class="mx-auto col-auto" href="#">Forgot your password?</a><br>
             <input class="col-12 mt-2" type="submit" name="register" value="Register New Account">
         </form>
 
     </div>
-</div>
 
 {% endblock %}
