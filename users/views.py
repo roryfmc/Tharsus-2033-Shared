@@ -1,7 +1,10 @@
 """This module contains all the functions used by the flask application to GET or POST data
 for the user functionality."""
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, flash
+from werkzeug.security import check_password_hash
 from users.form import RegisterForm, LoginForm, ChangePassword
+from database.models import WhitelistedEmail, User
+from database.add import add_user
 from search_function.views import search
 
 users_blueprint = Blueprint('users', __name__, template_folder='templates')
@@ -25,8 +28,12 @@ def login():
     form = LoginForm()
 
     if form.validate_on_submit():
-        print(request.form.get('username'))
-        print(request.form.get('password'))
+        user = User.query.filter_by(username=form.username.data).first()
+
+        if not user or not check_password_hash(user.password, form.password.data):
+            flash("Please check your login details and try again")
+
+            return render_template('login.html', form=form)
         return accounts()
 
     return render_template('login.html', form=form)
@@ -53,8 +60,15 @@ def register():
     form = RegisterForm()
 
     if form.validate_on_submit():
-        print(request.form.get('username'))
-        print(request.form.get('password'))
+        user = User.query.filter_by(username=form.username.data).first()
+
+        if user:
+            flash('An account with this email address already exists')
+            return render_template('register.html', form=form)
+
+        print(form.username.data)
+        print(form.password.data)
+        add_user(form.username.data, form.password.data)
         return accounts()
 
     return render_template('register.html', form=form)

@@ -192,6 +192,8 @@ def init_db():
     """
     db.drop_all()
     db.create_all()
-    new_user = User(username='user1@test.com', password='password', role='user')
+    new_whitelisted_email = WhitelistedEmail(email='admin@test.com')
+    new_user = User(username='admin@test.com', password='password', role='admin')
+    db.session.add(new_whitelisted_email)
     db.session.add(new_user)
     db.session.commit()

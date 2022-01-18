@@ -1,6 +1,6 @@
 """This module contains the functions to add each item to the database."""
 import datetime
-from models import User, WhitelistedEmail, PartPrice, DesiredPart,\
+from database.models import User, WhitelistedEmail, PartPrice, DesiredPart,\
     FavouriteSupplier, BlacklistedSupplier, PartSearch
 from app import db
 
