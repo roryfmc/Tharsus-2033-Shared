@@ -7,6 +7,7 @@ from users.form import RegisterForm, LoginForm, ChangePassword
 from database.models import WhitelistedEmail, User, FavouriteSupplier, BlacklistedSupplier
 from database.add import add_user
 from database.update import change_password_by_id
+from database.remove import remove_favourite_supplier, remove_blacklisted_supplier
 from search_function.views import search
 
 users_blueprint = Blueprint('users', __name__, template_folder='templates')
@@ -103,3 +104,18 @@ def register():
 def logout():
     logout_user()
     return redirect(url_for('users.index'))
+
+
+@users_blueprint.route('/remove_favourite/<supplier>', methods=['GET'])
+@login_required
+def remove_f_supplier(supplier):
+    remove_favourite_supplier(current_user.id, supplier)
+    return accounts()
+
+
+@users_blueprint.route('/remove_blacklist/<supplier>', methods=['GET'])
+@login_required
+def remove_b_supplier(supplier):
+    remove_blacklisted_supplier(current_user.id, supplier)
+    return accounts()
+

@@ -110,7 +110,7 @@
                             <div class="level-item has-text-centered">
                                 {{ favourite_supplier }}
                             </div>
-                            <button class="button is-danger level-item hide">Remove</button>
+                            <button onclick="window.location.href='/remove_favourite/{{ favourite_supplier }}';" class="button is-danger level-item hide">Remove</button>
                         </div>
                     {% endfor %}
                 </div>
@@ -139,7 +139,7 @@
                             <div class="level-item has-text-centered">
                                 {{ blacklisted_supplier }}
                             </div>
-                            <button class="button is-danger level-item hide">Remove</button>
+                            <button onclick="window.location.href='/remove_blacklist/{{ blacklisted_supplier }}';" class="button is-danger level-item hide">Remove</button>
                         </div>
                     {% endfor %}
                 </div>

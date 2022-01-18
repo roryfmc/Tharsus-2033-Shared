@@ -10,8 +10,8 @@ from search_function.search import string_to_search_obj, search_form_to_obj, sea
 from search_function.objects import Search
 from webscrape.findchips import search_for_parts
 from search_function.objects import Part
-from database.add import add_part_search
-from database.models import PartSearch
+from database.add import add_part_search, add_favourite_supplier, add_blacklisted_supplier
+from database.models import PartSearch, FavouriteSupplier, BlacklistedSupplier
 
 search_blueprint = Blueprint('search', __name__, template_folder='templates')
 
@@ -106,7 +106,7 @@ def export():
 
 @search_blueprint.route('/search_history/<history_count>', methods=['GET'])
 @login_required
-def search_history(history_count):  # pylint: disable=unused-argument
+def search_history(history_count):
     """This function passes the chosen search history into the search form
     on the search page.
     """
@@ -127,3 +127,25 @@ def search_history(history_count):  # pylint: disable=unused-argument
 
     return render_template('search.html', form=form, search=search_object,
                            history=history)
+
+
+@search_blueprint.route('/favourite/<supplier>', methods=['GET'])
+@login_required
+def favourite_supplier(supplier):
+    f_supplier = FavouriteSupplier.query.filter_by(user_id=current_user.id).filter_by(supplier_name=supplier).first()
+
+    if not f_supplier:
+        add_favourite_supplier(current_user.id, supplier)
+
+    return search_result()
+
+
+@search_blueprint.route('/blacklist/<supplier>', methods=['GET'])
+@login_required
+def blacklist_supplier(supplier):
+    b_supplier = BlacklistedSupplier.query.filter_by(user_id=current_user.id).filter_by(supplier_name=supplier).first()
+
+    if not b_supplier:
+        add_blacklisted_supplier(current_user.id, supplier)
+
+    return search_result()
