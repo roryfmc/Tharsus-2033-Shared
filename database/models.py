@@ -195,4 +195,3 @@ def init_db():
     new_user = User(username='user1@test.com', password='password', role='user')
     db.session.add(new_user)
     db.session.commit()
-

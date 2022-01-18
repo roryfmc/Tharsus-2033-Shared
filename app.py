@@ -1,12 +1,13 @@
+"""This is the main file of the project, which should be ran.
+"""
 import datetime
 import socket
-import flask_excel as excel
-from flask import Flask, render_template
-from flask_sqlalchemy import SQLAlchemy
-from flask import Flask, render_template
-from flask_session import Session
-from sshtunnel import SSHTunnelForwarder
 from os import environ
+from sshtunnel import SSHTunnelForwarder
+import flask_excel as excel
+from flask_sqlalchemy import SQLAlchemy
+from flask import Flask
+from flask_session import Session
 
 # CONFIG
 app = Flask(__name__, static_folder='templates/assets')
@@ -21,10 +22,11 @@ db = SQLAlchemy(app)
 
 
 def create_app():
-
-    from users.views import users_blueprint
-    from search_function.views import search_blueprint
-    from admin.views import admin_blueprint
+    """This function creates the Flask application and registers the blueprints
+    """
+    from users.views import users_blueprint  # pylint: disable=import-outside-toplevel
+    from search_function.views import search_blueprint # pylint: disable=import-outside-toplevel
+    from admin.views import admin_blueprint # pylint: disable=import-outside-toplevel
 
     app.register_blueprint(admin_blueprint)
     app.register_blueprint(users_blueprint)
@@ -35,12 +37,16 @@ def create_app():
 
 
 def get_db_uri():
+    """This function creates the connection to the database through the university SSH
+
+    :return: The database URI
+    """
     server = SSHTunnelForwarder(('linux.cs.ncl.ac.uk', 22),
                                 ssh_username=environ['CSC_USER'], ssh_password=environ['CSC_PASS'],
                                 remote_bind_address=('cs-db.ncl.ac.uk', 3306))
     server.start()
-    return 'mysql+pymysql://csc2033_team45:{}@localhost:{}/csc2033_team45'\
-        .format(environ['DB_PASS'], server.local_bind_port)
+    return f'mysql+pymysql://csc2033_team45:{environ["DB_PASS"]}' \
+           f'@localhost:{server.local_bind_port}/csc2033_team45'
 
 
 if __name__ == "__main__":

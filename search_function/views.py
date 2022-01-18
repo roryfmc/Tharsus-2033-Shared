@@ -1,39 +1,20 @@
 """This module contains the functions called when the user enters
 the search and search_result webpages.
 """
-import random
-
-import flask_excel
 import flask_excel as excel
-import pyexcel
 from flask import Blueprint, render_template, session, redirect, url_for
 from search_function.forms import SearchForm
 from search_function.search import string_to_search_obj, search_form_to_obj, search_obj_to_json
-from search_function.objects import Search, Part, Supplier
+from search_function.objects import Search
 from webscrape.findchips import search_for_parts
-
-
-def setup():  # pylint: disable=missing-function-docstring
-    search_test = Search()
-    for _ in range(100):
-        part_test = Part(str(random.randint(3000000, 9999999)), 20)
-        search_test.parts.append(part_test)
-
-        for _ in range(random.randint(2,10)):
-
-            supplier_test = Supplier("Test Supplier")
-            supplier_test.stock = random.randint(5,250)
-            supplier_test.price = random.randint(1,10)
-            part_test.suppliers.append(supplier_test)
-
-    return search_test
-
 
 search_blueprint = Blueprint('search', __name__, template_folder='templates')
 
 
 @search_blueprint.route('/search', methods=['GET', 'POST'])
-def search():  # pylint: disable=missing-function-docstring
+def search():
+    """This function generates the search page for the flask webapp.
+    """
     form = SearchForm()
     search_object = Search()
 
@@ -63,7 +44,9 @@ def search():  # pylint: disable=missing-function-docstring
 
 
 @search_blueprint.route('/search_result')
-def search_result():  # pylint: disable=missing-function-docstring
+def search_result():
+    """This function generates the search result page for the flask webapp.
+    """
     if 'search' in session:
         search_object = string_to_search_obj(session['search'])
     else:
@@ -74,6 +57,8 @@ def search_result():  # pylint: disable=missing-function-docstring
 
 @search_blueprint.route('/part/<part_count>')
 def part(part_count):
+    """This function generates the part page for the flask webapp.
+    """
     search_object = string_to_search_obj(session['search'])
     part_object = search_object.parts[int(part_count)-1]
 
@@ -82,10 +67,13 @@ def part(part_count):
 
 @search_blueprint.route('/export', methods=['GET'])
 def export():
+    """This function creates an excel file containing all of the part data
+    and exports it to the user.
+    """
     search_object = string_to_search_obj(session['search'])
     sheets = {}
 
-    for i in range(len(search_object.parts)):
+    for i in enumerate(search_object.parts):
         column_titles = ["Name", "Stock", "Price"]
         sheet = [column_titles]
 

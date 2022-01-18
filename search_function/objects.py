@@ -7,9 +7,6 @@ These are used as data structures for the search functionality.
  which store the data on each supplier that has been searched for the part.
  """
 
-import copy
-import operator
-
 
 class Search:  # pylint: disable=too-few-public-methods
     """
@@ -55,33 +52,33 @@ class Part:
         self.suppliers = []
 
     def sort_suppliers(self):
-        """sort_suppliers() will sort the attribute suppliers by their quantity in stock,
-        then the price of the part.
+        """sort_suppliers() will sort the attribute suppliers so that only suppliers
+        with enough stock are kept. THey are then sorted by price.
 
-        If there are multiple suppliers which have more stock than the desired quantity,
-        it will favour the cheaper supplier.
-
-        If there are no suppliers with enough stock,
-        it will sort by the best wait times, then price.
-
-        If the user's favourite suppliers have enough stock,
-        they are pushed to the front of the list.
+        The user's blacklisted suppliers are also removed.
         """
+        # Return if the part has no suppliers
         if (len(self.suppliers)) == 0:
             return
 
-        suppliers = [supplier for supplier in self.suppliers if (supplier.stock > self.quantity) and supplier.price]
+        # Sorts supplier list so that it only contains suppliers with enough stock and a price
+        suppliers = [supplier for supplier in self.suppliers
+                     if (supplier.stock > self.quantity) and supplier.price]
 
         for supplier in suppliers:
-            print(supplier.price_dict)
-            for key in supplier.price_dict:
-                print(supplier.price_dict[key])
-                if self.quantity >= key:
-                    supplier.price = supplier.price_dict[key]
+            # For each stock starting with the biggest
+            for stock in supplier.price_dict:
+                # If the desired quantity is bigger than the chosen stock
+                if self.quantity >= stock:
+                    # This would be the price of the stock therefore set the price
+                    supplier.price = supplier.price_dict[stock]
                     break
+            # If the price is -1 (default value)
             if supplier.price == -1:
+                # Remove the supplier as it has no prices
                 suppliers.remove(supplier)
 
+        # Sort the suppliers by price (lowest first)
         self.suppliers = sorted(suppliers, key=lambda supplier: supplier.price, reverse=True)
 
     def find_combination(self):
@@ -104,23 +101,22 @@ class Supplier:  # pylint: disable=too-few-public-methods
 
     :ivar name: This is where the supplier name is stored.
     :type name: str
-    :ivar link: This is where the supplier's webpage link is stored.
-    :type link: str
     :ivar stock: This is where the supplier's quantity of stock is stored.
     :type stock: int
     :ivar price: This is where the price of the part is stored.
     :type price: float
-    :ivar wait_time: This is where the wait time until there is more stock is stored.
-    :type wait_time: datetime
+    :ivar price_dict: This is where the initial dictionary of prices is stored.
+    :type price_dict: dict
+    :ivar link: This is where the supplier's webpage link is stored.
+    :type link: str
     """
 
-    def __init__(self, name, stock, price=-1, price_dict={}, link=""):
+    def __init__(self, name, stock, price=-1, price_dict=None, link=""): # pylint: disable=too-many-arguments
         self.name = name
         self.link = link
         self.stock = stock
         self.price = price
         self.price_dict = price_dict
-        self.wait_time = None
 
     def __repr__(self):
         return self.name
