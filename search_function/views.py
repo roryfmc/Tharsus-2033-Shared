@@ -50,7 +50,10 @@ def search():
             return redirect(url_for('search.search_result'))
 
     search_history = PartSearch.query.filter_by(user_id=current_user.id).order_by(PartSearch.datetime.desc()).all()
-    history = sort_search_history(search_history)
+    if search_history:
+        history = sort_search_history(search_history)
+    else:
+        history = []
 
     return render_template('search.html', form=form, search=search_object, history=history)
 
@@ -111,12 +114,16 @@ def search_history(history_count):  # pylint: disable=unused-argument
     search_object = Search()
 
     search_history = PartSearch.query.filter_by(user_id=current_user.id).order_by(PartSearch.datetime.desc()).all()
-    history = sort_search_history(search_history)
-    form_history = get_specific_search_history(search_history, history_count)
 
-    for part_history in form_history:
-        new_part = Part(part_history[0], part_history[1])
-        search_object.parts.append(new_part)
+    if search_history:
+        history = sort_search_history(search_history)
+        form_history = get_specific_search_history(search_history, history_count)
+
+        for part_history in form_history:
+            new_part = Part(part_history[0], part_history[1])
+            search_object.parts.append(new_part)
+    else:
+        history = []
 
     return render_template('search.html', form=form, search=search_object,
                            history=history)
