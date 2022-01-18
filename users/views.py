@@ -1,14 +1,35 @@
 """This module contains all the functions used by the flask application to GET or POST data
 for the user functionality."""
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash
 from users.form import RegisterForm, LoginForm, ChangePassword
-from database.models import WhitelistedEmail, User
+from database.models import WhitelistedEmail, User, FavouriteSupplier, BlacklistedSupplier
 from database.add import add_user
+from database.update import change_password_by_id
 from search_function.views import search
 
 users_blueprint = Blueprint('users', __name__, template_folder='templates')
+
+
+def get_favourite_suppliers():
+    supplier_objects = FavouriteSupplier.query.filter_by(user_id=current_user.id).all()
+    suppliers = []
+
+    for supplier in supplier_objects:
+        suppliers.append(supplier.supplier_name)
+
+    return suppliers
+
+
+def get_blacklisted_suppliers():
+    supplier_objects = BlacklistedSupplier.query.filter_by(user_id=current_user.id).all()
+    suppliers = []
+
+    for supplier in supplier_objects:
+        suppliers.append(supplier.supplier_name)
+
+    return suppliers
 
 
 # HOME PAGE VIEW
@@ -48,11 +69,11 @@ def accounts():
     form = ChangePassword()
 
     if form.validate_on_submit():
-        print(request.form.get('old_password'))
-        print(request.form.get('password'))
+        change_password_by_id(current_user.id, form.password.data)
 
     return render_template('accounts.html', form=form,
-                           favourite_suppliers=[], blacklisted_suppliers=["hello"])
+                           favourite_suppliers=get_favourite_suppliers(),
+                           blacklisted_suppliers=get_blacklisted_suppliers())
 
 
 @users_blueprint.route('/register', methods=['GET', 'POST'])

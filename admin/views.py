@@ -6,7 +6,7 @@ from admin.forms import WhitelistForm, UserForm, ChangePasswordForm
 from database.models import WhitelistedEmail, User
 from database.add import add_whitelisted_email
 from database.remove import remove_whitelisted_email, remove_user
-from database.update import change_password
+from database.update import change_password_by_username
 from app import requires_roles
 
 admin_blueprint = Blueprint('admin', __name__, template_folder='templates')
@@ -66,7 +66,7 @@ def admin():
         if not user:
             flash("Can't change password. User does not exist", 'error')
         else:
-            change_password(email, password)
+            change_password_by_username(email, password)
             flash("Password changed", 'info')
 
     whitelist = []
