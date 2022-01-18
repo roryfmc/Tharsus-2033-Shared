@@ -2,7 +2,11 @@
 disable=import-error,
 	too-few-public-methods,
 	no-member,
-	undefined-variable
+	undefined-variable,
+	reimported,
+	import-outside-toplevel,
+	too-many-arguments,
+	duplicate-code
 
 [TYPECHECK]
 ignored-modules=flask_sqlalchemy
