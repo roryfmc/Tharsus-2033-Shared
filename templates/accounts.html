@@ -47,21 +47,69 @@
     }
 </script>
 <style>
+
+    .input[type="email"] {
+        border-radius: 0;
+        outline: none;
+        box-shadow: none;
+        font-size: 16px;
+        font-family: "Roboto Thin", sans-serif;
+    }
+
+    .input[type="email"]:hover {
+        border-top: 1px solid #6070DE;
+    }
+
+    body {
+    margin: 0;
+    padding: 0;
+    background-size: cover;
+    background: white center;
+    font-family: "Roboto Thin", sans-serif;
+    }
+
+    .card {
+        margin: 0;
+        padding: 0 15px;
+        border-radius: 0;
+        box-shadow: none;
+        border: none;
+        border-top: 1px solid #6070DE;
+        border-left: 1px solid #6070DE;
+    }
+
+    .box {
+        padding: 0 40px;
+        border-radius: 0;
+        box-shadow: none;
+        border: none;
+        border-top: 1px solid #6070DE;
+        border-left: 1px solid #6070DE;
+    }
+
     .card-header-title {
         display: block!important;
-        font-size: 2em;
+        font-size: 23px;
+        text-align: center;
+        font-weight: bold;
+        color: black;
+        font-family: "Roboto Thin", sans-serif;
+
     }
 
     .card-footer {
-        padding: 10px;
-        border-top: 1px solid rgba(167, 167, 167, 0.5);
+        padding: 15px;
+        border-top: 1px solid #6070DE;
     }
 
     .card-content {
         padding: 10px;
-        min-height: 350px;
-        max-height: 350px;
+        min-height: 300px;
+        max-height: 300px;
         overflow: auto;
+        color: black;
+        border-top: 1px solid #6070DE;
+        font-family: "Roboto Thin", sans-serif;
         font-size: 1.1em;
     }
 
@@ -76,6 +124,17 @@
 
     .button {
         flex-grow: 0!important;
+        border-radius: 0;
+        background: black;
+        color: white;
+    }
+
+    .button:hover {
+        flex-grow: 0!important;
+        background: #6070DE;
+        color: white;
+        border-radius: 0;
+        transition: all 0.6s ease 0s;
     }
 
     .hide {
@@ -98,7 +157,7 @@
     <div class="column is-3">
         <div class="card">
             <header class="card-header">
-                <p class="card-header-title ">
+                <p class="card-header-title">
                     Favourite Suppliers
                 </p>
             </header>
@@ -110,14 +169,14 @@
                             <div class="level-item has-text-centered">
                                 {{ favourite_supplier }}
                             </div>
-                            <button class="button is-danger level-item hide">Remove</button>
+                            <button class="button level-item hide">Remove</button>
                         </div>
                     {% endfor %}
                 </div>
             </div>
 
             <div class="card-footer">
-                <input class="input" type="text" oninput="liveSearchFavourite()" id="searchbox-favourite" placeholder="Find a supplier">
+                <input class="input" type="email" oninput="liveSearchFavourite()" id="searchbox-favourite" placeholder="Find a supplier">
             </div>
         </div>
     </div>
@@ -128,7 +187,7 @@
         <div class="card">
             <header class="card-header">
                 <p class="card-header-title ">
-                    Blacklisted Suppliers
+                    Blacklist Suppliers
                 </p>
             </header>
 
@@ -139,14 +198,14 @@
                             <div class="level-item has-text-centered">
                                 {{ blacklisted_supplier }}
                             </div>
-                            <button class="button is-danger level-item hide">Remove</button>
+                            <button class="button level-item hide">Remove</button>
                         </div>
                     {% endfor %}
                 </div>
             </div>
 
             <div class="card-footer">
-                <input class="input" type="text" oninput="liveSearchBlacklisted()" id="searchbox-blacklisted" placeholder="Find a supplier">
+                <input class="input" type="email" oninput="liveSearchBlacklisted()" id="searchbox-blacklisted" placeholder="Find a supplier">
             </div>
         </div>
     </div>
@@ -156,7 +215,9 @@
 
     <div class="column is-4 is-offset-4">
         <div class="box">
-            <h2>Change Password</h2>
+            <p class="card-header-title">
+                Change Password
+            </p>
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
                     <div class="notification is-danger">
@@ -191,10 +252,9 @@
                         </div>
                     </div>
                     <div>
-                        {{ form.submit(class="button is-info is-centered") }}
+                        {{ form.submit(class="col-12 button") }}
                     </div>
                 </form>
-
         </div>
     </div>
 {% endblock %}
