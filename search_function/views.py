@@ -3,11 +3,15 @@ the search and search_result webpages.
 """
 import flask_excel as excel
 from flask import Blueprint, render_template, session, redirect, url_for
-from flask_login import login_required
+from flask_login import login_required, current_user
 from search_function.forms import SearchForm
-from search_function.search import string_to_search_obj, search_form_to_obj, search_obj_to_json
+from search_function.search import string_to_search_obj, search_form_to_obj, search_obj_to_json, sort_search_history,\
+    get_specific_search_history
 from search_function.objects import Search
 from webscrape.findchips import search_for_parts
+from search_function.objects import Part
+from database.add import add_part_search
+from database.models import PartSearch
 
 search_blueprint = Blueprint('search', __name__, template_folder='templates')
 
@@ -31,6 +35,9 @@ def search():
             # Turn the form into a Search object
             search_object = search_form_to_obj(form)
 
+            # Store search in database
+            add_part_search(current_user.id, search_object)
+
             # Store the search object in session
             session['search'] = search_obj_to_json(search_object)
 
@@ -42,7 +49,10 @@ def search():
 
             return redirect(url_for('search.search_result'))
 
-    return render_template('search.html', form=form, search=search_object, history=[1,2,3,4,5,6,7])
+    search_history = PartSearch.query.filter_by(user_id=current_user.id).order_by(PartSearch.datetime.desc()).all()
+    history = sort_search_history(search_history)
+
+    return render_template('search.html', form=form, search=search_object, history=history)
 
 
 @search_blueprint.route('/search_result')
@@ -100,7 +110,13 @@ def search_history(history_count):  # pylint: disable=unused-argument
     form = SearchForm()
     search_object = Search()
 
-    # Get history and put it into search object
+    search_history = PartSearch.query.filter_by(user_id=current_user.id).order_by(PartSearch.datetime.desc()).all()
+    history = sort_search_history(search_history)
+    form_history = get_specific_search_history(search_history, history_count)
+
+    for part_history in form_history:
+        new_part = Part(part_history[0], part_history[1])
+        search_object.parts.append(new_part)
 
     return render_template('search.html', form=form, search=search_object,
-                           history=[1, 2, 3, 4, 5, 6, 7])
+                           history=history)

@@ -1,5 +1,5 @@
 """This module contains the functions to add each item to the database."""
-import datetime
+from datetime import datetime
 from database.models import User, WhitelistedEmail, PartPrice, DesiredPart,\
     FavouriteSupplier, BlacklistedSupplier, PartSearch
 from app import db
@@ -87,9 +87,10 @@ def add_part_search(user_id, search_object):
     :param user_id: The user who is searching for the part
     :param search_object: The Search object containing all of the parts being searched
     """
+    dt = datetime.now()
     for part in search_object.parts:
         part_search = PartSearch(user_id=user_id, part_id=part.name,
-                                 quantity=part.quantity, datetime=datetime.now())
+                                 quantity=part.quantity, datetime=dt)
 
         db.session.add(part_search)
 

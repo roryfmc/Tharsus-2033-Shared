@@ -76,3 +76,47 @@ def search_obj_to_json(search_object):
     :return: json format stored as a string containing all part and supplier details
     """
     return json.dumps(search_object, default=lambda x: x.__dict__)
+
+
+def sort_search_history(part_search_list):
+    history = []
+    entry = ''
+    dt = part_search_list[0].datetime
+
+    for count, part_search in enumerate(part_search_list):
+        if part_search.datetime == dt:
+            if count == 0:
+                entry = entry + part_search.part_id
+            else:
+                entry = entry + ", " + part_search.part_id
+        else:
+            history.append(entry)
+            entry = part_search.part_id
+            dt = part_search.datetime
+
+    history.append(entry)
+    return history
+
+
+def get_specific_search_history(part_search_list, list_count):
+    history = []
+    entry = []
+    dt = part_search_list[0].datetime
+    dt_count = 1
+
+    for part_search in part_search_list:
+        if dt != part_search.datetime:
+            dt_count = dt_count + 1
+            dt = part_search.datetime
+
+        if int(dt_count) == int(list_count):
+            entry.append(part_search.part_id)
+            entry.append(part_search.quantity)
+            history.append(entry)
+            entry = []
+
+    return history
+
+
+
+
