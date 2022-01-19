@@ -84,6 +84,9 @@
 
     tbody tr:hover {
         background-color: #EEF4FD;
+    }
+
+    .supplier-name:hover {
         color: #6070DE;
     }
 
@@ -231,7 +234,7 @@
                                         {% if supplier == part.suppliers[0] %}
                                         <tr>
                                             <td class="dropdown is-hoverable dropdown-trigger">
-                                                <div onclick="toggleRow(this)">
+                                                <div onclick="toggleRow(this)" class="supplier-name">
                                                     <a>
                                                         {{ supplier.name }}
                                                     </a>
@@ -256,7 +259,7 @@
                                         {% else %}
                                         <tr name="hidden-rows" class="expanded-row-content hide-row">
                                             <td class="dropdown is-hoverable dropdown-trigger">
-                                                <div onclick="toggleRow(this)">
+                                                <div onclick="toggleRow(this)" class="supplier-name">
                                                     <a>
                                                         {{ supplier.name }}
                                                     </a>
