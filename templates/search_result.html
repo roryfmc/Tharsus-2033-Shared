@@ -200,14 +200,16 @@
         display: table-cell;
     }
 
-
+    .search-button{
+        text-align: right;
+    }
 </style>
 <h4 class="title is-4"></h4>
 <div class="columns is-multiline is-centered" id="col">
-    <div class="column is-1">
+    <div class="column is-2 search-button">
         <a class="button is-rounded" href="{{ url_for('search.search') }}">Back to search</a>
     </div>
-    <div class="column is-4"></div>
+    <div class="column is-3"></div>
     <div class="column is-2">
         <input class="input" type="text" oninput="liveSearch()" id="searchbox" placeholder="Find a part">
     </div>
