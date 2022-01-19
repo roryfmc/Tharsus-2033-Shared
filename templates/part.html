@@ -4,10 +4,10 @@
 <style>
     .styled_table {
         font-size: 0.9em;
-        font-family: sans-serif;
+        font-family: "Roboto Thin", sans-serif;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
         border-collapse: collapse;
-        border-bottom: 2px solid #009879;
+        border-bottom: 2px solid #6070DE;
     }
 
     tr {
@@ -21,13 +21,35 @@
     }
 
     thead {
-        background-color: #009879;
+        background-color: white;
+        border-bottom: 2px solid #6070DE;
     }
 
     th {
-        color: white!important;
+        font-size: 16px;
+        color: black!important;
         text-align: center!important;
     }
+
+    h3 {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .title{
+        font-family: "Roboto Thin", sans-serif;
+        color: black;
+    }
+
+    .box {
+        padding: 0 40px;
+        border-radius: 0;
+        box-shadow: 10px 10px 0 black;
+        border: none;
+        border-top: 1px solid #6070DE;
+        border-left: 1px solid #6070DE;
+    }
+
 </style>
 
 <h3 class="title">{{ part_object.name }}</h3>
@@ -36,7 +58,7 @@
     <div class="column is-one-quarter"></div>
     <div class="column is-half box">
         <div>
-            <table class="table is fullwidth styled_table">
+            <table class="table styled_table">
                 <thead>
                     <tr>
                         <th>Supplier</th>
