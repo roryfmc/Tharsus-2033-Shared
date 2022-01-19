@@ -33,17 +33,32 @@
     }
 </script>
 <style>
+
+    .input[type="text"] {
+            border-radius: 0;
+            border: 0;
+            border-top: 1px solid #6070DE;
+            background-color: lightgrey;
+            outline: none;
+            box-shadow: none;
+            font-size: 16px;
+            font-family: "Roboto Thin", sans-serif;
+        }
+
+
     .styled_table {
         font-size: 1em;
         font-family: sans-serif;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-        border-collapse: collapse;
-        border-bottom: 2px solid #009879;
         table-layout: fixed;
     }
 
     .styled_table tbody tr:nth-of-type(even) {
         background-color: #f3f3f3;
+    }
+
+    .tile {
+        box-shadow: 10px 10px 0 black;
     }
 
     tr {
@@ -76,29 +91,47 @@
     }
 
     thead {
-        background-color: #009879;
+        background-color: white;
     }
 
     th {
-        color: white!important;
+        color: black!important;
         text-align: center!important;
     }
 
     #col {
-        background-color: rgba(255, 255, 255, 0.40);
-        border-radius: 25px;
+        background-color: #dedede;
     }
 
     .is-hidden {
         display: none;
     }
 
+    .button {
+        flex-grow: 0!important;
+        border-radius: 0;
+        background: black;
+        color: white;
+    }
+
+    .button:hover {
+        flex-grow: 0!important;
+        background: #6070DE;
+        color: white;
+        transition: all 0.6s ease 0s;
+    }
+
     .part-title {
-        color: white!important;
+        color: black!important;
+        margin: 0 -100px;
+        text-align: center;
+        font-weight: bold;
+        font-family: "Roboto Thin", sans-serif;
+
     }
 
     .part-title:hover {
-        background-color: rgba(255,255,255,0.3)!important;
+        background-color: #6070DE!important;
     }
 
     .dropdown-item {
@@ -106,28 +139,28 @@
     }
 
     .dropdown-menu {
-        padding-top: 0px!important;
+        padding-top: 0!important;
         left: -50% !important;
     }
 
     .go-to-page:hover {
-        background-color: rgba(82, 200, 11, 0.55);
+        background-color: #6070DE;
     }
 
     .favourite-supplier:hover{
-        background-color: rgba(255, 255, 0, 0.55);
+        background-color: #6070DE;
     }
 
     .blacklist-supplier:hover{
-        background-color: rgba(255, 0, 0, 0.55);
+        background-color: #6070DE;
     }
 
 
 </style>
-<h4 class="title is-4">Search</h4>
+<h4 class="title is-4"></h4>
 <div class="columns is-multiline is-centered" id="col">
     <div class="column is-1">
-        <a class="button is-light is-rounded" href="{{ url_for('search.search') }}">Back to search</a>
+        <a class="button is-rounded" href="{{ url_for('search.search') }}">Back to search</a>
     </div>
     <div class="column is-4"></div>
     <div class="column is-2">
@@ -135,13 +168,13 @@
     </div>
     <div class="column is-3"></div>
     <div class="column is-2">
-        <a class="button is-light is-rounded" href="{{ url_for('search.export') }}">Export to excel</a>
+        <a class="button is-rounded" href="{{ url_for('search.export') }}">Export to Excel</a>
     </div>
     {% if search_results %}
         {% for part in search_results %}
                     <div class="field column is-4">
-                        <div class="tile is-parent is-vertical">
-                            <div class="tile is-child" name="{{ loop.index }}">
+                        <div class="tile is-vertical">
+                            <div class="tile" name="{{ loop.index }}">
                                 <table class="table is-fullwidth styled_table" onclick="toggleRow(this)">
                                     <thead>
                                     <tr>
