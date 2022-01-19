@@ -104,30 +104,27 @@ def export():
     return excel.make_response_from_book_dict(sheets, 'xls', file_name="export_search")
 
 
-@search_blueprint.route('/search_history/<history_count>', methods=['GET'])
+@search_blueprint.route('/search_history/<history_count>', methods=['GET', 'POST'])
 @login_required
 def search_history(history_count):
     """This function passes the chosen search history into the search form
     on the search page.
     """
-    form = SearchForm()
     search_object = Search()
 
     search_history_list = PartSearch.query.filter_by(user_id=current_user.id)\
         .order_by(PartSearch.datetime.desc()).all()
 
     if search_history_list:
-        history = sort_search_history(search_history_list)
         form_history = get_specific_search_history(search_history_list, history_count)
 
         for part_history in form_history:
             new_part = Part(part_history[0], part_history[1])
             search_object.parts.append(new_part)
-    else:
-        history = []
 
-    return render_template('search.html', form=form, search=search_object,
-                           history=history)
+    session['search'] = search_obj_to_json(search_object)
+
+    return search()
 
 
 @search_blueprint.route('/favourite/<supplier>', methods=['GET'])

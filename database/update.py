@@ -12,5 +12,5 @@ def change_password_by_username(username, password):
 
 def change_password_by_id(user_id, password):
     """This function changes a user's password by finding them by user id"""
-    User.query.filter_by(user_id=user_id).update({'password': generate_password_hash(password)})
+    User.query.filter_by(id=user_id).update({'password': generate_password_hash(password)})
     db.session.commit()

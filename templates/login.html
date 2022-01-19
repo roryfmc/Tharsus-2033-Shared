@@ -1,7 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %}
+<script>
+    function toggleForgotPassword() {
+        let x = document.getElementById("forgot-password");
+        x.classList.toggle('hide-row');
+    }
+</script>
+<style>
+    .hide-row {
+        display: none;
+    }
+</style>
 <div class="column is-2 is-offset-5">
+    <div class="notification is-danger hide-row" id="forgot-password">
+        Please contact your system administrator to change your password.
+    </div>
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category, message in messages %}
@@ -17,6 +31,16 @@
             {% endfor %}
         {% endif %}
     {% endwith %}
+    {% for error in form.username.errors %}
+        <div class="notification is-danger">
+            {{ error }}
+        </div>
+    {% endfor %}
+    {% for error in form.password.errors %}
+        <div class="notification is-danger">
+            {{ error }}
+        </div>
+    {% endfor %}
 </div>
 <div class="login-box">
     <div class="login-box2">
@@ -25,16 +49,10 @@
         <form class="row" method="POST">
             {{ form.csrf_token() }}
             {{ form.username(class="col-12", placeholder="Username") }}
-            {% for error in form.username.errors %}
-                {{ error }}
-            {% endfor %}
             {{ form.password(class="col-12", placeholder="Password") }}
-            {% for error in form.password.errors %}
-                {{ error }}
-            {% endfor %}
             {{ form.submit(class="col-12") }}
-            <a class="mx-auto col-auto" href="#">Forgot your password?</a><br>
-            <input class="col-12 mt-2" type="submit" name="register" value="Register New Account">
+            <a class="mx-auto col-auto" onclick="toggleForgotPassword()">Forgot your password?</a><br>
+            <input class="col-12 mt-2" type="submit" name="register" onclick="window.location.href='/register'" value="Register New Account">
         </form>
 
     </div>
