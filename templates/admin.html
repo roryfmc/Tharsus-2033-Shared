@@ -152,10 +152,49 @@
 
 </style>
 
-
-
-
-<h3 class="title is-3"></h3>
+<div class="column is-2 is-offset-5">
+    <h3 class="title is-3">Admin Page</h3>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                {% if category == 'error' %}
+                    <div class="notification is-danger">
+                        {{ message }}
+                    </div>
+                {% elif category == 'info' %}
+                    <div class="notification is-primary">
+                        {{ message }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    {% for error in whitelist_form.email.errors %}
+        <div class="notification is-danger">
+            {{ error }}
+        </div>
+    {% endfor %}
+    {% for error in user_form.u_username.errors %}
+        <div class="notification is-danger">
+            {{ error }}
+        </div>
+    {% endfor %}
+    {% for error in change_password_form.p_username.errors %}
+        <div class="notification is-danger">
+            {{ error }}
+        </div>
+    {% endfor %}
+    {% for error in change_password_form.password.errors %}
+        <div class="notification is-danger">
+            {{ error }}
+        </div>
+    {% endfor %}
+    {% for error in change_password_form.confirm_password.errors %}
+        <div class="notification is-danger">
+            {{ error }}
+        </div>
+    {% endfor %}
+</div>
 <div class="columns">
     <div class="column is-2"></div>
 
@@ -184,10 +223,6 @@
                         {{ whitelist_form.csrf_token() }}
                         <div class="row control">
                             {{ whitelist_form.email(class="input", type="email", placeholder="Email") }}
-                            {% for error in whitelist_form.email.errors %}
-                                {{ error }}
-                            {% endfor %}
-                        </div>
                     </div>
                     {{ whitelist_form.add(class="col-6 button") }}
                     {{ whitelist_form.remove(class="col-6 button") }}
@@ -223,9 +258,6 @@
                         {{ user_form.csrf_token() }}
                         <div class="row control">
                             {{ user_form.u_username(class="input", type="email", placeholder="Email") }}
-                            {% for error in user_form.u_username.errors %}
-                                {{ error }}
-                            {% endfor %}
                         </div>
                     </div>
                     {{ user_form.u_submit(class="col-12 button") }}
@@ -245,25 +277,16 @@
                 {{ change_password_form.csrf_token() }}
                 <div class="control">
                     {{ change_password_form.p_username(class="col-12", type="email", placeholder="Email") }}
-                    {% for error in change_password_form.p_username.errors %}
-                        {{ error }}
-                    {% endfor %}
                 </div>
             </div>
             <div class="field">
                 <div class="control">
                     {{ change_password_form.password(class="col-12", placeholder="Password") }}
-                    {% for error in change_password_form.password.errors %}
-                        {{ error }}
-                    {% endfor %}
                 </div>
             </div>
             <div class="field">
                 <div class="control">
                     {{ change_password_form.confirm_password(class="col-12", placeholder="Confirm Password") }}
-                    {% for error in change_password_form.confirm_password.errors %}
-                        {{ error }}
-                    {% endfor %}
                 </div>
             </div>
             <div class="field">

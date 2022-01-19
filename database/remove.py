@@ -1,5 +1,5 @@
 """This module contains all the functions to remove an item from the database"""
-from models import WhitelistedEmail, User, FavouriteSupplier, BlacklistedSupplier
+from database.models import WhitelistedEmail, User, FavouriteSupplier, BlacklistedSupplier
 from app import db
 
 

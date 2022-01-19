@@ -152,14 +152,46 @@
     }
 </style>
 
-<h3 class="title"></h3>
+<div class="column is-2 is-offset-5">
+    <h3 class="title is-3">Account Page</h3>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                {% if category == 'error' %}
+                    <div class="notification is-danger">
+                        {{ message }}
+                    </div>
+                {% elif category == 'info' %}
+                    <div class="notification is-primary">
+                        {{ message }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    {% for error in form.old_password.errors %}
+        <div class="notification is-danger">
+            {{ error }}
+        </div>
+    {% endfor %}
+    {% for error in form.password.errors %}
+        <div class="notification is-danger">
+            {{ error }}
+        </div>
+    {% endfor %}
+    {% for error in form.confirm_password.errors %}
+        <div class="notification is-danger">
+            {{ error }}
+        </div>
+    {% endfor %}
+</div>
 <div class="columns">
     <div class="column is-2"></div>
 
     <div class="column is-3">
         <div class="card">
             <header class="card-header">
-                <p class="card-header-title">
+                <p class="card-header-title ">
                     Favourite Suppliers
                 </p>
             </header>
@@ -171,7 +203,7 @@
                             <div class="level-item has-text-centered">
                                 {{ favourite_supplier }}
                             </div>
-                            <button class="button level-item hide">Remove</button>
+                            <button onclick="window.location.href='/remove_favourite/{{ favourite_supplier }}';" class="button level-item hide">Remove</button>
                         </div>
                     {% endfor %}
                 </div>
@@ -200,7 +232,7 @@
                             <div class="level-item has-text-centered">
                                 {{ blacklisted_supplier }}
                             </div>
-                            <button class="button level-item hide">Remove</button>
+                            <button onclick="window.location.href='/remove_blacklist/{{ blacklisted_supplier }}';" class="button level-item hide">Remove</button>
                         </div>
                     {% endfor %}
                 </div>
@@ -220,37 +252,21 @@
             <p class="card-header-title">
                 Change Password
             </p>
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    <div class="notification is-danger">
-                        {{ messages[0] }}
-                    </div>
-                {% endif %}
-            {% endwith %}
                 <form class="row" method="POST">
                     <div class="field">
                         {{ form.csrf_token() }}
                         <div class="control">
                             {{ form.old_password(class="col-12", placeholder="Old Password") }}
-                            {% for error in form.old_password.errors %}
-                                {{ error }}
-                            {% endfor %}
                         </div>
                     </div>
                     <div class="field">
                         <div class="control">
                             {{ form.password(class="col-12", placeholder="Password") }}
-                            {% for error in form.password.errors %}
-                                {{ error }}
-                            {% endfor %}
                         </div>
                     </div>
                      <div class="field">
                         <div class="control">
                             {{ form.confirm_password(class="col-12", placeholder="Confirm Password") }}
-                            {% for error in form.confirm_password.errors %}
-                                {{ error }}
-                            {% endfor %}
                         </div>
                     </div>
                     <div class="field">

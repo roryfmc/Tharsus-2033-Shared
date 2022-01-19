@@ -61,9 +61,16 @@ class Part:
         if (len(self.suppliers)) == 0:
             return
 
+        from users.views import get_blacklisted_suppliers
+        blacklisted_suppliers = get_blacklisted_suppliers()
+
         # Sorts supplier list so that it only contains suppliers with enough stock and a price
         suppliers = [supplier for supplier in self.suppliers
-                     if (supplier.stock > self.quantity) and supplier.price]
+                     if (supplier.stock > self.quantity)
+                     and supplier.price
+                     and supplier.name not in blacklisted_suppliers]
+
+        suppliers_with_price = []
 
         for supplier in suppliers:
             # For each stock starting with the biggest
@@ -74,12 +81,12 @@ class Part:
                     supplier.price = supplier.price_dict[stock]
                     break
             # If the price is -1 (default value)
-            if supplier.price == -1:
-                # Remove the supplier as it has no prices
-                suppliers.remove(supplier)
+            if supplier.price != -1:
+                suppliers_with_price.append(supplier)
 
         # Sort the suppliers by price (lowest first)
-        self.suppliers = sorted(suppliers, key=lambda supplier: supplier.price, reverse=True)
+        self.suppliers = sorted(suppliers_with_price,
+                                key=lambda supplier: supplier.price, reverse=True)
 
     def find_combination(self):
         """This method is called if there are no suppliers which have enough stock.
