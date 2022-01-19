@@ -116,7 +116,7 @@ def logout():
 def remove_f_supplier(supplier):
     """This function takes the supplier name and removes it from the user's favourites"""
     remove_favourite_supplier(current_user.id, supplier)
-    return accounts()
+    return redirect(url_for('users.accounts'))
 
 
 @users_blueprint.route('/remove_blacklist/<supplier>', methods=['GET'])
@@ -124,4 +124,4 @@ def remove_f_supplier(supplier):
 def remove_b_supplier(supplier):
     """This function takes the supplier name and removes it from the user's blacklist"""
     remove_blacklisted_supplier(current_user.id, supplier)
-    return accounts()
+    return redirect(url_for('users.accounts'))
