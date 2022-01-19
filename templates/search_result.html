@@ -3,7 +3,8 @@
 {% block content %}
 <script>
     const toggleRow = (element) => {
-      let x = element.getElementsByClassName('expanded-row-content');
+        let table = element.closest("table")
+      let x = table.getElementsByClassName('expanded-row-content');
       for (let i = 0; i < x.length; i++){
           x[i].classList.toggle('hide-row');
       }
@@ -210,19 +211,19 @@
                     <div class="field column is-4">
                         <div class="tile is-vertical">
                             <div class="tile" name="{{ loop.index }}">
-                                <table class="table is-fullwidth styled_table" onclick="toggleRow(this)">
+                                <table class="table is-fullwidth styled_table">
                                     <thead>
                                     <tr>
-                                        <th class="part-name"></th>
-                                        <th class="part-name">
-                                            <a href="{{ url_for('search.part', part_count=loop.index) }}" class="button is-text part-title">{{ part.name }}</a>
+                                        <th class="part-name" onclick="toggleRow(this)"></th>
+                                        <th class="part-name" onclick="toggleRow(this)">
+                                            <a href="{{ url_for('search.part', part_count=loop.index) }}" class="button is-text part-title" onclick="toggleRow(this)">{{ part.name }}</a>
                                         </th>
-                                        <th class="part-name"></th>
+                                        <th class="part-name" onclick="toggleRow(this)"></th>
                                     </tr>
                                     <tr>
-                                        <th>Supplier</th>
-                                        <th>Stock</th>
-                                        <th>Price</th>
+                                        <th onclick="toggleRow(this)">Supplier</th>
+                                        <th onclick="toggleRow(this)">Stock</th>
+                                        <th onclick="toggleRow(this)">Price</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -230,9 +231,11 @@
                                         {% if supplier == part.suppliers[0] %}
                                         <tr>
                                             <td class="dropdown is-hoverable dropdown-trigger">
-                                                <a>
-                                                    {{ supplier.name }}
-                                                </a>
+                                                <div onclick="toggleRow(this)">
+                                                    <a>
+                                                        {{ supplier.name }}
+                                                    </a>
+                                                </div>
                                                 <div class="dropdown-menu" role="menu">
                                                     <div class="dropdown-content">
                                                         <div onclick="window.location.href='{{ supplier.link }}'" class="go-to-page dropdown-item button">
@@ -247,15 +250,17 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>{{ supplier.stock}}</td>
-                                            <td>{{ supplier.price}}</td>
+                                            <td onclick="toggleRow(this)">{{ supplier.stock}}</td>
+                                            <td onclick="toggleRow(this)">{{ supplier.price}}</td>
                                         </tr>
                                         {% else %}
                                         <tr name="hidden-rows" class="expanded-row-content hide-row">
                                             <td class="dropdown is-hoverable dropdown-trigger">
-                                                <a>
-                                                    {{ supplier.name }}
-                                                </a>
+                                                <div onclick="toggleRow(this)">
+                                                    <a>
+                                                        {{ supplier.name }}
+                                                    </a>
+                                                </div>
                                                 <div class="dropdown-menu" role="menu">
                                                     <div class="dropdown-content">
                                                         <div onclick="window.location.href='{{ supplier.link }}'" class="go-to-page dropdown-item">
@@ -270,8 +275,8 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>{{ supplier.stock }}</td>
-                                            <td>{{ supplier.price }}</td>
+                                            <td onclick="toggleRow(this)">{{ supplier.stock }}</td>
+                                            <td onclick="toggleRow(this)">{{ supplier.price }}</td>
                                         </tr>
                                         {% endif %}
 
