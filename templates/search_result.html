@@ -252,13 +252,13 @@
                                         </tr>
                                         {% else %}
                                         <tr name="hidden-rows" class="expanded-row-content hide-row">
-                                            <td onclick="window.location.href='{{ supplier.link }}'" class="dropdown is-hoverable dropdown-trigger">
+                                            <td class="dropdown is-hoverable dropdown-trigger">
                                                 <a>
                                                     {{ supplier.name }}
                                                 </a>
                                                 <div class="dropdown-menu" role="menu">
                                                     <div class="dropdown-content">
-                                                        <div class="go-to-page dropdown-item">
+                                                        <div onclick="window.location.href='{{ supplier.link }}'" class="go-to-page dropdown-item">
                                                             <a href="{{ supplier.link }}">Go to page</a>
                                                         </div>
                                                         <div class="favourite-supplier dropdown-item">
