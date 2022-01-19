@@ -146,6 +146,20 @@
         transition: all 0.6s ease 0s;
     }
 
+    .button2 {
+        flex-grow: 0!important;
+        border-radius: 0;
+        color: white;
+        background: black;
+    }
+
+    .button2:hover {
+        flex-grow: 0!important;
+        background: #6070DE;
+        color: white;
+        transition: all 0.6s ease 0s;
+    }
+
     .part-title {
         color: black!important;
         margin: 0 -100px;
@@ -169,6 +183,9 @@
         border-radius: 0;
         border-top: 1px solid #6070DE;
         border-left: 1px solid #6070DE;
+        border-right: 1px solid #6070DE;
+        border-bottom: 1px solid #6070DE;
+        left: -50% !important;
     }
 
     .go-to-page {
@@ -207,7 +224,7 @@
 <h4 class="title is-4"></h4>
 <div class="columns is-multiline is-centered" id="col">
     <div class="column is-2 search-button">
-        <a class="button is-rounded" href="{{ url_for('search.search') }}">Back to search</a>
+        <a class="button is-rounded button2" href="{{ url_for('search.search') }}">Back to search</a>
     </div>
     <div class="column is-3"></div>
     <div class="column is-2">
@@ -215,7 +232,7 @@
     </div>
     <div class="column is-3"></div>
     <div class="column is-2">
-        <a class="button is-rounded" href="{{ url_for('search.export') }}">Export to Excel</a>
+        <a class="button is-rounded button2" href="{{ url_for('search.export') }}">Export to Excel</a>
     </div>
     {% if search_results %}
         {% for part in search_results %}
