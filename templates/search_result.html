@@ -74,7 +74,6 @@
         box-shadow: none;
         font-size: 16px;
         font-family: "Roboto Thin", sans-serif;
-
     }
 
     td {
@@ -129,7 +128,14 @@
     .button {
         flex-grow: 0!important;
         border-radius: 0;
-        background: black;
+        background: white;
+    }
+
+    .button a {
+        color: black;
+    }
+
+    .button:hover a {
         color: white;
     }
 
@@ -163,10 +169,10 @@
         border-radius: 0;
         border-top: 1px solid #6070DE;
         border-left: 1px solid #6070DE;
-        left: -50% !important;
     }
 
     .go-to-page {
+        border-top: 1px solid #6070DE;
         border-bottom: 1px solid #6070DE;
     }
 
@@ -211,7 +217,7 @@
     </div>
     {% if search_results %}
         {% for part in search_results %}
-                    <div class="field column is-5">
+                    <div class="field column is-5 is-parent">
                         <div class="tile is-vertical">
                             <div class="tile" name="{{ loop.index }}">
                                 <table class="table is-fullwidth styled_table">
