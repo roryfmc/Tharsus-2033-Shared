@@ -17,6 +17,21 @@
             {% endfor %}
         {% endif %}
     {% endwith %}
+    {% for error in form.username.errors %}
+        <div class="notification is-danger">
+            {{ error }}
+        </div>
+    {% endfor %}
+    {% for error in form.password.errors %}
+        <div class="notification is-danger">
+            {{ error }}
+        </div>
+    {% endfor %}
+    {% for error in form.confirm_password.errors %}
+        <div class="notification is-danger">
+            {{ error }}
+        </div>
+    {% endfor %}
 </div>
 <div class="login-box">
     <div class="login-box2">
@@ -25,17 +40,8 @@
         <form method="POST">
             {{ form.csrf_token() }}
             {{ form.username(placeholder="Email") }}
-            {% for error in form.username.errors %}
-                {{ error }}
-            {% endfor %}
             {{ form.password(placeholder="Password") }}
-            {% for error in form.password.errors %}
-                {{ error }}
-            {% endfor %}
             {{ form.confirm_password(class="input", placeholder="Confirm Password") }}
-            {% for error in form.confirm_password.errors %}
-                {{ error }}
-            {% endfor %}
             {{ form.submit(value="Register") }}
         </form>
 

@@ -105,6 +105,31 @@
             {% endfor %}
         {% endif %}
     {% endwith %}
+    {% for error in whitelist_form.email.errors %}
+        <div class="notification is-danger">
+            {{ error }}
+        </div>
+    {% endfor %}
+    {% for error in user_form.u_username.errors %}
+        <div class="notification is-danger">
+            {{ error }}
+        </div>
+    {% endfor %}
+    {% for error in change_password_form.p_username.errors %}
+        <div class="notification is-danger">
+            {{ error }}
+        </div>
+    {% endfor %}
+    {% for error in change_password_form.password.errors %}
+        <div class="notification is-danger">
+            {{ error }}
+        </div>
+    {% endfor %}
+    {% for error in change_password_form.confirm_password.errors %}
+        <div class="notification is-danger">
+            {{ error }}
+        </div>
+    {% endfor %}
 </div>
 <div class="columns">
     <div class="column is-2"></div>
@@ -134,9 +159,6 @@
                         {{ whitelist_form.csrf_token() }}
                         <div class="control">
                             {{ whitelist_form.email(class="input", placeholder="Email") }}
-                            {% for error in whitelist_form.email.errors %}
-                                {{ error }}
-                            {% endfor %}
                         </div>
                     </div>
                     {{ whitelist_form.add(class="button is-primary is-centered") }}
@@ -173,9 +195,6 @@
                         {{ user_form.csrf_token() }}
                         <div class="control">
                             {{ user_form.u_username(class="input", placeholder="Email") }}
-                            {% for error in user_form.u_username.errors %}
-                                {{ error }}
-                            {% endfor %}
                         </div>
                     </div>
                     {{ user_form.u_submit(class="button is-danger is-centered") }}
@@ -210,15 +229,6 @@
             <div class="field">
                 {{ change_password_form.p_submit(class="button is-primary is-centered") }}
             </div>
-            {% for error in change_password_form.p_username.errors %}
-                {{ error }}
-            {% endfor %}
-            {% for error in change_password_form.password.errors %}
-                {{ error }}
-            {% endfor %}
-            {% for error in change_password_form.confirm_password.errors %}
-                {{ error }}
-            {% endfor %}
         </form>
     </div>
 </div>

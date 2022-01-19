@@ -73,6 +73,7 @@ def accounts():
 
     if form.validate_on_submit():
         change_password_by_id(current_user.id, form.password.data)
+        flash("Password changed", "info")
 
     return render_template('accounts.html', form=form,
                            favourite_suppliers=get_favourite_suppliers(),
