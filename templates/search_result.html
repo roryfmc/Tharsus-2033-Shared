@@ -273,10 +273,10 @@
                                                             <a class>Go to page</a>
                                                         </div>
                                                         <div class="favourite-supplier dropdown-item button">
-                                                            <a href="#">Favourite supplier</a>
+                                                            <a href="{{ url_for('search.favourite_supplier', supplier=supplier.name) }}">Favourite supplier</a>
                                                         </div>
                                                         <div class="blacklist-supplier dropdown-item button">
-                                                            <a href="#">Blacklist Supplier</a>
+                                                            <a href="{{ url_for('search.blacklist_supplier', supplier=supplier.name) }}">Blacklist Supplier</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -298,10 +298,10 @@
                                                             <a href="{{ supplier.link }}">Go to page</a>
                                                         </div>
                                                         <div class="favourite-supplier dropdown-item button">
-                                                            <a href="#">Favourite supplier</a>
+                                                            <a href="{{ url_for('search.favourite_supplier', supplier=supplier.name) }}">Favourite supplier</a>
                                                         </div>
                                                         <div class="blacklist-supplier dropdown-item button">
-                                                            <a href="#">Blacklist Supplier</a>
+                                                            <a href="{{ url_for('search.blacklist_supplier', supplier=supplier.name) }}">Blacklist Supplier</a>
                                                         </div>
                                                     </div>
                                                 </div>

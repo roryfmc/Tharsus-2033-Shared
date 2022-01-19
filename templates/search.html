@@ -247,7 +247,7 @@
                     {% for result in history %}
                         <tr>
                             <td>
-                                <a href="#" class="history">{{ result }}</a>
+                                <a href="/search_history/{{loop.index}}" class="history">{{ result }}</a>
                             </td>
                         </tr>
                     {% endfor %}
