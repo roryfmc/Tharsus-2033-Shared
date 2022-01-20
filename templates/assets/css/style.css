@@ -79,6 +79,7 @@ body {
     transform: translate(-52%, -52%);
     box-sizing: border-box;
     padding: 30px 30px;
+    margin-top: 80px;
 }
 
 h1 {
