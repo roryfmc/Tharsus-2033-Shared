@@ -86,7 +86,7 @@ class Part:
 
         # Sort the suppliers by price (lowest first)
         self.suppliers = sorted(suppliers_with_price,
-                                key=lambda supplier: supplier.price, reverse=True)
+                                key=lambda supplier: supplier.price)
 
     def find_combination(self):
         """This method is called if there are no suppliers which have enough stock.
