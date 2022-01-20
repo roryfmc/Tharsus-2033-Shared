@@ -3,7 +3,8 @@
 {% block content %}
 <script>
     const toggleRow = (element) => {
-      let x = element.getElementsByClassName('expanded-row-content');
+        let table = element.closest("table")
+      let x = table.getElementsByClassName('expanded-row-content');
       for (let i = 0; i < x.length; i++){
           x[i].classList.toggle('hide-row');
       }
@@ -33,23 +34,45 @@
     }
 </script>
 <style>
+
+    .input[type="text"] {
+        border-radius: 0;
+        border: 0;
+        border-top: 1px solid #6070DE;
+        background-color: lightgrey;
+        outline: none;
+        box-shadow: none;
+        font-size: 16px;
+        font-family: "Roboto Thin", sans-serif;
+    }
+
     .styled_table {
         font-size: 1em;
         font-family: sans-serif;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-        border-collapse: collapse;
-        border-bottom: 2px solid #009879;
+        border-top: 1px solid #6070DE;
+        border-left: 1px solid #6070DE;
         table-layout: fixed;
+        margin-bottom: 0!important;
     }
 
     .styled_table tbody tr:nth-of-type(even) {
         background-color: #f3f3f3;
     }
 
+    .tile {
+        box-shadow: 10px 10px 0 black;
+    }
+
     tr {
         cursor: pointer;
         grid-template-columns: repeat(3, 1fr);
         justify-content: flex-start;
+        border-top: 1px solid #6070DE;
+        outline: none;
+        box-shadow: none;
+        font-size: 16px;
+        font-family: "Roboto Thin", sans-serif;
     }
 
     td {
@@ -61,10 +84,19 @@
         background-color: #EEF4FD;
     }
 
+    .supplier-name:hover {
+        color: #6070DE;
+    }
+
     .expanded-row-content {
         border-top: none;
         grid-column: 1/-1;
         justify-content: flex-start;
+        outline: none;
+        box-shadow: none;
+        color: black;
+        font-size: 16px;
+        font-family: "Roboto Thin", sans-serif;
     }
 
     .hide-row {
@@ -76,85 +108,152 @@
     }
 
     thead {
-        background-color: #009879;
+        background-color: white;
     }
 
     th {
-        color: white!important;
+        color: black!important;
         text-align: center!important;
     }
 
     #col {
-        background-color: rgba(255, 255, 255, 0.40);
-        border-radius: 25px;
+        background-color: #dedede;
     }
 
     .is-hidden {
         display: none;
     }
 
+    .button {
+        flex-grow: 0!important;
+        border-radius: 0;
+        background: white;
+    }
+
+    .button a {
+        color: black;
+    }
+
+    .button:hover a {
+        color: white;
+    }
+
+    .button:hover {
+        flex-grow: 0!important;
+        background: #6070DE;
+        color: white;
+        transition: all 0.6s ease 0s;
+    }
+
+    .button2 {
+        flex-grow: 0!important;
+        border-radius: 0;
+        color: white;
+        background: black;
+    }
+
+    .button2:hover {
+        flex-grow: 0!important;
+        background: #6070DE;
+        color: white;
+        transition: all 0.6s ease 0s;
+    }
+
     .part-title {
-        color: white!important;
+        color: black!important;
+        margin: 0 -100px;
+        text-align: center;
+        font-weight: bold;
+        font-family: "Roboto Thin", sans-serif;
+
     }
 
     .part-title:hover {
-        background-color: rgba(255,255,255,0.3)!important;
+        background-color: #6070DE!important;
     }
 
     .dropdown-item {
         font-size: 0.9em;
+        font-family:"Roboto Thin", sans-serif;
     }
 
     .dropdown-menu {
-        padding-top: 0px!important;
+        padding: 0;
+        border-radius: 0;
+        border-top: 1px solid #6070DE;
+        border-left: 1px solid #6070DE;
+        border-right: 1px solid #6070DE;
+        border-bottom: 1px solid #6070DE;
         left: -50% !important;
     }
 
+    .go-to-page {
+        border-bottom: 1px solid #6070DE;
+    }
+
     .go-to-page:hover {
-        background-color: rgba(82, 200, 11, 0.55);
+        background-color: #6070DE;
     }
 
-    .favourite-supplier:hover{
-        background-color: rgba(255, 255, 0, 0.55);
+    .favourite-supplier {
+        border-bottom: 1px solid #6070DE;
     }
 
-    .blacklist-supplier:hover{
-        background-color: rgba(255, 0, 0, 0.55);
+    .favourite-supplier:hover {
+        background-color: #6070DE;
     }
 
+    .blacklist-supplier {
+    }
 
+    .blacklist-supplier:hover {
+        background-color: #6070DE;
+    }
+
+    .dropdown {
+        display: table-cell;
+    }
+
+    .search-button{
+        text-align: right;
+    }
+
+    .dropdown-content{
+        padding-top: 0;
+        padding-bottom: 0;
+    }
 </style>
-<h4 class="title is-4">Search</h4>
+<h4 class="title is-4"></h4>
 <div class="columns is-multiline is-centered" id="col">
-    <div class="column is-1">
-        <a class="button is-light is-rounded" href="{{ url_for('search.search') }}">Back to search</a>
+    <div class="column is-2 search-button">
+        <a class="button is-rounded button2" href="{{ url_for('search.search') }}">Back to search</a>
     </div>
-    <div class="column is-4"></div>
+    <div class="column is-3"></div>
     <div class="column is-2">
         <input class="input" type="text" oninput="liveSearch()" id="searchbox" placeholder="Find a part">
     </div>
     <div class="column is-3"></div>
     <div class="column is-2">
-        <a class="button is-light is-rounded" href="{{ url_for('search.export') }}">Export to excel</a>
+        <a class="button is-rounded button2" href="{{ url_for('search.export') }}">Export to Excel</a>
     </div>
     {% if search_results %}
         {% for part in search_results %}
-                    <div class="field column is-4">
-                        <div class="tile is-parent is-vertical">
-                            <div class="tile is-child" name="{{ loop.index }}">
-                                <table class="table is-fullwidth styled_table" onclick="toggleRow(this)">
+                    <div class="field column is-5 is-parent">
+                        <div class="tile is-vertical">
+                            <div class="tile" name="{{ loop.index }}">
+                                <table class="table is-fullwidth styled_table">
                                     <thead>
                                     <tr>
-                                        <th class="part-name"></th>
-                                        <th class="part-name">
-                                            <a href="{{ url_for('search.part', part_count=loop.index) }}" class="button is-text part-title">{{ part.name }}</a>
+                                        <th class="part-name" onclick="toggleRow(this)"></th>
+                                        <th class="part-name" onclick="toggleRow(this)">
+                                            <a href="{{ url_for('search.part', part_count=loop.index) }}" class="button is-text part-title" onclick="toggleRow(this)">{{ part.name }}</a>
                                         </th>
-                                        <th class="part-name"></th>
+                                        <th class="part-name" onclick="toggleRow(this)"></th>
                                     </tr>
                                     <tr>
-                                        <th>Supplier</th>
-                                        <th>Stock</th>
-                                        <th>Price</th>
+                                        <th onclick="toggleRow(this)">Supplier</th>
+                                        <th onclick="toggleRow(this)">Stock</th>
+                                        <th onclick="toggleRow(this)">Price</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -162,48 +261,52 @@
                                         {% if supplier == part.suppliers[0] %}
                                         <tr>
                                             <td class="dropdown is-hoverable dropdown-trigger">
-                                                <a>
-                                                    {{ supplier.name }}
-                                                </a>
+                                                <div onclick="toggleRow(this)" class="supplier-name">
+                                                    <a>
+                                                        {{ supplier.name }}
+                                                    </a>
+                                                </div>
                                                 <div class="dropdown-menu" role="menu">
                                                     <div class="dropdown-content">
-                                                        <div class="go-to-page dropdown-item">
-                                                            <a href="{{ supplier.link }}">Go to page</a>
+                                                        <div onclick="window.location.href='{{ supplier.link }}'" class="go-to-page dropdown-item button">
+                                                            <a class>Go to page</a>
                                                         </div>
-                                                        <div class="favourite-supplier dropdown-item">
-                                                            <a href="{{ url_for('search.favourite_supplier', supplier=supplier.name) }}">Favourite supplier</a>
+                                                        <div onclick="window.location.href='/favourite/{{ supplier.name }}'" class="favourite-supplier dropdown-item button">
+                                                            <a>Favourite supplier</a>
                                                         </div>
-                                                        <div class="blacklist-supplier dropdown-item">
-                                                            <a href="{{ url_for('search.blacklist_supplier', supplier=supplier.name) }}">Blacklist Supplier</a>
+                                                        <div onclick="window.location.href='/blacklist/{{ supplier.name }}'" class="blacklist-supplier dropdown-item button">
+                                                            <a>Blacklist Supplier</a>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>{{ supplier.stock}}</td>
-                                            <td>{{ supplier.price}}</td>
+                                            <td onclick="toggleRow(this)">{{ supplier.stock}}</td>
+                                            <td onclick="toggleRow(this)">{{ supplier.price}}</td>
                                         </tr>
                                         {% else %}
                                         <tr name="hidden-rows" class="expanded-row-content hide-row">
                                             <td class="dropdown is-hoverable dropdown-trigger">
-                                                <a href="{{ supplier.link }}">
-                                                    {{ supplier.name }}
-                                                </a>
+                                                <div onclick="toggleRow(this)" class="supplier-name">
+                                                    <a>
+                                                        {{ supplier.name }}
+                                                    </a>
+                                                </div>
                                                 <div class="dropdown-menu" role="menu">
                                                     <div class="dropdown-content">
-                                                        <div class="go-to-page dropdown-item">
-                                                            <a href="{{ supplier.link }}">Go to page</a>
+                                                        <div onclick="window.location.href='{{ supplier.link }}'" class="go-to-page dropdown-item button">
+                                                            <a>Go to page</a>
                                                         </div>
-                                                        <div class="favourite-supplier dropdown-item">
-                                                            <a href="{{ url_for('search.favourite_supplier', supplier=supplier.name) }}">Favourite supplier</a>
+                                                        <div onclick="window.location.href='/favourite/{{ supplier.name }}'" class="favourite-supplier dropdown-item button">
+                                                            <a>Favourite supplier</a>
                                                         </div>
-                                                        <div class="blacklist-supplier dropdown-item">
-                                                            <a href="{{ url_for('search.blacklist_supplier', supplier=supplier.name) }}">Blacklist Supplier</a>
+                                                        <div onclick="window.location.href='/blacklist/{{ supplier.name }}'" class="blacklist-supplier dropdown-item button">
+                                                            <a>Blacklist Supplier</a>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>{{ supplier.stock }}</td>
-                                            <td>{{ supplier.price }}</td>
+                                            <td onclick="toggleRow(this)">{{ supplier.stock }}</td>
+                                            <td onclick="toggleRow(this)">{{ supplier.price }}</td>
                                         </tr>
                                         {% endif %}
 

@@ -21,7 +21,7 @@
           {% else %}
           <li><a href="{{ url_for('users.login')}}">Sign in</a></li>
           <li><a href="{{ url_for('users.register')}}">Register</a></li>
-          {% endif %}}
+          {% endif %}
           {% if current_user.is_authenticated %}
             {% if current_user.role == 'admin' %}
             <li><a href="{{ url_for('admin.admin')}}">Admin</a></li>
@@ -37,6 +37,6 @@
   {% endblock %}
 
 <script src="/assets/bootstrap/js/bootstrap.js"></script>
-</body>
 
+</body>
 </html>

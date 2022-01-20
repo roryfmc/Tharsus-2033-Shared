@@ -46,22 +46,72 @@
         });
     }
 </script>
+
 <style>
+    .input[type="email"] {
+        border-radius: 0;
+        outline: none;
+        box-shadow: none;
+        font-size: 16px;
+        font-family: "Roboto Thin", sans-serif;
+    }
+
+    .input[type="email"]:hover {
+        border-top: 1px solid #6070DE;
+    }
+
+    .input::placeholder {
+        color: grey;
+        font-size: 14px;
+    }
+
+    .field {
+        margin-bottom: 20px;
+        padding: 0 30px;
+    }
+
+    .card {
+        margin: 0;
+        padding: 0 15px;
+        border-radius: 0;
+        box-shadow: 10px 10px 0 black;
+        border: none;
+        border-top: 1px solid #6070DE;
+        border-left: 1px solid #6070DE;
+    }
+
+    .box {
+        padding: 0 40px;
+        border-radius: 0;
+        box-shadow: 10px 10px 0 black;
+        border: none;
+        border-top: 1px solid #6070DE;
+        border-left: 1px solid #6070DE;
+        margin-bottom: 20px;
+    }
+
     .card-header-title {
         display: block!important;
-        font-size: 2em;
+        font-size: 23px;
+        text-align: center;
+        font-weight: bold;
+        color: black;
+        font-family: "Roboto Thin", sans-serif;
     }
 
     .card-footer {
-        padding: 10px;
-        border-top: 1px solid rgba(167, 167, 167, 0.5);
+        padding: 15px;
+        border-top: 1px solid #6070DE;
     }
 
     .card-content {
         padding: 10px;
-        min-height: 350px;
-        max-height: 350px;
+        min-height: 200px;
+        max-height: 200px;
         overflow: auto;
+        color: black;
+        border-top: 1px solid #6070DE;
+        font-family: "Roboto Thin", sans-serif;
         font-size: 1.1em;
     }
 
@@ -71,11 +121,26 @@
 
     .listed-email {
         border-bottom: 1px solid rgba(167, 167, 167, 0.25);
-        padding: 5px;
+        padding: 3px;
     }
 
     .is-hidden {
         display: none;
+    }
+
+    .button {
+        flex-grow: 0!important;
+        border-radius: 0;
+        background: black;
+        color: white;
+    }
+
+    .button:hover {
+        flex-grow: 0!important;
+        background: #6070DE;
+        color: white;
+        border-radius: 0;
+        transition: all 0.6s ease 0s;
     }
 
     .search {
@@ -89,7 +154,7 @@
 </style>
 
 <div class="column is-2 is-offset-5">
-    <h3 class="title is-3">Admin Page</h3>
+    <h3 class="title is-3"></h3>
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category, message in messages %}
@@ -141,7 +206,7 @@
                     Whitelisted Emails
                 </p>
                 <div class="tile search">
-                    <input class="input" type="text" oninput="liveSearchWhitelist()" id="searchbox-whitelist" placeholder="Find an email">
+                    <input class="input" type="email" oninput="liveSearchWhitelist()" id="searchbox-whitelist" placeholder="Find an email">
                 </div>
             </header>
             <div class="card-content">
@@ -154,15 +219,15 @@
                 </div>
             </div>
             <div class="card-footer">
-                <form method="POST">
+                <form class="row" method="POST">
                     <div class="field">
                         {{ whitelist_form.csrf_token() }}
-                        <div class="control">
-                            {{ whitelist_form.email(class="input", placeholder="Email") }}
-                        </div>
+                        <div class="row control">
+                            {{ whitelist_form.email(class="input", type="email", placeholder="Email") }}
                     </div>
-                    {{ whitelist_form.add(class="button is-primary is-centered") }}
-                    {{ whitelist_form.remove(class="button is-danger is-centered") }}
+                    </div>
+                    {{ whitelist_form.add(class="col-6 button") }}
+                    {{ whitelist_form.remove(class="col-6 button") }}
                 </form>
             </div>
         </div>
@@ -177,7 +242,7 @@
                     Users
                 </p>
                 <div class="tile search">
-                    <input class="input" type="text" oninput="liveSearchUser()" id="searchbox-user" placeholder="Find a user">
+                    <input class="input" type="email" oninput="liveSearchUser()" id="searchbox-user" placeholder="Find a user">
                 </div>
             </header>
             <div class="card-content">
@@ -190,14 +255,14 @@
                 </div>
             </div>
             <div class="card-footer">
-                <form method="POST">
+                <form class="row" method="POST">
                     <div class="field">
                         {{ user_form.csrf_token() }}
-                        <div class="control">
-                            {{ user_form.u_username(class="input", placeholder="Email") }}
+                        <div class="row control">
+                            {{ user_form.u_username(class="input", type="email", placeholder="Email") }}
                         </div>
                     </div>
-                    {{ user_form.u_submit(class="button is-danger is-centered") }}
+                    {{ user_form.u_submit(class="col-12 button") }}
                 </form>
             </div>
         </div>
@@ -206,28 +271,30 @@
 <br>
 <div class="columns">
     <div class="column is-4 is-offset-4 box">
-        <div>
-            <b>Change a user's password</b>
-        </div>
-        <form method="POST">
+        <p class="card-header-title">
+                Change a user's password
+        </p>
+        <form class="row" method="POST">
             <div class="field">
                 {{ change_password_form.csrf_token() }}
                 <div class="control">
-                    {{ change_password_form.p_username(class="input", placeholder="Email") }}
+                    {{ change_password_form.p_username(class="col-12", type="email", placeholder="Email") }}
                 </div>
             </div>
             <div class="field">
                 <div class="control">
-                    {{ change_password_form.password(class="input", placeholder="Password") }}
+                    {{ change_password_form.password(class="col-12", placeholder="Password") }}
                 </div>
             </div>
             <div class="field">
                 <div class="control">
-                    {{ change_password_form.confirm_password(class="input", placeholder="Confirm Password") }}
+                    {{ change_password_form.confirm_password(class="col-12", placeholder="Confirm Password") }}
                 </div>
             </div>
             <div class="field">
-                {{ change_password_form.p_submit(class="button is-primary is-centered") }}
+                <div class="control">
+                    {{ change_password_form.p_submit(class="col-12 button", value="Change Password") }}
+                </div>
             </div>
         </form>
     </div>

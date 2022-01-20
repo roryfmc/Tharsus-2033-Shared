@@ -1,12 +1,33 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+<style>
+    .notification{
+        text-align: center;
+    }
+
+    .box {
+        padding: 10px 10px;
+        border-radius: 0;
+        border-top: 1px solid #6070DE;
+        border-left: 1px solid #6070DE;
+        border-right: 1px solid #6070DE;
+        border-bottom: 1px solid #6070DE;
+        font-family: "Roboto Thin", sans-serif;
+        color: black;
+        background: white;
+        text-align: center;
+    }
+
+</style>
+
 <div class="column is-2 is-offset-5">
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category, message in messages %}
                 {% if category == 'error' %}
-                    <div class="notification is-danger">
+                    <div class="notification box">
                         {{ message }}
                     </div>
                 {% elif category == 'info' %}
@@ -18,22 +39,21 @@
         {% endif %}
     {% endwith %}
     {% for error in form.username.errors %}
-        <div class="notification is-danger">
+        <div class="notification box">
             {{ error }}
         </div>
     {% endfor %}
     {% for error in form.password.errors %}
-        <div class="notification is-danger">
+        <div class="notification box">
             {{ error }}
         </div>
     {% endfor %}
     {% for error in form.confirm_password.errors %}
-        <div class="notification is-danger">
+        <div class="notification box">
             {{ error }}
         </div>
     {% endfor %}
 </div>
-<div class="login-box">
     <div class="login-box2">
         <h1>Register</h1>
         <h2>Create a new account</h2>
@@ -41,11 +61,9 @@
             {{ form.csrf_token() }}
             {{ form.username(placeholder="Email") }}
             {{ form.password(placeholder="Password") }}
-            {{ form.confirm_password(class="input", placeholder="Confirm Password") }}
+            {{ form.confirm_password(class="Password", placeholder="Confirm Password") }}
             {{ form.submit(value="Register") }}
         </form>
-
     </div>
-</div>
 
 {% endblock %}

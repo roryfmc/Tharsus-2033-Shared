@@ -27,6 +27,67 @@
         }
     </script>
     <style>
+
+        .input[type="text"] {
+            border-radius: 0;
+            border: 0;
+            border-top: 1px solid #6070DE;
+            background-color: lightgrey;
+            outline: none;
+            box-shadow: none;
+            font-size: 16px;
+            font-family: "Roboto Thin", sans-serif;
+        }
+
+        .input[type="number"] {
+            border-radius: 0;
+            border: 0;
+            border-top: 1px solid #6070DE;
+            background-color: lightgrey;
+            outline: none;
+            box-shadow: none;
+            font-size: 16px;
+            font-family: "Roboto Thin", sans-serif;
+        }
+
+        .input::placeholder {
+            color: grey;
+            font-size: 14px;
+        }
+
+        .box {
+            border-radius: 0;
+            box-shadow: 10px 10px 0 black;
+            border: none;
+            border-top: 1px solid #6070DE;
+            border-left: 1px solid #6070DE;
+        }
+
+        .card-header-title {
+            display: block!important;
+            font-size: 23px;
+            text-align: center;
+            font-weight: bold;
+            color: black;
+            font-family: "Roboto Thin", sans-serif;
+          }
+
+        .button {
+            border-radius: 0;
+            background: black;
+            color: white;
+            box-shadow: none;
+            outline: none;
+            border: none;
+        }
+
+        .button:hover {
+            background: #6070DE;
+            color: white;
+            border-radius: 0;
+            transition: all 0.3s ease 0s;
+        }
+
         .form-button-parent {
             display: flex;
             justify-content: center;
@@ -64,32 +125,36 @@
         }
 
         .search-history {
-            max-height: 400px;
+            padding: 0 20px;
+            height: 350px;
+            max-height: 350px;
             overflow: auto;
+            margin-bottom:30px;
         }
 
         .history {
-            color: #0d6efd;
+            color: black;
         }
 
         .history:hover {
             text-decoration: underline;
+            text-underline-color: #6070DE;
         }
 
     </style>
-    <h3 class="title">Search</h3>
+    <h3 class="title"></h3>
     <br>
     <div class="columns">
         <div class="column is-one-quarter"></div>
         <div class="column is-half box">
-            <form method="POST">
+            <form class="row" method="POST">
                 {{ form.csrf_token }}
                 <div class="repeat">
                     <table class="wrapper" width="100%">
                         <thead id="add-button-parent">
                             <tr class="columns">
                                 <td class="column is-9"></td>
-                                <td width="5%" id="add-button" class="column is-3"><span class="add button is-success is-medium">Add Row</span></td>
+                                <td width="5%" id="add-button" class="column is-3"><span class="add button is-medium">Add Row</span></td>
                             </tr>
                         </thead>
                         {% set count = search.parts|length if search.parts|length > 0 else 1 %}
@@ -97,17 +162,17 @@
                             <tr class="template row columns form-row">
                                 <td class="column is-7">
                                     <dd>
-                                        <input class="input is-rounded clear" id="parts-{%raw%}{{row-count-placeholder}}{%endraw%}-part_name" name="parts-{%raw%}{{row-count-placeholder}}{%endraw%}-part_name" required type="text" value="" placeholder="Part Name">
+                                        <input class="input clear" id="parts-{%raw%}{{row-count-placeholder}}{%endraw%}-part_name" name="parts-{%raw%}{{row-count-placeholder}}{%endraw%}-part_name" required type="text" value="" placeholder="Part Name">
                                     </dd>
                                 </td>
                                 <td class="column is-3">
                                     <dd>
-                                        <input class="input is-rounded clear" id="parts-{%raw%}{{row-count-placeholder}}{%endraw%}-quantity" name="parts-{%raw%}{{row-count-placeholder}}{%endraw%}-quantity" required type="number" value="" placeholder="Quantity">
+                                        <input class="input clear" id="parts-{%raw%}{{row-count-placeholder}}{%endraw%}-quantity" name="parts-{%raw%}{{row-count-placeholder}}{%endraw%}-quantity" required type="number" value="" placeholder="Quantity">
                                     </dd>
                                 </td>
                                 <td class="column is-2 form-button-parent">
                                     <dd>
-                                        <span class="remove button is-danger form-button">Remove</span>
+                                        <span class="remove button form-button">Remove</span>
                                     </dd>
                                 </td>
                             </tr>
@@ -116,17 +181,17 @@
                                     <tr class="row columns form-row">
                                         <td class="column is-7">
                                             <dd>
-                                                <input class="input is-rounded clear" id="parts-{{i}}-part_name" name="parts-{{i}}-part_name" required type="text" value="{{ search.parts[i].name }}" placeholder="Part Name">
+                                                <input class="input clear" id="parts-{{i}}-part_name" name="parts-{{i}}-part_name" required type="text" value="{{ search.parts[i].name }}" placeholder="Part Name">
                                             </dd>
                                         </td>
                                         <td class="column is-3">
                                             <dd>
-                                                <input class="input is-rounded clear" id="parts-{{i}}-quantity" name="parts-{{i}}-quantity" required type="number" value="{{ search.parts[i].quantity }}" placeholder="Quantity">
+                                                <input class="input clear" id="parts-{{i}}-quantity" name="parts-{{i}}-quantity" required type="number" value="{{ search.parts[i].quantity }}" placeholder="Quantity">
                                             </dd>
                                         </td>
                                         <td class="column is-2 form-button-parent">
                                             <dd>
-                                                <span class="remove button is-danger form-button">Remove</span>
+                                                <span class="remove button form-button">Remove</span>
                                             </dd>
                                         </td>
                                     </tr>
@@ -135,17 +200,17 @@
                                 <tr class="row columns form-row">
                                     <td class="column is-7">
                                         <dd>
-                                            <input class="input is-rounded" id="parts-0-part_name" name="parts-0-part_name" required type="text" value="" placeholder="Part Name">
+                                            <input class="input" id="parts-0-part_name" name="parts-0-part_name" required type="text" value="" placeholder="Part Name">
                                         </dd>
                                     </td>
                                     <td class="column is-3">
                                         <dd>
-                                            <input class="input is-rounded clear" id="parts-0-quantity" name="parts-0-quantity" required type="number" value="" placeholder="Quantity">
+                                            <input class="input clear" id="parts-0-quantity" name="parts-0-quantity" required type="number" value="" placeholder="Quantity">
                                         </dd>
                                     </td>
                                     <td class="column is-2 form-button-parent">
                                         <dd>
-                                            <span class="remove button is-danger form-button">Remove</span>
+                                            <span class="remove button form-button">Remove</span>
                                         </dd>
                                     </td>
                                 </tr>
@@ -155,10 +220,10 @@
                 </div>
                 <div id="submit-button" class="field is-grouped is-grouped-centered">
                     <div class="control">
-                        {{ form.submit(class="button is-info is-centered is-medium")}}
+                        {{ form.submit(class="button is-centered is-medium")}}
                     </div>
                     <div class="control">
-                        <button class="button is-danger is-centered is-medium" type="button" onclick="clearInputs()">Clear</button>
+                        <button class="button is-centered is-medium" type="button" onclick="clearInputs()">Clear</button>
                     </div>
                 </div>
             </form>
@@ -173,7 +238,9 @@
                 <thead>
                     <tr>
                         <th>
-                            <h2>Search History</h2>
+                            <p class="card-header-title">
+                                Search History
+                            </p>
                         </th>
                     </tr>
                 </thead>

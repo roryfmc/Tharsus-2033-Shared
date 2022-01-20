@@ -47,21 +47,72 @@
     }
 </script>
 <style>
+
+    .input[type="email"] {
+        border-radius: 0;
+        outline: none;
+        box-shadow: none;
+        font-size: 16px;
+        font-family: "Roboto Thin", sans-serif;
+    }
+
+    .input[type="email"]:hover {
+        border-top: 1px solid #6070DE;
+    }
+
+    .input::placeholder {
+        color: grey;
+        font-size: 14px;
+    }
+
+    .field {
+        margin-bottom: 20px;
+        padding: 0 30px;
+    }
+
+    .card {
+        margin: 0;
+        padding: 0 15px;
+        border-radius: 0;
+        box-shadow: 10px 10px 0 black;
+        border: none;
+        border-top: 1px solid #6070DE;
+        border-left: 1px solid #6070DE;
+    }
+
+    .box {
+        padding: 0 40px;
+        border-radius: 0;
+        box-shadow: 10px 10px 0 black;
+        border: none;
+        border-top: 1px solid #6070DE;
+        border-left: 1px solid #6070DE;
+        margin-bottom: 20px;
+    }
+
     .card-header-title {
         display: block!important;
-        font-size: 2em;
+        font-size: 23px;
+        text-align: center;
+        font-weight: bold;
+        color: black;
+        font-family: "Roboto Thin", sans-serif;
+
     }
 
     .card-footer {
-        padding: 10px;
-        border-top: 1px solid rgba(167, 167, 167, 0.5);
+        padding: 15px;
+        border-top: 1px solid #6070DE;
     }
 
     .card-content {
         padding: 10px;
-        min-height: 350px;
-        max-height: 350px;
+        min-height: 300px;
+        max-height: 300px;
         overflow: auto;
+        color: black;
+        border-top: 1px solid #6070DE;
+        font-family: "Roboto Thin", sans-serif;
         font-size: 1.1em;
     }
 
@@ -76,6 +127,17 @@
 
     .button {
         flex-grow: 0!important;
+        border-radius: 0;
+        background: black;
+        color: white;
+    }
+
+    .button:hover {
+        flex-grow: 0!important;
+        background: #6070DE;
+        color: white;
+        border-radius: 0;
+        transition: all 0.6s ease 0s;
     }
 
     .hide {
@@ -92,7 +154,7 @@
 </style>
 
 <div class="column is-2 is-offset-5">
-    <h3 class="title is-3">Account Page</h3>
+    <h3 class="title is-3"></h3>
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category, message in messages %}
@@ -142,14 +204,14 @@
                             <div class="level-item has-text-centered">
                                 {{ favourite_supplier }}
                             </div>
-                            <button onclick="window.location.href='/remove_favourite/{{ favourite_supplier }}';" class="button is-danger level-item hide">Remove</button>
+                            <button onclick="window.location.href='/remove_favourite/{{ favourite_supplier }}';" class="button level-item hide">Remove</button>
                         </div>
                     {% endfor %}
                 </div>
             </div>
 
             <div class="card-footer">
-                <input class="input" type="text" oninput="liveSearchFavourite()" id="searchbox-favourite" placeholder="Find a supplier">
+                <input class="input" type="email" oninput="liveSearchFavourite()" id="searchbox-favourite" placeholder="Find a supplier">
             </div>
         </div>
     </div>
@@ -160,7 +222,7 @@
         <div class="card">
             <header class="card-header">
                 <p class="card-header-title ">
-                    Blacklisted Suppliers
+                    Blacklist Suppliers
                 </p>
             </header>
 
@@ -171,14 +233,14 @@
                             <div class="level-item has-text-centered">
                                 {{ blacklisted_supplier }}
                             </div>
-                            <button onclick="window.location.href='/remove_blacklist/{{ blacklisted_supplier }}';" class="button is-danger level-item hide">Remove</button>
+                            <button onclick="window.location.href='/remove_blacklist/{{ blacklisted_supplier }}';" class="button level-item hide">Remove</button>
                         </div>
                     {% endfor %}
                 </div>
             </div>
 
             <div class="card-footer">
-                <input class="input" type="text" oninput="liveSearchBlacklisted()" id="searchbox-blacklisted" placeholder="Find a supplier">
+                <input class="input" type="email" oninput="liveSearchBlacklisted()" id="searchbox-blacklisted" placeholder="Find a supplier">
             </div>
         </div>
     </div>
@@ -188,29 +250,32 @@
 
     <div class="column is-4 is-offset-4">
         <div class="box">
-            Change Password
-                <form method="POST">
+            <p class="card-header-title">
+                Change Password
+            </p>
+                <form class="row" method="POST">
                     <div class="field">
                         {{ form.csrf_token() }}
                         <div class="control">
-                            {{ form.old_password(class="input", placeholder="Old Password") }}
+                            {{ form.old_password(class="col-12", placeholder="Old Password") }}
                         </div>
                     </div>
                     <div class="field">
                         <div class="control">
-                            {{ form.password(class="input", placeholder="Password") }}
+                            {{ form.password(class="col-12", placeholder="Password") }}
                         </div>
                     </div>
                      <div class="field">
                         <div class="control">
-                            {{ form.confirm_password(class="input", placeholder="Confirm Password") }}
+                            {{ form.confirm_password(class="col-12", placeholder="Confirm Password") }}
                         </div>
                     </div>
-                    <div>
-                        {{ form.submit(class="button is-info is-centered") }}
+                    <div class="field">
+                        <div class="control">
+                            {{ form.submit(class="col-12 button", value="Change Password") }}
+                        </div>
                     </div>
                 </form>
-
         </div>
     </div>
 {% endblock %}

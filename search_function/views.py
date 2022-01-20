@@ -124,7 +124,7 @@ def search_history(history_count):
 
     session['search'] = search_obj_to_json(search_object)
 
-    return search()
+    return redirect(url_for('search.search'))
 
 
 @search_blueprint.route('/favourite/<supplier>', methods=['GET'])
@@ -137,7 +137,7 @@ def favourite_supplier(supplier):
     if not f_supplier:
         add_favourite_supplier(current_user.id, supplier)
 
-    return search_result()
+    return redirect(url_for('search.search_result'))
 
 
 @search_blueprint.route('/blacklist/<supplier>', methods=['GET'])
@@ -150,4 +150,4 @@ def blacklist_supplier(supplier):
     if not b_supplier:
         add_blacklisted_supplier(current_user.id, supplier)
 
-    return search_result()
+    return redirect(url_for('search.search_result'))
