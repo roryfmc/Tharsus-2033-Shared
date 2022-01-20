@@ -84,7 +84,7 @@ def export():
     search_object = string_to_search_obj(session['search'])
     sheets = {}
 
-    for i in enumerate(search_object.parts):
+    for i, part in enumerate(search_object.parts):  # pylint: disable=unused-variable
         column_titles = ["Name", "Stock", "Price"]
         sheet = [column_titles]
 
