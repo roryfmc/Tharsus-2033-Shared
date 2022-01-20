@@ -6,7 +6,8 @@ disable=import-error,
 	reimported,
 	import-outside-toplevel,
 	too-many-arguments,
-	duplicate-code
+	duplicate-code,
+	cyclic-import
 
 [TYPECHECK]
 ignored-modules=flask_sqlalchemy

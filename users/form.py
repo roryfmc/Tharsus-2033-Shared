@@ -41,7 +41,14 @@ class LoginForm(FlaskForm):
 class ChangePassword(FlaskForm):
     """This class serves as a model for the change password form on the webpage"""
     old_password = PasswordField(validators=[InputRequired()])
-    password = PasswordField(validators=[InputRequired()])
+    password = PasswordField(validators=[InputRequired(),  Length(min=8, message="Password must be at least 8 characters long"),
+                character_check])
     confirm_password = PasswordField(validators=[InputRequired(),
                 EqualTo('password', message='Both password fields must be equal!')])
+
+    def validate_password(self, password):  # pylint: disable=unused-argument
+        """This function checks that a password given into the register form is complex enough"""
+        regex = re.compile(r'(?=.*\d)(?=.*[A-Z])')
+        if not regex.match(self.password.data):
+            raise ValidationError("Password must contain at least 1 digit and 1 uppercase letter.")
     submit = SubmitField()
