@@ -30,8 +30,14 @@
           {% endif %}
       </ul>
     </nav>
-    <a class="cta" href="#"><button>Help</button></a>
+    <a class="cta"><button onclick="toggleHelp()">Help</button></a>
   </header>
+  <script>
+          const toggleHelp = (element) => {
+              let help_box = document.getElementById('help-box');
+              help_box.classList.toggle('hide-help');
+            }
+  </script>
 
   {% block content %}
   {% endblock %}

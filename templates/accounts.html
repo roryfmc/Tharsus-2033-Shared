@@ -47,7 +47,14 @@
     }
 </script>
 <link rel="stylesheet" href="/assets/css/accounts.css">
-
+<div class="column is-4 is-offset-4 hide-help" id="help-box">
+    <div class="notification is-info">
+        The two tables contain suppliers you have favourited and blacklisted.
+        Hover over a supplier to reveal a button which you can use to remove
+        them. At the bottom of the page there is a form which you can use to change
+        your password.
+    </div>
+</div>
 <div class="column is-2 is-offset-5">
     <h3 class="title is-3"></h3>
     {% with messages = get_flashed_messages(with_categories=true) %}

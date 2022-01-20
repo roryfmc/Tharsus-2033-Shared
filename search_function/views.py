@@ -103,6 +103,11 @@ def search_history(history_count):
     """This function passes the chosen search history into the search form
     on the search page.
     """
+    try:
+        int(history_count)
+    except ValueError:
+        return redirect(url_for('search.search'))
+
     search_object = Search()
 
     search_history_list = PartSearch.query.filter_by(user_id=current_user.id)\

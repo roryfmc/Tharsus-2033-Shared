@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="column is-4 is-offset-4 hide-help" id="help-box">
+    <div class="notification is-info">
+        Register using your email and password. Your email must be whitelisted
+        by your system administrator.
+    </div>
+</div>
 <div class="column is-2 is-offset-5">
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}

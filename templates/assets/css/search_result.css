@@ -190,3 +190,7 @@
     .supplier-favourite:hover{
         background-color: rgba(229, 193, 2, 0.7) !important;
     }
+
+    body {
+        background-color: #dedede;
+    }

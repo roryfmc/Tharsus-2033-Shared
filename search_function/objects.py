@@ -88,14 +88,6 @@ class Part:
         self.suppliers = sorted(suppliers_with_price,
                                 key=lambda supplier: supplier.price)
 
-    def find_combination(self):
-        """This method is called if there are no suppliers which have enough stock.
-        It will then attempt to combine suppliers together to create the desired quantity.
-
-        :returns: A list containing the combined suppliers if it is possible, None if it is not
-        :rtype: list, None
-        """
-
 
 class Supplier:  # pylint: disable=too-few-public-methods
     """The Supplier object represents each supplier which has been searched for each Part.

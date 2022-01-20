@@ -35,6 +35,16 @@
 </script>
 <link rel="stylesheet" href="/assets/css/search_result.css">
 <h4 class="title is-4"></h4>
+<div class="column is-4 is-offset-4 hide-help" id="help-box">
+    <div class="notification is-info">
+        Click on each table to reveal more results for each part.
+        Hover over each supplier name to go to the supplier's page,
+        add the supplier to your favourites, or blacklist the supplier
+        so that you don't see them anymore. Use the search bar to filter
+        to find a specific part. Press the "Export to Excel button to export
+        the results to an excel spreadsheet.
+    </div>
+</div>
 <div class="columns is-multiline is-centered" id="col">
     <div class="column is-2 search-button">
         <a class="button is-rounded button2" href="{{ url_for('search.search') }}">Back to search</a>

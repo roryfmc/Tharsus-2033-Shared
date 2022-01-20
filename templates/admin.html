@@ -48,7 +48,17 @@
 </script>
 
 <link rel="stylesheet" href="/assets/css/admin.css">
-
+<div class="column is-4 is-offset-4 hide-help" id="help-box">
+    <div class="notification is-info">
+        In the left hand table, there are all of the email addresses which
+        are whitelisted by the application. Only emails which are whitelisted can be used
+        to register. These can be added or removed from below the table. On the right,
+        is the list of all users registered to the application. Deleting a user also removes their
+        email from the whitelist. Removing an email from the whitelist also deletes a user account
+        if it exists. At the bottom of the page, you can change a user's password by entering their
+        email address and their new password.
+    </div>
+</div>
 <div class="column is-2 is-offset-5">
     <h3 class="title is-3"></h3>
     {% with messages = get_flashed_messages(with_categories=true) %}
