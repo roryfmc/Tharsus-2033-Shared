@@ -223,6 +223,14 @@
         padding-top: 0;
         padding-bottom: 0;
     }
+
+    .supplier-favourite {
+        background-color: rgba(255, 215, 0, 0.7) !important;
+    }
+
+    .supplier-favourite:hover{
+        background-color: rgba(229, 193, 2, 0.7) !important;
+    }
 </style>
 <h4 class="title is-4"></h4>
 <div class="columns is-multiline is-centered" id="col">
@@ -260,55 +268,109 @@
                                     <tbody>
                                     {% for supplier in part.suppliers %}
                                         {% if supplier == part.suppliers[0] %}
-                                        <tr>
-                                            <td class="dropdown is-hoverable dropdown-trigger">
-                                                <div onclick="toggleRow(this)" class="supplier-name">
-                                                    <a>
-                                                        {{ supplier.name }}
-                                                    </a>
-                                                </div>
-                                                <div class="dropdown-menu" role="menu">
-                                                    <div class="dropdown-content">
-                                                        <div onclick="window.location.href='{{ supplier.link }}'" class="go-to-page dropdown-item button">
-                                                            <a class>Go to page</a>
+                                            {% if supplier.name in favourite_suppliers %}
+                                                <tr class="supplier-favourite">
+                                                    <td class="dropdown is-hoverable dropdown-trigger">
+                                                        <div onclick="toggleRow(this)" class="supplier-name">
+                                                            <a>
+                                                                {{ supplier.name }}
+                                                            </a>
                                                         </div>
-                                                        <div onclick="window.location.href='/favourite/{{ supplier.name }}'" class="favourite-supplier dropdown-item button">
-                                                            <a>Favourite supplier</a>
+                                                        <div class="dropdown-menu" role="menu">
+                                                            <div class="dropdown-content">
+                                                                <div onclick="window.location.href='{{ supplier.link }}'" class="go-to-page dropdown-item button">
+                                                                    <a class>Go to page</a>
+                                                                </div>
+                                                                <div onclick="window.location.href='/favourite/{{ supplier.name }}'" class="favourite-supplier dropdown-item button">
+                                                                    <a>Favourite supplier</a>
+                                                                </div>
+                                                                <div onclick="window.location.href='/blacklist/{{ supplier.name }}'" class="blacklist-supplier dropdown-item button">
+                                                                    <a>Blacklist Supplier</a>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div onclick="window.location.href='/blacklist/{{ supplier.name }}'" class="blacklist-supplier dropdown-item button">
-                                                            <a>Blacklist Supplier</a>
+                                                    </td>
+                                                    <td onclick="toggleRow(this)">{{ supplier.stock}}</td>
+                                                    <td onclick="toggleRow(this)">{{ supplier.price}}</td>
+                                                </tr>
+                                            {% else %}
+                                                <tr>
+                                                    <td class="dropdown is-hoverable dropdown-trigger">
+                                                        <div onclick="toggleRow(this)" class="supplier-name">
+                                                            <a>
+                                                                {{ supplier.name }}
+                                                            </a>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td onclick="toggleRow(this)">{{ supplier.stock}}</td>
-                                            <td onclick="toggleRow(this)">{{ supplier.price}}</td>
-                                        </tr>
+                                                        <div class="dropdown-menu" role="menu">
+                                                            <div class="dropdown-content">
+                                                                <div onclick="window.location.href='{{ supplier.link }}'" class="go-to-page dropdown-item button">
+                                                                    <a class>Go to page</a>
+                                                                </div>
+                                                                <div onclick="window.location.href='/favourite/{{ supplier.name }}'" class="favourite-supplier dropdown-item button">
+                                                                    <a>Favourite supplier</a>
+                                                                </div>
+                                                                <div onclick="window.location.href='/blacklist/{{ supplier.name }}'" class="blacklist-supplier dropdown-item button">
+                                                                    <a>Blacklist Supplier</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td onclick="toggleRow(this)">{{ supplier.stock}}</td>
+                                                    <td onclick="toggleRow(this)">{{ supplier.price}}</td>
+                                                </tr>
+                                            {% endif %}
                                         {% else %}
-                                        <tr name="hidden-rows" class="expanded-row-content hide-row">
-                                            <td class="dropdown is-hoverable dropdown-trigger">
-                                                <div onclick="toggleRow(this)" class="supplier-name">
-                                                    <a>
-                                                        {{ supplier.name }}
-                                                    </a>
-                                                </div>
-                                                <div class="dropdown-menu" role="menu">
-                                                    <div class="dropdown-content">
-                                                        <div onclick="window.location.href='{{ supplier.link }}'" class="go-to-page dropdown-item button">
-                                                            <a>Go to page</a>
+                                            {% if supplier.name in favourite_suppliers %}
+                                                <tr name="hidden-rows" class="expanded-row-content hide-row supplier-favourite">
+                                                    <td class="dropdown is-hoverable dropdown-trigger">
+                                                        <div onclick="toggleRow(this)" class="supplier-name">
+                                                            <a>
+                                                                {{ supplier.name }}
+                                                            </a>
                                                         </div>
-                                                        <div onclick="window.location.href='/favourite/{{ supplier.name }}'" class="favourite-supplier dropdown-item button">
-                                                            <a>Favourite supplier</a>
+                                                        <div class="dropdown-menu" role="menu">
+                                                            <div class="dropdown-content">
+                                                                <div onclick="window.location.href='{{ supplier.link }}'" class="go-to-page dropdown-item button">
+                                                                    <a>Go to page</a>
+                                                                </div>
+                                                                <div onclick="window.location.href='/favourite/{{ supplier.name }}'" class="favourite-supplier dropdown-item button">
+                                                                    <a>Favourite supplier</a>
+                                                                </div>
+                                                                <div onclick="window.location.href='/blacklist/{{ supplier.name }}'" class="blacklist-supplier dropdown-item button">
+                                                                    <a>Blacklist Supplier</a>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div onclick="window.location.href='/blacklist/{{ supplier.name }}'" class="blacklist-supplier dropdown-item button">
-                                                            <a>Blacklist Supplier</a>
+                                                    </td>
+                                                    <td onclick="toggleRow(this)">{{ supplier.stock }}</td>
+                                                    <td onclick="toggleRow(this)">{{ supplier.price }}</td>
+                                                </tr>
+                                            {% else %}
+                                                <tr name="hidden-rows" class="expanded-row-content hide-row">
+                                                    <td class="dropdown is-hoverable dropdown-trigger">
+                                                        <div onclick="toggleRow(this)" class="supplier-name">
+                                                            <a>
+                                                                {{ supplier.name }}
+                                                            </a>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td onclick="toggleRow(this)">{{ supplier.stock }}</td>
-                                            <td onclick="toggleRow(this)">{{ supplier.price }}</td>
-                                        </tr>
+                                                        <div class="dropdown-menu" role="menu">
+                                                            <div class="dropdown-content">
+                                                                <div onclick="window.location.href='{{ supplier.link }}'" class="go-to-page dropdown-item button">
+                                                                    <a>Go to page</a>
+                                                                </div>
+                                                                <div onclick="window.location.href='/favourite/{{ supplier.name }}'" class="favourite-supplier dropdown-item button">
+                                                                    <a>Favourite supplier</a>
+                                                                </div>
+                                                                <div onclick="window.location.href='/blacklist/{{ supplier.name }}'" class="blacklist-supplier dropdown-item button">
+                                                                    <a>Blacklist Supplier</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td onclick="toggleRow(this)">{{ supplier.stock }}</td>
+                                                    <td onclick="toggleRow(this)">{{ supplier.price }}</td>
+                                                </tr>
+                                            {% endif %}
                                         {% endif %}
 
                                     {% endfor %}

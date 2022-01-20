@@ -68,7 +68,11 @@ def search_result():
     else:
         search_object = Search()
 
-    return render_template("search_result.html", search_results=search_object.parts)
+    from users.views import get_favourite_suppliers
+    favourite_suppliers = get_favourite_suppliers()
+
+    return render_template("search_result.html", search_results=search_object.parts,
+                           favourite_suppliers=favourite_suppliers)
 
 
 @search_blueprint.route('/part/<part_count>', methods=['GET'])
