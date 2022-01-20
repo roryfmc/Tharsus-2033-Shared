@@ -75,17 +75,6 @@ def search_result():
                            favourite_suppliers=favourite_suppliers)
 
 
-@search_blueprint.route('/part/<part_count>', methods=['GET'])
-@login_required
-def part(part_count):
-    """This function generates the part page for the flask webapp.
-    """
-    search_object = string_to_search_obj(session['search'])
-    part_object = search_object.parts[int(part_count)-1]
-
-    return render_template("part.html", part_object=part_object)
-
-
 @search_blueprint.route('/export', methods=['GET'])
 @login_required
 def export():

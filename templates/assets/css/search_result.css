@@ -131,10 +131,6 @@
 
     }
 
-    .part-title:hover {
-        background-color: #6070DE!important;
-    }
-
     .dropdown-item {
         font-size: 0.9em;
         font-family:"Roboto Thin", sans-serif;
