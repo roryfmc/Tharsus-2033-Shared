@@ -20,3 +20,4 @@ Werkzeug
 email-validator
 Flask-Login
 lxml
+pymysql

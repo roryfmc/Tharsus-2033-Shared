@@ -2,7 +2,7 @@
 from datetime import datetime
 from database.models import User, WhitelistedEmail, PartPrice, DesiredPart,\
     FavouriteSupplier, BlacklistedSupplier, PartSearch
-from app import db
+from database.database import db
 
 
 def add_user(username, password, role="user"):

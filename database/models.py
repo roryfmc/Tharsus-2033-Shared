@@ -3,7 +3,7 @@ These models are used when something is added to the database.
 """
 from werkzeug.security import generate_password_hash
 from flask_login import UserMixin
-from app import db
+from database.database import db
 
 
 class User(db.Model, UserMixin):

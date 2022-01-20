@@ -1,6 +1,6 @@
 """This module contains all the functions to remove an item from the database"""
 from database.models import WhitelistedEmail, User, FavouriteSupplier, BlacklistedSupplier
-from app import db
+from database.database import db
 
 
 def remove_whitelisted_email(email):

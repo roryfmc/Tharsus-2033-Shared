@@ -1,6 +1,6 @@
 """This module contains the functions which update data within the database."""
 from werkzeug.security import generate_password_hash
-from app import db
+from database.database import db
 from database.models import User
 
 

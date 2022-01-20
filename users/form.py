@@ -41,7 +41,8 @@ class LoginForm(FlaskForm):
 class ChangePassword(FlaskForm):
     """This class serves as a model for the change password form on the webpage"""
     old_password = PasswordField(validators=[InputRequired()])
-    password = PasswordField(validators=[InputRequired(),  Length(min=8, message="Password must be at least 8 characters long"),
+    password = PasswordField(validators=[InputRequired(),
+            Length(min=8, message="Password must be at least 8 characters long"),
                 character_check])
     confirm_password = PasswordField(validators=[InputRequired(),
                 EqualTo('password', message='Both password fields must be equal!')])

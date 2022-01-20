@@ -4,42 +4,12 @@ import datetime
 import socket
 from os import environ
 from functools import wraps
-
 from sshtunnel import SSHTunnelForwarder
 import flask_excel as excel
-from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, render_template
 from flask_login import LoginManager, current_user
 from flask_session import Session
-
-
-# CONFIG
-app = Flask(__name__, static_folder='templates/assets')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///stock_checker.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
-app.config['SESSION_TYPE'] = "filesystem"
-app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(hours=1)
-Session(app)
-db = SQLAlchemy(app)
-
-
-@app.errorhandler(403)
-def page_forbidden(error):  # pylint: disable=unused-argument
-    """This function handles the 403 page for the flask webapp."""
-    return render_template('403.html'), 403
-
-
-@app.errorhandler(404)
-def page_not_found(error):  # pylint: disable=unused-argument
-    """This function handles the 404 page for the flask webapp"""
-    return render_template('404.html'), 404
-
-
-@app.errorhandler(500)
-def internal_error(error):  # pylint: disable=unused-argument
-    """This function handles the 500 page for the flask webapp"""
-    return render_template('500.html'), 500
+from database.database import db
 
 
 def requires_roles(*roles):
@@ -59,14 +29,24 @@ def requires_roles(*roles):
 def create_app():
     """This function creates the Flask application and registers the blueprints
     """
+    # CONFIG
+    flask_app = Flask(__name__, static_folder='templates/assets')
+    flask_app.config['SQLALCHEMY_DATABASE_URI'] = get_db_uri()
+    flask_app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    flask_app.config['SECRET_KEY'] = 'kjhfskadulfhusdLFLDJYUSGYFuiasduihuh'
+    flask_app.config['SESSION_TYPE'] = "filesystem"
+    flask_app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(hours=1)
+    Session(flask_app)
+    db.init_app(flask_app)
+
     from users.views import users_blueprint  # pylint: disable=import-outside-toplevel
     from search_function.views import search_blueprint # pylint: disable=import-outside-toplevel
     from admin.views import admin_blueprint # pylint: disable=import-outside-toplevel
 
-    app.register_blueprint(admin_blueprint)
-    app.register_blueprint(users_blueprint)
-    app.register_blueprint(search_blueprint)
-    excel.init_excel(app)
+    flask_app.register_blueprint(admin_blueprint)
+    flask_app.register_blueprint(users_blueprint)
+    flask_app.register_blueprint(search_blueprint)
+    excel.init_excel(flask_app)
 
     return app
 
@@ -98,7 +78,7 @@ if __name__ == "__main__":
     login_manager.login_view = 'users.login'
     login_manager.init_app(app)
 
-    from database.models import User # pylint: disable=import-outside-toplevel
+    from database.models import User  # pylint: disable=import-outside-toplevel
 
     @login_manager.user_loader
     def load_user(id):  # pylint: disable=invalid-name,redefined-builtin
@@ -106,3 +86,21 @@ if __name__ == "__main__":
         return User.query.get(int(id))
 
     app.run(host=MY_HOST, port=free_port, debug=True)
+
+
+    @app.errorhandler(403)
+    def page_forbidden(error):  # pylint: disable=unused-argument
+        """This function handles the 403 page for the flask webapp."""
+        return render_template('403.html'), 403
+
+
+    @app.errorhandler(404)
+    def page_not_found(error):  # pylint: disable=unused-argument
+        """This function handles the 404 page for the flask webapp"""
+        return render_template('404.html'), 404
+
+
+    @app.errorhandler(500)
+    def internal_error(error):  # pylint: disable=unused-argument
+        """This function handles the 500 page for the flask webapp"""
+        return render_template('500.html'), 500

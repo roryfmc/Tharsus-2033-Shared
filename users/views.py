@@ -53,7 +53,6 @@ def login():
 
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
-
         if not user or not check_password_hash(user.password, form.password.data):
             flash("Please check your login details and try again", 'error')
 
