@@ -1,0 +1,107 @@
+    .input[type="email"] {
+        border-radius: 0;
+        outline: none;
+        box-shadow: none;
+        font-size: 16px;
+        font-family: "Roboto Thin", sans-serif;
+    }
+
+    .input[type="email"]:hover {
+        border-top: 1px solid #6070DE;
+    }
+
+    .input::placeholder {
+        color: grey;
+        font-size: 14px;
+    }
+
+    .field {
+        margin-bottom: 20px;
+        padding: 0 30px;
+    }
+
+    .card {
+        margin: 0;
+        padding: 0 15px;
+        border-radius: 0;
+        box-shadow: 10px 10px 0 black;
+        border: none;
+        border-top: 1px solid #6070DE;
+        border-left: 1px solid #6070DE;
+    }
+
+    .box {
+        padding: 0 40px;
+        border-radius: 0;
+        box-shadow: 10px 10px 0 black;
+        border: none;
+        border-top: 1px solid #6070DE;
+        border-left: 1px solid #6070DE;
+        margin-bottom: 20px;
+    }
+
+    .card-header-title {
+        display: block!important;
+        font-size: 23px;
+        text-align: center;
+        font-weight: bold;
+        color: black;
+        font-family: "Roboto Thin", sans-serif;
+    }
+
+    .card-footer {
+        padding: 15px;
+        border-top: 1px solid #6070DE;
+    }
+
+    .card-content {
+        padding: 10px;
+        min-height: 200px;
+        max-height: 200px;
+        overflow: auto;
+        color: black;
+        border-top: 1px solid #6070DE;
+        font-family: "Roboto Thin", sans-serif;
+        font-size: 1.1em;
+    }
+
+    form {
+        margin: auto;
+    }
+
+    .listed-email {
+        border-bottom: 1px solid rgba(167, 167, 167, 0.25);
+        padding: 3px;
+    }
+
+    .is-hidden {
+        display: none;
+    }
+
+    .button {
+        flex-grow: 0!important;
+        border-radius: 0;
+        background: black;
+        color: white;
+    }
+
+    .button:hover {
+        flex-grow: 0!important;
+        background: #6070DE;
+        color: white;
+        border-radius: 0;
+        transition: all 0.6s ease 0s;
+    }
+
+    .search {
+        border-bottom: 1px solid rgba(167, 167, 167, 0.5);
+    }
+
+    .tile {
+        display: block!important;
+    }
+
+    .row {
+        margin-left: auto;
+        margin-right: auto;
+    }
