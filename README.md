@@ -13,6 +13,8 @@ git clone https://github.com/roryfmc/Tharsus-2033-Shared
 
 yarn install 
 
+pip install -r requirements.txt
+
 ## Potential Issues ##
 This main branch uses the uni database. Before submitting I have had issues with the ssh tunnel (sometimes it works, sometimes it doesn't). If you need to run the program and the ssh tunnel has decided to not work once again, please use our webpage-design branch, which still uses the local database.
 The ssh tunnel uses the environment variables CSC_USER and CSC_PASS. Please set them up so that you can use the ssh tunnel when running the program.
